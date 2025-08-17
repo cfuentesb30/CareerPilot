@@ -165,8 +165,8 @@ const HowItWorksSection = () => {
   );
 };
 
-// Benefits Section Component
-const BenefitsSection = () => {
+//Benefits Section Component
+const BenefitsSection = ({ onStartQuiz }) => {
   const benefits = [
     "Personalized recommendations powered by real job market data",
     "Designed for students, graduates, and career switchers",
@@ -200,8 +200,11 @@ const BenefitsSection = () => {
             </div>
             
             <div className="mt-8">
-              <button className="btn-primary text-lg px-8 py-4">
-                Start Your Career Journey
+              <button 
+                onClick={onStartQuiz}
+                className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300"
+              >
+                🚀 Start Your Career Journey
               </button>
             </div>
           </div>
@@ -209,7 +212,7 @@ const BenefitsSection = () => {
           <div className="relative">
             <div className="bg-gradient-to-br from-dark-blue/5 to-soft-green/5 rounded-3xl p-8 lg:p-12">
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
                   <div className="w-12 h-12 bg-soft-green/10 rounded-lg flex items-center justify-center mb-4">
                     <svg className="w-6 h-6 text-soft-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -219,7 +222,7 @@ const BenefitsSection = () => {
                   <p className="text-sm text-gray-600">Get insights in minutes</p>
                 </div>
                 
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
                   <div className="w-12 h-12 bg-teal/10 rounded-lg flex items-center justify-center mb-4">
                     <svg className="w-6 h-6 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -229,7 +232,7 @@ const BenefitsSection = () => {
                   <p className="text-sm text-gray-600">97% accuracy rate</p>
                 </div>
                 
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
                   <div className="w-12 h-12 bg-dark-blue/10 rounded-lg flex items-center justify-center mb-4">
                     <svg className="w-6 h-6 text-dark-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
@@ -239,7 +242,7 @@ const BenefitsSection = () => {
                   <p className="text-sm text-gray-600">50,000+ users</p>
                 </div>
                 
-                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                     <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
