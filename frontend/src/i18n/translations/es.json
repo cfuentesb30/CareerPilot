@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
+  "hero": {
+    "title": "Encuentra Tu",
+    "titleHighlight": "Carrera Ideal",
+    "titleSuffix": "con IA",
+    "subtitle": "Nuestra plataforma inteligente analiza tus habilidades, intereses y objetivos para ayudarte a elegir la carrera perfecta.",
+    "startNowBtn": "🚀 Comenzar Ahora",
+    "assessmentBtn": "📋 Obtén Tu Evaluación Gratuita",
+    "free": "100% Gratis",
+    "aiPowered": "Impulsado por IA",
+    "instantResults": "Resultados Instantáneos",
+    "aiAnalysis": "Análisis de IA",
+    "smartRecommendations": "Recomendaciones inteligentes de carrera"
+  },
+  "howItWorks": {
+    "title": "Cómo Funciona",
+    "subtitle": "Obtén orientación profesional personalizada en tres simples pasos",
+    "step1": {
+      "title": "Responde un Cuestionario Breve",
+      "description": "Cuéntanos sobre tu formación, habilidades, intereses y objetivos profesionales a través de nuestra evaluación integral."
+    },
+    "step2": {
+      "title": "La IA Procesa Tus Datos",
+      "description": "Nuestros algoritmos avanzados analizan tu perfil utilizando modelos de aprendizaje automático entrenados con datos profesionales del mundo real."
+    },
+    "step3": {
+      "title": "Recibe Sugerencias Personalizadas",
+      "description": "Obtén recomendaciones profesionales personalizadas al instante, respaldadas por datos reales del mercado laboral y oportunidades de crecimiento."
+    }
+  },
+  "benefits": {
+    "title": "¿Por Qué Elegir Nuestro",
+    "titleHighlight": "Asesor de Carrera con IA?",
+    "benefit1": "Recomendaciones personalizadas impulsadas por datos reales del mercado laboral",
+    "benefit2": "Diseñado para estudiantes, graduados y personas que cambian de carrera",
+    "benefit3": "Sugerencias inteligentes respaldadas por IA",
+    "benefit4": "Acceso gratuito al primer análisis",
+    "startBtn": "🚀 Comienza Tu Viaje Profesional",
+    "fastResults": "Resultados Rápidos",
+    "fastResultsDesc": "Obtén insights en minutos", 
+    "accurate": "Preciso",
+    "accurateDesc": "97% de precisión",
+    "trusted": "Confiable",
+    "trustedDesc": "Más de 50,000 usuarios",
+    "supportive": "Apoyo",
+    "supportiveDesc": "Orientación 24/7"
+  },
+  "technology": {
+    "title": "Detrás de la Tecnología",
+    "subtitle": "Impulsado por inteligencia artificial y análisis del mercado laboral, utilizando modelos de aprendizaje automático entrenados con datos profesionales del mundo real.",
+    "machineLearning": "Aprendizaje Automático",
+    "machineLearningDesc": "Algoritmos avanzados analizan tu perfil único",
+    "realData": "Datos Reales",
+    "realDataDesc": "Basado en tendencias reales del mercado laboral y oportunidades",
+    "instantResults": "Resultados Instantáneos",
+    "instantResultsDesc": "Obtén recomendaciones personalizadas en segundos",
+    "experienceBtn": "🤖 Experimenta la Orientación con IA"
+  },
+  "footer": {
+    "title": "Asesor de Carrera con IA",
+    "description": "Potenciando tu viaje profesional con recomendaciones inteligentes e insights basados en datos.",
+    "howItWorksTitle": "Cómo Funciona",
+    "step1": "• Realiza la evaluación de carrera",
+    "step2": "• La IA analiza tu perfil",
+    "step3": "• Obtén recomendaciones personalizadas",
+    "step4": "• Comienza tu carrera ideal",
+    "contactTitle": "Contacto",
+    "email": "soporte@carreraia.com",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn", 
+    "facebook": "Facebook",
+    "copyright": "© 2024 Asesor de Carrera con IA. Todos los derechos reservados."
+  },
+  "quiz": {
+    "title": "Evaluación de Carrera",
+    "loading": "Cargando Evaluación",
+    "loadingDesc": "Preparando tu evaluación de carrera personalizada...",
+    "error": "Error",
+    "tryAgain": "Intentar de Nuevo",
+    "close": "Cerrar",
+    "questionOf": "Pregunta {{current}} de {{total}}",
+    "previous": "← Anterior",
+    "next": "Siguiente →",
+    "complete": "Completar Evaluación",
+    "processing": "Procesando...",
+    "answerRequired": "Por favor responde la pregunta antes de continuar.",
+    "progress": "Progreso"
+  },
+  "results": {
+    "title": "🎉 Resultados de Tu Análisis de Carrera",
+    "subtitle": "Recomendaciones personalizadas impulsadas por IA",
+    "analyzing": "Analizando Tu Ruta Profesional",
+    "analyzingDesc": "Nuestra IA está procesando tu evaluación...",
+    "analyzingTime": "Esto usualmente toma 30-60 segundos",
+    "analysisError": "Error de Análisis",
+    "tryAgain": "Intentar de Nuevo",
+    "close": "Cerrar",
+    "noResults": "No hay resultados disponibles.",
+    "tabs": {
+      "recommendations": "Recomendaciones de Carrera",
+      "skills": "Análisis de Habilidades",
+      "personality": "Insights de Personalidad",
+      "action": "Plan de Acción"
+    },
+    "recommendationsTitle": "🎯 Carreras Recomendadas",
+    "match": "coincidencia",
+    "salaryRange": "💰 Rango Salarial",
+    "jobOutlook": "📈 Perspectivas Laborales",
+    "educationReq": "🎓 Requisitos Educativos",
+    "keySkills": "🔧 Habilidades Clave",
+    "nextSteps": "🚀 Próximos Pasos",
+    "skillsTitle": "🔧 Análisis de Brecha de Habilidades",
+    "currentStrengths": "✅ Fortalezas Actuales",
+    "skillsToDevelop": "🎯 Habilidades a Desarrollar",
+    "developmentRec": "💡 Recomendaciones de Desarrollo",
+    "personalityTitle": "🧠 Insights de Personalidad",
+    "actionTitle": "📋 Tu Plan de Acción",
+    "completedOn": "Análisis completado el {{date}}",
+    "takeNew": "Realizar Nueva Evaluación",
+    "saveResults": "📄 Guardar Resultados"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "submit": "Enviar",
+    "continue": "Continuar",
+    "back": "Atrás"
+  }
+}

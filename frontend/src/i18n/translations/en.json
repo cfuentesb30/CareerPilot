@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "hero": {
+    "title": "Find Your Ideal",
+    "titleHighlight": "Career Path",
+    "titleSuffix": "with AI",
+    "subtitle": "Our smart platform analyzes your skills, interests, and goals to help you choose the perfect career.",
+    "startNowBtn": "🚀 Start Now",
+    "assessmentBtn": "📋 Get Your Free Career Assessment",
+    "free": "100% Free",
+    "aiPowered": "AI-Powered",
+    "instantResults": "Instant Results",
+    "aiAnalysis": "AI Analysis",
+    "smartRecommendations": "Smart career recommendations"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Get personalized career guidance in three simple steps",
+    "step1": {
+      "title": "Answer a Short Quiz",
+      "description": "Tell us about your background, skills, interests, and career goals through our comprehensive assessment."
+    },
+    "step2": {
+      "title": "AI Processes Your Data",
+      "description": "Our advanced algorithms analyze your profile using machine learning models trained on real-world professional data."
+    },
+    "step3": {
+      "title": "Receive Tailored Suggestions",
+      "description": "Get personalized career recommendations instantly, backed by real job market data and growth opportunities."
+    }
+  },
+  "benefits": {
+    "title": "Why Choose Our",
+    "titleHighlight": "AI Career Advisor?",
+    "benefit1": "Personalized recommendations powered by real job market data",
+    "benefit2": "Designed for students, graduates, and career switchers",
+    "benefit3": "Smart AI-backed suggestions",
+    "benefit4": "Free access to the first analysis",
+    "startBtn": "🚀 Start Your Career Journey",
+    "fastResults": "Fast Results",
+    "fastResultsDesc": "Get insights in minutes",
+    "accurate": "Accurate",
+    "accurateDesc": "97% accuracy rate",
+    "trusted": "Trusted",
+    "trustedDesc": "50,000+ users",
+    "supportive": "Supportive",
+    "supportiveDesc": "24/7 guidance"
+  },
+  "technology": {
+    "title": "Behind the Technology",
+    "subtitle": "Powered by artificial intelligence and job market analytics, using machine learning models trained on real-world professional data.",
+    "machineLearning": "Machine Learning",
+    "machineLearningDesc": "Advanced algorithms analyze your unique profile",
+    "realData": "Real Data",
+    "realDataDesc": "Based on actual job market trends and opportunities",
+    "instantResults": "Instant Results",
+    "instantResultsDesc": "Get personalized recommendations in seconds",
+    "experienceBtn": "🤖 Experience AI Career Guidance"
+  },
+  "footer": {
+    "title": "AI Career Path Advisor",
+    "description": "Empowering your career journey with intelligent recommendations and data-driven insights.",
+    "howItWorksTitle": "How It Works",
+    "step1": "• Take the career assessment",
+    "step2": "• AI analyzes your profile",
+    "step3": "• Get personalized recommendations",
+    "step4": "• Start your ideal career path",
+    "contactTitle": "Contact",
+    "email": "support@careerpathai.com",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn",
+    "facebook": "Facebook",
+    "copyright": "© 2024 AI Career Path Advisor. All rights reserved."
+  },
+  "quiz": {
+    "title": "Career Assessment",
+    "loading": "Loading Assessment",
+    "loadingDesc": "Preparing your personalized career assessment...",
+    "error": "Error",
+    "tryAgain": "Try Again",
+    "close": "Close",
+    "questionOf": "Question {{current}} of {{total}}",
+    "previous": "← Previous",
+    "next": "Next →",
+    "complete": "Complete Assessment",
+    "processing": "Processing...",
+    "answerRequired": "Please answer the question before proceeding.",
+    "progress": "Progress"
+  },
+  "results": {
+    "title": "🎉 Your Career Analysis Results",
+    "subtitle": "Personalized recommendations powered by AI",
+    "analyzing": "Analyzing Your Career Path",
+    "analyzingDesc": "Our AI is processing your assessment...",
+    "analyzingTime": "This usually takes 30-60 seconds",
+    "analysisError": "Analysis Error",
+    "tryAgain": "Try Again",
+    "close": "Close",
+    "noResults": "No results available.",
+    "tabs": {
+      "recommendations": "Career Recommendations",
+      "skills": "Skill Analysis",
+      "personality": "Personality Insights",
+      "action": "Action Plan"
+    },
+    "recommendationsTitle": "🎯 Recommended Career Paths",
+    "match": "match",
+    "salaryRange": "💰 Salary Range",
+    "jobOutlook": "📈 Job Outlook",
+    "educationReq": "🎓 Education Requirements",
+    "keySkills": "🔧 Key Skills",
+    "nextSteps": "🚀 Next Steps",
+    "skillsTitle": "🔧 Skill Gap Analysis",
+    "currentStrengths": "✅ Current Strengths",
+    "skillsToDevelop": "🎯 Skills to Develop",
+    "developmentRec": "💡 Development Recommendations",
+    "personalityTitle": "🧠 Personality Insights",
+    "actionTitle": "📋 Your Action Plan",
+    "completedOn": "Analysis completed on {{date}}",
+    "takeNew": "Take New Assessment",
+    "saveResults": "📄 Save Results"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "continue": "Continue",
+    "back": "Back"
+  }
+}
