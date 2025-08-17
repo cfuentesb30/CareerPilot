@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './App.css';
 import InteractiveQuiz from './components/InteractiveQuiz';
 import ResultsDashboard from './components/ResultsDashboard';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 // Hero Section Component
 const HeroSection = ({ onStartQuiz }) => {
+  const { t } = useTranslation();
+  
   return (
     <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden">
+      {/* Language Switcher */}
+      <div className="absolute top-6 right-6 z-30">
+        <LanguageSwitcher />
+      </div>
+      
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-transparent"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-soft-green/10 rounded-full blur-3xl"></div>
@@ -16,13 +25,13 @@ const HeroSection = ({ onStartQuiz }) => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Find Your Ideal 
-              <span className="text-soft-green block mt-2">Career Path</span>
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-normal mt-4 block">with AI</span>
+              {t('hero.title')} 
+              <span className="text-soft-green block mt-2">{t('hero.titleHighlight')}</span>
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-normal mt-4 block">{t('hero.titleSuffix')}</span>
             </h1>
             
             <p className="text-xl sm:text-2xl text-blue-100 mb-8 max-w-2xl mx-auto lg:mx-0">
-              Our smart platform analyzes your skills, interests, and goals to help you choose the perfect career.
+              {t('hero.subtitle')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -30,13 +39,13 @@ const HeroSection = ({ onStartQuiz }) => {
                 onClick={onStartQuiz}
                 className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300"
               >
-                🚀 Start Now
+                {t('hero.startNowBtn')}
               </button>
               <button 
                 onClick={onStartQuiz}
                 className="btn-secondary text-lg px-8 py-4"
               >
-                📋 Get Your Free Career Assessment
+                {t('hero.assessmentBtn')}
               </button>
             </div>
             
@@ -45,19 +54,19 @@ const HeroSection = ({ onStartQuiz }) => {
                 <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                 </svg>
-                <span className="text-sm">100% Free</span>
+                <span className="text-sm">{t('hero.free')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                 </svg>
-                <span className="text-sm">AI-Powered</span>
+                <span className="text-sm">{t('hero.aiPowered')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
                 </svg>
-                <span className="text-sm">Instant Results</span>
+                <span className="text-sm">{t('hero.instantResults')}</span>
               </div>
             </div>
           </div>
@@ -72,8 +81,8 @@ const HeroSection = ({ onStartQuiz }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">AI Analysis</h3>
-                    <p className="text-blue-100">Smart career recommendations</p>
+                    <h3 className="text-xl font-semibold mb-2">{t('hero.aiAnalysis')}</h3>
+                    <p className="text-blue-100">{t('hero.smartRecommendations')}</p>
                   </div>
                 </div>
               </div>
