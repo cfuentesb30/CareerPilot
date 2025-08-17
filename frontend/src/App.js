@@ -295,7 +295,7 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenProfileEditor, onOp
                 </ul>
                 <div className="flex gap-3 mt-4 flex-wrap">
                   <button onClick={onOpenAuth} className="btn-primary">{t('auth.signupCTA')}</button>
-                  <button onClick={onOpenChat} className="btn-secondary">Chat Preview</button>
+                  <button onClick={onOpenChat} className="btn-secondary">Chat with Athena</button>
                   {isAuthed && devMode && (
                     <>
                       <button onClick={onOpenDashboard} className="btn-secondary">Dashboard (Dev)</button>
