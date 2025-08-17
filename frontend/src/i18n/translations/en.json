@@ -145,6 +145,14 @@
     "signupDescription": "We’re preparing a smooth onboarding experience. You’ll be able to create an account and save your progress soon.",
     "loginDescription": "We’re currently upgrading our authentication system. Please check back later.",
     "createAccount": "Create Account",
-    "logIn": "Log In"
+    "logIn": "Log In",
+    "signupCTA": "Sign up (Coming soon)",
+    "whyTitle": "Why create an account?",
+    "whyPoints": [
+      "Save your assessment progress and results",
+      "Track your personalized roadmap and achievements",
+      "Chat with Athena and keep conversation history",
+      "Sync across devices with a verified profile"
+    ]
   }
 }
