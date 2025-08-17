@@ -524,7 +524,7 @@ function App() {
         onOpenProfileEditor={() => setShowProfileEditor(true)}
         onOpenAuth={() => setShowAuth('signup')} 
         onOpenRoadmap={() => setShowRoadmap(true)} 
-        onOpenChat={() => setShowChat(true)}
+        onOpenChat={() => setShowChatUI(true)}
         onOpenSkills={() => setShowSkills(true)}
         onOpenCareers={() => setShowCareers(true)}
         onOpenCerts={() => setShowCerts(true)}
