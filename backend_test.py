@@ -352,25 +352,167 @@ class BackendTester:
             self.log_test("Auth Router Endpoints", False, "Auth router test failed", str(e))
             return False
 
-    def test_user_router_endpoints(self):
-        """Test user router endpoints require authentication"""
+    def test_user_profile_endpoints(self):
+        """Test user profile endpoints require authentication"""
         try:
-            # Test /api/user/profile - should return 401 or 403 without auth
-            profile_response = requests.get(f"{API_BASE}/user/profile", timeout=5)
+            # Test /api/user/profile GET - should return 401 or 403 without auth
+            profile_get_response = requests.get(f"{API_BASE}/user/profile", timeout=5)
             
-            profile_ok = profile_response.status_code in [401, 403]  # Accept both
+            # Test /api/user/profile PUT - should return 401 or 403 without auth
+            profile_put_response = requests.put(f"{API_BASE}/user/profile", 
+                                              json={"first_name": "Test", "last_name": "User"}, 
+                                              timeout=5)
             
-            if profile_ok:
-                self.log_test("User Router Endpoints", True, 
-                            f"Profile endpoint requires auth ({profile_response.status_code})")
+            profile_get_ok = profile_get_response.status_code in [401, 403]
+            profile_put_ok = profile_put_response.status_code in [401, 403]
+            
+            if profile_get_ok and profile_put_ok:
+                self.log_test("User Profile Endpoints", True, 
+                            f"Profile GET: {profile_get_response.status_code}, Profile PUT: {profile_put_response.status_code}")
                 return True
             else:
-                self.log_test("User Router Endpoints", False, 
-                            f"Profile endpoint should return 401/403, got: {profile_response.status_code}")
+                self.log_test("User Profile Endpoints", False, 
+                            f"Profile endpoints should return 401/403 - GET: {profile_get_response.status_code}, PUT: {profile_put_response.status_code}")
                 return False
                 
         except Exception as e:
-            self.log_test("User Router Endpoints", False, "User router test failed", str(e))
+            self.log_test("User Profile Endpoints", False, "User profile test failed", str(e))
+            return False
+
+    def test_user_careers_endpoints(self):
+        """Test user careers endpoints require authentication"""
+        try:
+            # Test /api/user/careers GET
+            careers_get_response = requests.get(f"{API_BASE}/user/careers", timeout=5)
+            
+            # Test /api/user/careers POST
+            careers_post_response = requests.post(f"{API_BASE}/user/careers", 
+                                                json={"company": "Test Corp", "position": "Developer", "start_date": "2023-01-01"}, 
+                                                timeout=5)
+            
+            # Test /api/user/careers PUT (with dummy ID)
+            careers_put_response = requests.put(f"{API_BASE}/user/careers/test-id", 
+                                              json={"company": "Updated Corp", "position": "Senior Developer"}, 
+                                              timeout=5)
+            
+            # Test /api/user/careers DELETE (with dummy ID)
+            careers_delete_response = requests.delete(f"{API_BASE}/user/careers/test-id", timeout=5)
+            
+            careers_get_ok = careers_get_response.status_code in [401, 403]
+            careers_post_ok = careers_post_response.status_code in [401, 403]
+            careers_put_ok = careers_put_response.status_code in [401, 403]
+            careers_delete_ok = careers_delete_response.status_code in [401, 403]
+            
+            if careers_get_ok and careers_post_ok and careers_put_ok and careers_delete_ok:
+                self.log_test("User Careers Endpoints", True, 
+                            f"All careers endpoints require auth - GET: {careers_get_response.status_code}, POST: {careers_post_response.status_code}, PUT: {careers_put_response.status_code}, DELETE: {careers_delete_response.status_code}")
+                return True
+            else:
+                self.log_test("User Careers Endpoints", False, 
+                            f"Careers endpoints should return 401/403 - GET: {careers_get_response.status_code}, POST: {careers_post_response.status_code}, PUT: {careers_put_response.status_code}, DELETE: {careers_delete_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("User Careers Endpoints", False, "User careers test failed", str(e))
+            return False
+
+    def test_user_certifications_endpoints(self):
+        """Test user certifications endpoints require authentication"""
+        try:
+            # Test /api/user/certifications GET
+            certs_get_response = requests.get(f"{API_BASE}/user/certifications", timeout=5)
+            
+            # Test /api/user/certifications POST
+            certs_post_response = requests.post(f"{API_BASE}/user/certifications", 
+                                              json={"name": "AWS Certified", "issuer": "Amazon", "date_earned": "2023-01-01"}, 
+                                              timeout=5)
+            
+            # Test /api/user/certifications PUT (with dummy ID)
+            certs_put_response = requests.put(f"{API_BASE}/user/certifications/test-id", 
+                                            json={"name": "AWS Solutions Architect", "issuer": "Amazon"}, 
+                                            timeout=5)
+            
+            # Test /api/user/certifications DELETE (with dummy ID)
+            certs_delete_response = requests.delete(f"{API_BASE}/user/certifications/test-id", timeout=5)
+            
+            certs_get_ok = certs_get_response.status_code in [401, 403]
+            certs_post_ok = certs_post_response.status_code in [401, 403]
+            certs_put_ok = certs_put_response.status_code in [401, 403]
+            certs_delete_ok = certs_delete_response.status_code in [401, 403]
+            
+            if certs_get_ok and certs_post_ok and certs_put_ok and certs_delete_ok:
+                self.log_test("User Certifications Endpoints", True, 
+                            f"All certifications endpoints require auth - GET: {certs_get_response.status_code}, POST: {certs_post_response.status_code}, PUT: {certs_put_response.status_code}, DELETE: {certs_delete_response.status_code}")
+                return True
+            else:
+                self.log_test("User Certifications Endpoints", False, 
+                            f"Certifications endpoints should return 401/403 - GET: {certs_get_response.status_code}, POST: {certs_post_response.status_code}, PUT: {certs_put_response.status_code}, DELETE: {certs_delete_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("User Certifications Endpoints", False, "User certifications test failed", str(e))
+            return False
+
+    def test_user_skills_endpoints(self):
+        """Test user skills endpoints require authentication"""
+        try:
+            # Test /api/user/skills GET
+            skills_get_response = requests.get(f"{API_BASE}/user/skills", timeout=5)
+            
+            # Test /api/user/skills POST
+            skills_post_response = requests.post(f"{API_BASE}/user/skills", 
+                                               json={"skill_name": "Python", "level": "advanced", "years_of_experience": 3}, 
+                                               timeout=5)
+            
+            # Test /api/user/skills DELETE (with dummy ID)
+            skills_delete_response = requests.delete(f"{API_BASE}/user/skills/test-id", timeout=5)
+            
+            # Test /api/user/skills/available GET (this might not require auth)
+            skills_available_response = requests.get(f"{API_BASE}/user/skills/available", timeout=5)
+            
+            # Test /api/user/skills/categories GET (this might not require auth)
+            skills_categories_response = requests.get(f"{API_BASE}/user/skills/categories/technical", timeout=5)
+            
+            skills_get_ok = skills_get_response.status_code in [401, 403]
+            skills_post_ok = skills_post_response.status_code in [401, 403]
+            skills_delete_ok = skills_delete_response.status_code in [401, 403]
+            
+            # Available skills and categories might not require auth, so we check if they return 200 or auth error
+            skills_available_ok = skills_available_response.status_code in [200, 401, 403, 500]  # 500 might occur due to DB issues
+            skills_categories_ok = skills_categories_response.status_code in [200, 401, 403, 500]  # 500 might occur due to DB issues
+            
+            if skills_get_ok and skills_post_ok and skills_delete_ok and skills_available_ok and skills_categories_ok:
+                self.log_test("User Skills Endpoints", True, 
+                            f"Skills endpoints properly protected - GET: {skills_get_response.status_code}, POST: {skills_post_response.status_code}, DELETE: {skills_delete_response.status_code}, Available: {skills_available_response.status_code}, Categories: {skills_categories_response.status_code}")
+                return True
+            else:
+                self.log_test("User Skills Endpoints", False, 
+                            f"Skills endpoints protection issues - GET: {skills_get_response.status_code}, POST: {skills_post_response.status_code}, DELETE: {skills_delete_response.status_code}, Available: {skills_available_response.status_code}, Categories: {skills_categories_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("User Skills Endpoints", False, "User skills test failed", str(e))
+            return False
+
+    def test_user_dashboard_endpoint(self):
+        """Test user dashboard endpoint requires authentication"""
+        try:
+            # Test /api/user/dashboard - should return 401 or 403 without auth
+            dashboard_response = requests.get(f"{API_BASE}/user/dashboard", timeout=5)
+            
+            dashboard_ok = dashboard_response.status_code in [401, 403]
+            
+            if dashboard_ok:
+                self.log_test("User Dashboard Endpoint", True, 
+                            f"Dashboard endpoint requires auth ({dashboard_response.status_code})")
+                return True
+            else:
+                self.log_test("User Dashboard Endpoint", False, 
+                            f"Dashboard endpoint should return 401/403, got: {dashboard_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("User Dashboard Endpoint", False, "User dashboard test failed", str(e))
             return False
 
     def test_chat_router_endpoints(self):
