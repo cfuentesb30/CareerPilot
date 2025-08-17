@@ -29,7 +29,9 @@ const RoadmapManager = ({ onClose }) => {
     setError(''); setLoading(true);
     try {
       const data = await api.get('/api/roadmap/');
-      setItems(Array.isArray(data) ? data : []);
+      // Sort by order_index to maintain order
+      const sortedData = Array.isArray(data) ? data.sort((a, b) => (a.order_index || 0) - (b.order_index || 0)) : [];
+      setItems(sortedData);
     } catch (e) {
       const msg = e?.message || 'Failed to load roadmap';
       setError(msg);
