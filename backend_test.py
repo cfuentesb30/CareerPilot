@@ -452,11 +452,17 @@ class BackendTester:
             self.test_server_startup,
             self.test_health_endpoint,
             self.test_root_endpoint,
+            self.test_root_endpoint_features,
             self.test_cors_configuration,
             self.test_environment_variables,
             self.test_api_documentation,
             self.test_response_format,
-            self.test_error_handling
+            self.test_error_handling,
+            self.test_auth_router_endpoints,
+            self.test_user_router_endpoints,
+            self.test_chat_router_endpoints,
+            self.test_roadmap_router_endpoints,
+            self.test_legacy_assessment_endpoints
         ]
         
         for test in tests:
