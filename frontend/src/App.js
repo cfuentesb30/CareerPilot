@@ -245,6 +245,18 @@ const BenefitsSection = ({ onStartQuiz }) => {
           
           <div className="relative">
             <div className="bg-gradient-to-br from-dark-blue/5 to-soft-green/5 rounded-3xl p-8 lg:p-12">
+              {/* Why Create an Account Section */}
+              <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 mb-8">
+                <h4 className="text-2xl font-bold text-dark-blue mb-4">{t('auth.whyTitle')}</h4>
+                <ul className="space-y-2 text-gray-700">
+                  {t('auth.whyPoints', { returnObjects: true }).map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="text-soft-green mt-1">•</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
                   <div className="w-12 h-12 bg-soft-green/10 rounded-lg flex items-center justify-center mb-4">
