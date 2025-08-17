@@ -261,7 +261,7 @@ const BenefitsSection = ({ onStartQuiz }) => {
 };
 
 // Technology Section Component
-const TechnologySection = () => {
+const TechnologySection = ({ onStartQuiz }) => {
   return (
     <section className="section-padding gradient-bg text-white">
       <div className="container mx-auto">
@@ -308,8 +308,11 @@ const TechnologySection = () => {
             </div>
           </div>
           
-          <button className="btn-primary text-lg px-10 py-4 mx-auto">
-            Experience AI Career Guidance
+          <button 
+            onClick={onStartQuiz}
+            className="btn-primary text-lg px-10 py-4 mx-auto transform hover:scale-105 transition-all duration-300"
+          >
+            🤖 Experience AI Career Guidance
           </button>
         </div>
       </div>
