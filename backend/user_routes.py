@@ -3,6 +3,8 @@ from user_models import *
 from user_database import user_db
 from auth import get_current_user
 from typing import List
+import uuid
+
 
 router = APIRouter(prefix="/api/user", tags=["user_management"])
 
