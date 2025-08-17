@@ -22,6 +22,7 @@ import CertificationsManager from './components/CertificationsManager';
 const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile, onOpenProfileEditor }) => {
   const { t } = useTranslation();
   const { isAuthed } = useAuth();
+  const { devMode } = useDevMode();
   
   return (
     <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden">
