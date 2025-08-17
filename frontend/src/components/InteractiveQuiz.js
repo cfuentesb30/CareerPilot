@@ -321,7 +321,7 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
                   : 'text-dark-blue hover:bg-gray-100'
               }`}
             >
-              ← Previous
+              {t('quiz.previous')}
             </button>
 
             <button
@@ -336,12 +336,12 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
               {submitting ? (
                 <div className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Processing...
+                  {t('quiz.processing')}
                 </div>
               ) : currentQuestion === questions.length - 1 ? (
-                'Complete Assessment'
+                t('quiz.complete')
               ) : (
-                'Next →'
+                t('quiz.next')
               )}
             </button>
           </div>
