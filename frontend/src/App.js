@@ -553,6 +553,7 @@ function App() {
           assessmentId={assessmentId}
           onClose={handleCloseResults}
           onStartNew={handleStartNew}
+          onOpenRoadmap={handleOpenRoadmapFromResults}
         />
       )}
 
