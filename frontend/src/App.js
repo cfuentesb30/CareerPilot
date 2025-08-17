@@ -464,6 +464,7 @@ function App() {
   };
 
   return (
+    <AuthProvider>
     <div className="App">
       <HeroSection onStartQuiz={handleStartQuiz} onOpenAuth={(mode) => setShowAuth(mode)} onOpenProfile={() => setShowProfile(true)} />
       <HowItWorksSection />
