@@ -54,6 +54,7 @@ const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile, onOpenProfileEdit
             <button onClick={() => onOpenAuth && onOpenAuth('signup')} className="hidden sm:inline-flex btn-primary py-2 px-4">
               {t('auth.signupCTA')}
             </button>
+            <DevToggle />
             <DevTools />
             <LanguageSwitcher />
           </div>
