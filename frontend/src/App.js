@@ -506,6 +506,11 @@ function App() {
     setShowQuiz(true);
   };
 
+  const handleOpenRoadmapFromResults = () => {
+    setShowResults(false);
+    setShowRoadmapManager(true);
+  };
+
   return (
     <DevModeProvider>
       <ToastProvider>
