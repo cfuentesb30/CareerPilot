@@ -5,12 +5,17 @@ from typing import List, Dict, Any
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 from models import UserAssessment, AssessmentResult, CareerRecommendation, SkillGapAnalysis
 import uuid
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class CareerAIAnalyzer:
     def __init__(self):
         self.api_key = os.getenv("OPENAI_API_KEY")
         if not self.api_key:
-            raise ValueError("OpenAI API key not found in environment variables")
+            print("Warning: OpenAI API key not found. AI analysis will use fallback mode.")
+            self.api_key = None
     
     def _create_chat_session(self, session_id: str) -> LlmChat:
         """Create a new chat session with GPT-4"""
