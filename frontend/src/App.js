@@ -577,6 +577,14 @@ function App() {
       {showCerts && (
         <CertificationsManager onClose={() => setShowCerts(false)} />
       )}
+
+      {showRoadmapManager && (
+        <RoadmapManager onClose={() => setShowRoadmapManager(false)} />
+      )}
+
+      {showDashboard && (
+        <DashboardModal onClose={() => setShowDashboard(false)} />
+      )}
           </div>
         </AuthProvider>
       </ToastProvider>
