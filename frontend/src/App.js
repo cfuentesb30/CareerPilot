@@ -276,6 +276,7 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenProfileEditor, onOp
                 <button onClick={onOpenProfile} className="btn-secondary">{t('profilePreview.title')}</button>
               )}
               <button onClick={onOpenRoadmap} className="btn-secondary">Roadmap Preview</button>
+              <button onClick={() => setShowDashboardPreview(true)} className="btn-secondary">Dashboard Preview</button>
             </div>
           </div>
           
