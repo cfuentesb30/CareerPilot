@@ -1,7 +1,7 @@
 # AI-Powered Career Path Advisor - Test Results
 
 ## Current Status
-🟢 **FULLY FUNCTIONAL & TESTED** - The AI-Powered Career Path Advisor landing page is complete, tested, and working perfectly.
+🟢 FULLY FUNCTIONAL (core) - Landing page and legacy assessment endpoints are working. Auth registration temporarily disabled (placeholder).
 
 ### Testing Results ✅
 - **Backend Testing**: 8/8 tests passed (100% success rate)
