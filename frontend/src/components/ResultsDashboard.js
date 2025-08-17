@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const ResultsDashboard = ({ assessmentId, onClose, onStartNew }) => {
+const ResultsDashboard = ({ assessmentId, onClose, onStartNew, onOpenRoadmap }) => {
   const { t } = useTranslation();
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(true);
