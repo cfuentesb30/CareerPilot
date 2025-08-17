@@ -134,7 +134,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Frontend Implementation"
+    - "Wire and validate new routers"
+    - "Auth registration placeholder"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
