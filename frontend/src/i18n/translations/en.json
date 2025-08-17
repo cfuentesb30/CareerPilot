@@ -134,6 +134,17 @@
     "edit": "Edit",
     "submit": "Submit",
     "continue": "Continue",
-    "back": "Back"
+    "back": "Back",
+    "close": "Close"
+  },
+  "auth": {
+    "signupTitle": "Create Your CareerPilot Account",
+    "loginTitle": "Log in to CareerPilot",
+    "signupComingSoon": "Sign up is coming soon",
+    "loginTemporarilyDisabled": "Login is temporarily disabled",
+    "signupDescription": "We’re preparing a smooth onboarding experience. You’ll be able to create an account and save your progress soon.",
+    "loginDescription": "We’re currently upgrading our authentication system. Please check back later.",
+    "createAccount": "Create Account",
+    "logIn": "Log In"
   }
 }
