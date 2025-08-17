@@ -529,6 +529,7 @@ function App() {
         onOpenCerts={() => setShowCerts(true)}
         onOpenRoadmapManager={() => setShowRoadmapManager(true)}
         onOpenDashboard={() => setShowDashboard(true)}
+        onOpenDashboardPreview={() => setShowDashboardPreview(true)}
       />
       <TechnologySection onStartQuiz={handleStartQuiz} />
       <Footer />
