@@ -471,6 +471,8 @@ function App() {
   const [showSkills, setShowSkills] = useState(false);
   const [showCareers, setShowCareers] = useState(false);
   const [showCerts, setShowCerts] = useState(false);
+  const [showRoadmapManager, setShowRoadmapManager] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
