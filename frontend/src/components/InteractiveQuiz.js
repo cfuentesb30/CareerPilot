@@ -66,7 +66,7 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
     const answer = answers[question.id];
 
     if (!answer) {
-      alert('Please answer the question before proceeding.');
+      alert(t('quiz.answerRequired'));
       return;
     }
 
