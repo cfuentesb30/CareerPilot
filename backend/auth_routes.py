@@ -227,7 +227,7 @@ async def get_dev_token():
     Creates a dev user if it doesn't exist. Do NOT enable in production."""
     try:
         # Find or create a dev user
-        dev_email = "dev@careerpilot.local"
+        dev_email = "dev@careerpilot.com"
         user = user_db.get_user_by_email(dev_email)
         if not user:
             user = User(
