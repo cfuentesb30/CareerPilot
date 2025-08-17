@@ -605,7 +605,11 @@ class BackendTester:
             self.test_response_format,
             self.test_error_handling,
             self.test_auth_router_endpoints,
-            self.test_user_router_endpoints,
+            self.test_user_profile_endpoints,
+            self.test_user_careers_endpoints,
+            self.test_user_certifications_endpoints,
+            self.test_user_skills_endpoints,
+            self.test_user_dashboard_endpoint,
             self.test_chat_router_endpoints,
             self.test_roadmap_router_endpoints,
             self.test_legacy_assessment_endpoints
