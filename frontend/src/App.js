@@ -294,11 +294,13 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenProfileEditor, onOp
                 <div className="flex gap-3 mt-4 flex-wrap">
                   <button onClick={onOpenAuth} className="btn-primary">{t('auth.signupCTA')}</button>
                   <button onClick={onOpenChat} className="btn-secondary">Chat Preview</button>
-                  {isAuthed && (
+                  {isAuthed && devMode && (
                     <>
+                      <button onClick={onOpenDashboard} className="btn-secondary">Dashboard (Dev)</button>
                       <button onClick={onOpenSkills} className="btn-secondary">Skills (Dev)</button>
                       <button onClick={onOpenCareers} className="btn-secondary">Careers (Dev)</button>
                       <button onClick={onOpenCerts} className="btn-secondary">Certs (Dev)</button>
+                      <button onClick={onOpenRoadmapManager} className="btn-secondary">Roadmap (Dev)</button>
                     </>
                   )}
                 </div>
