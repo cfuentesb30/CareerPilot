@@ -120,6 +120,10 @@ Please respond with a JSON object in this exact format:
     
     async def analyze_assessment(self, assessment: UserAssessment) -> AssessmentResult:
         """Analyze assessment using GPT-4 and return structured results"""
+        # If no API key, use fallback immediately
+        if not self.api_key:
+            return self._create_fallback_result(assessment)
+        
         try:
             # Create unique session ID for this analysis
             session_id = f"career_analysis_{assessment.id}_{uuid.uuid4().hex[:8]}"
@@ -184,8 +188,8 @@ Please respond with a JSON object in this exact format:
             
         except Exception as e:
             # Create fallback result if AI analysis fails
-            fallback_result = self._create_fallback_result(assessment)
-            raise Exception(f"AI analysis failed: {str(e)}. Using fallback analysis.")
+            print(f"AI analysis failed for assessment {assessment.id}: {str(e)}")
+            return self._create_fallback_result(assessment)
     
     def _create_fallback_result(self, assessment: UserAssessment) -> AssessmentResult:
         """Create a basic fallback result if AI analysis fails"""
