@@ -571,6 +571,8 @@ function App() {
       )}
     </div>
     </AuthProvider>
+    </ToastProvider>
+    </DevModeProvider>
   );
 }
 
