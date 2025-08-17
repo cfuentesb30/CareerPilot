@@ -4,16 +4,21 @@ import './App.css';
 import InteractiveQuiz from './components/InteractiveQuiz';
 import ResultsDashboard from './components/ResultsDashboard';
 import LanguageSwitcher from './components/LanguageSwitcher';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import DevTools from './components/DevTools';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import RoadmapPreview from './components/RoadmapPreview';
 import ChatTeaser from './components/ChatTeaser';
+import ProfileEditor from './components/ProfileEditor';
+import SkillsManager from './components/SkillsManager';
+import CareersManager from './components/CareersManager';
+import CertificationsManager from './components/CertificationsManager';
 
 // Hero Section Component
-const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile }) => {
+const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile, onOpenProfileEditor }) => {
   const { t } = useTranslation();
+  const { isAuthed } = useAuth();
   
   return (
     <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden">
@@ -32,11 +37,17 @@ const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile }) => {
             </div>
           </div>
           
-          {/* Language Switcher */}
+          {/* Right Controls */}
           <div className="flex items-center gap-3">
-            <button onClick={() => onOpenProfile && onOpenProfile()} className="hidden sm:inline-flex btn-secondary py-2 px-4">
-              {t('profilePreview.title')}
-            </button>
+            {isAuthed ? (
+              <button onClick={() => onOpenProfileEditor && onOpenProfileEditor()} className="hidden sm:inline-flex btn-secondary py-2 px-4">
+                Edit Profile (Dev)
+              </button>
+            ) : (
+              <button onClick={() => onOpenProfile && onOpenProfile()} className="hidden sm:inline-flex btn-secondary py-2 px-4">
+                {t('profilePreview.title')}
+              </button>
+            )}
             <button onClick={() => onOpenAuth && onOpenAuth('signup')} className="hidden sm:inline-flex btn-primary py-2 px-4">
               {t('auth.signupCTA')}
             </button>
@@ -207,8 +218,9 @@ const HowItWorksSection = () => {
 };
 
 //Benefits Section Component
-const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenAuth, onOpenRoadmap, onOpenChat }) => {
+const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenProfileEditor, onOpenAuth, onOpenRoadmap, onOpenChat, onOpenSkills, onOpenCareers, onOpenCerts }) => {
   const { t } = useTranslation();
+  const { isAuthed } = useAuth();
   
   const benefits = [
     t('benefits.benefit1'),
@@ -249,7 +261,11 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenAuth, onOpenRoadmap
               >
                 {t('benefits.startBtn')}
               </button>
-              <button onClick={onOpenProfile} className="btn-secondary">{t('profilePreview.title')}</button>
+              {isAuthed ? (
+                <button onClick={onOpenProfileEditor} className="btn-secondary">Edit Profile (Dev)</button>
+              ) : (
+                <button onClick={onOpenProfile} className="btn-secondary">{t('profilePreview.title')}</button>
+              )}
               <button onClick={onOpenRoadmap} className="btn-secondary">Roadmap Preview</button>
             </div>
           </div>
@@ -270,6 +286,13 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenAuth, onOpenRoadmap
                 <div className="flex gap-3 mt-4 flex-wrap">
                   <button onClick={onOpenAuth} className="btn-primary">{t('auth.signupCTA')}</button>
                   <button onClick={onOpenChat} className="btn-secondary">Chat Preview</button>
+                  {isAuthed && (
+                    <>
+                      <button onClick={onOpenSkills} className="btn-secondary">Skills (Dev)</button>
+                      <button onClick={onOpenCareers} className="btn-secondary">Careers (Dev)</button>
+                      <button onClick={onOpenCerts} className="btn-secondary">Certs (Dev)</button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-6">
@@ -434,8 +457,12 @@ function App() {
   const [assessmentId, setAssessmentId] = useState(null);
   const [showAuth, setShowAuth] = useState(null); // 'signup' or 'login'
   const [showProfile, setShowProfile] = useState(false);
+  const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+  const [showCareers, setShowCareers] = useState(false);
+  const [showCerts, setShowCerts] = useState(false);
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
@@ -466,9 +493,24 @@ function App() {
   return (
     <AuthProvider>
     <div className="App">
-      <HeroSection onStartQuiz={handleStartQuiz} onOpenAuth={(mode) => setShowAuth(mode)} onOpenProfile={() => setShowProfile(true)} />
+      <HeroSection 
+        onStartQuiz={handleStartQuiz} 
+        onOpenAuth={(mode) => setShowAuth(mode)} 
+        onOpenProfile={() => setShowProfile(true)} 
+        onOpenProfileEditor={() => setShowProfileEditor(true)}
+      />
       <HowItWorksSection />
-      <BenefitsSection onStartQuiz={handleStartQuiz} onOpenProfile={() => setShowProfile(true)} onOpenAuth={() => setShowAuth('signup')} onOpenRoadmap={() => setShowRoadmap(true)} onOpenChat={() => setShowChat(true)} />
+      <BenefitsSection 
+        onStartQuiz={handleStartQuiz} 
+        onOpenProfile={() => setShowProfile(true)} 
+        onOpenProfileEditor={() => setShowProfileEditor(true)}
+        onOpenAuth={() => setShowAuth('signup')} 
+        onOpenRoadmap={() => setShowRoadmap(true)} 
+        onOpenChat={() => setShowChat(true)}
+        onOpenSkills={() => setShowSkills(true)}
+        onOpenCareers={() => setShowCareers(true)}
+        onOpenCerts={() => setShowCerts(true)}
+      />
       <TechnologySection onStartQuiz={handleStartQuiz} />
       <Footer />
       
@@ -496,12 +538,28 @@ function App() {
         <ProfilePreview onClose={() => setShowProfile(false)} onOpenSignUp={() => setShowAuth('signup')} />
       )}
 
+      {showProfileEditor && (
+        <ProfileEditor onClose={() => setShowProfileEditor(false)} />
+      )}
+
       {showRoadmap && (
         <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
       )}
 
       {showChat && (
         <ChatTeaser onClose={() => setShowChat(false)} onOpenSignUp={() => setShowAuth('signup')} />
+      )}
+
+      {showSkills && (
+        <SkillsManager onClose={() => setShowSkills(false)} />
+      )}
+
+      {showCareers && (
+        <CareersManager onClose={() => setShowCareers(false)} />
+      )}
+
+      {showCerts && (
+        <CertificationsManager onClose={() => setShowCerts(false)} />
       )}
     </div>
     </AuthProvider>
