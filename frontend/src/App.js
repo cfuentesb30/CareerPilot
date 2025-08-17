@@ -399,6 +399,7 @@ function App() {
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [assessmentId, setAssessmentId] = useState(null);
+  const [showAuth, setShowAuth] = useState(null); // 'signup' or 'login'
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
