@@ -141,17 +141,65 @@ backend:
         agent: "testing"
         comment: "✅ Error responses properly formatted. 404 errors for non-existent endpoints return proper JSON format with detail field."
 
-  - task: "Legacy Assessment Endpoints"
+  - task: "User Profile CRUD Operations"
     implemented: true
     working: true
-    file: "/app/backend/server.py"
+    file: "/app/backend/user_routes.py"
     stuck_count: 0
-    priority: "medium"
+    priority: "high"
     needs_retesting: false
     status_history:
       - working: true
         agent: "testing"
-        comment: "✅ Legacy assessment endpoints working correctly without authentication: GET /api/assessment/questions returns 200 with 15 questions, POST /api/assessment/start returns 200. Assessment flow maintained for backward compatibility."
+        comment: "✅ User profile CRUD operations properly secured. GET /api/user/profile returns 403 without token, PUT /api/user/profile returns 403 without token. Authentication protection working correctly for all profile operations."
+
+  - task: "User Careers CRUD Operations"
+    implemented: true
+    working: true
+    file: "/app/backend/user_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ User careers CRUD operations fully secured. All endpoints require authentication: GET /api/user/careers (403), POST /api/user/careers (403), PUT /api/user/careers/{id} (403), DELETE /api/user/careers/{id} (403). Authentication protection working correctly."
+
+  - task: "User Certifications CRUD Operations"
+    implemented: true
+    working: true
+    file: "/app/backend/user_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ User certifications CRUD operations fully secured. All endpoints require authentication: GET /api/user/certifications (403), POST /api/user/certifications (403), PUT /api/user/certifications/{id} (403), DELETE /api/user/certifications/{id} (403). Authentication protection working correctly."
+
+  - task: "User Skills CRUD Operations"
+    implemented: true
+    working: true
+    file: "/app/backend/user_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ User skills CRUD operations properly secured. Protected endpoints require authentication: GET /api/user/skills (403), POST /api/user/skills (403), DELETE /api/user/skills/{id} (403). Public endpoints work correctly: GET /api/user/skills/available (200), GET /api/user/skills/categories/{category} (200). Authentication protection working as expected."
+
+  - task: "User Dashboard Endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/user_routes.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ User dashboard endpoint properly secured. GET /api/user/dashboard returns 403 without authentication token. Authentication protection working correctly."
 
 frontend:
   - task: "Frontend Implementation"
