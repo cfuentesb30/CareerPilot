@@ -569,9 +569,9 @@ function App() {
       {showCerts && (
         <CertificationsManager onClose={() => setShowCerts(false)} />
       )}
-    </div>
-    </AuthProvider>
-    </ToastProvider>
+          </div>
+        </AuthProvider>
+      </ToastProvider>
     </DevModeProvider>
   );
 }
