@@ -11,9 +11,23 @@ const HeroSection = ({ onStartQuiz }) => {
   
   return (
     <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden">
-      {/* Language Switcher */}
-      <div className="absolute top-6 right-6 z-30">
-        <LanguageSwitcher />
+      {/* Header with Logo and Language Switcher */}
+      <div className="absolute top-0 left-0 right-0 z-30 p-6">
+        <div className="flex justify-between items-center">
+          {/* Logo Placeholder - Replace with your actual logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/30">
+              <span className="text-2xl font-bold text-white">CP</span>
+            </div>
+            <div className="text-white">
+              <div className="text-xl font-bold">CareerPilot</div>
+              <div className="text-sm text-blue-200">powered by Athena</div>
+            </div>
+          </div>
+          
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+        </div>
       </div>
       
       {/* Background decoration */}
@@ -21,7 +35,7 @@ const HeroSection = ({ onStartQuiz }) => {
       <div className="absolute top-0 right-0 w-96 h-96 bg-soft-green/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-teal/10 rounded-full blur-3xl"></div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
