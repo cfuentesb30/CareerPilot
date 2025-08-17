@@ -145,6 +145,14 @@
     "signupDescription": "Estamos preparando una experiencia de incorporación fluida. Pronto podrás crear una cuenta y guardar tu progreso.",
     "loginDescription": "Actualmente estamos actualizando nuestro sistema de autenticación. Vuelve a intentarlo más tarde.",
     "createAccount": "Crear Cuenta",
-    "logIn": "Iniciar Sesión"
+    "logIn": "Iniciar Sesión",
+    "signupCTA": "Regístrate (Próximamente)",
+    "whyTitle": "¿Por qué crear una cuenta?",
+    "whyPoints": [
+      "Guarda el progreso y resultados de tu evaluación",
+      "Sigue tu hoja de ruta personalizada y logros",
+      "Chatea con Athena y conserva el historial",
+      "Sincroniza en tus dispositivos con un perfil verificado"
+    ]
   }
 }
