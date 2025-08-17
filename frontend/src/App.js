@@ -29,8 +29,8 @@ const HeroSection = ({ onStartQuiz, onOpenAuth }) => {
           
           {/* Language Switcher */}
           <div className="flex items-center gap-3">
-            <button onClick={() => setShowAuth('login')} className="hidden sm:inline-flex btn-secondary py-2 px-4">Log in</button>
-            <button onClick={() => setShowAuth('signup')} className="hidden sm:inline-flex btn-primary py-2 px-4">Sign up</button>
+            <button onClick={() => onOpenAuth && onOpenAuth('login')} className="hidden sm:inline-flex btn-secondary py-2 px-4">Log in</button>
+            <button onClick={() => onOpenAuth && onOpenAuth('signup')} className="hidden sm:inline-flex btn-primary py-2 px-4">Sign up</button>
             <LanguageSwitcher />
           </div>
         </div>
