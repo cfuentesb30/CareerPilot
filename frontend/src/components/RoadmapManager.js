@@ -105,6 +105,57 @@ const RoadmapManager = ({ onClose }) => {
     }
   };
 
+  const reorderItems = async (newOrder) => {
+    try {
+      const reorderData = newOrder.map((item, index) => ({
+        item_id: item.id,
+        order_index: index
+      }));
+      
+      await api.post('/api/roadmap/reorder', reorderData);
+      showToast('Roadmap reordered successfully', 'success');
+      setItems(newOrder);
+    } catch (e) {
+      const msg = e?.message || 'Failed to reorder items';
+      setError(msg);
+      showToast(msg, 'error');
+      // Reload to restore original order on error
+      await load();
+    }
+  };
+
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData('text/plain', index);
+    e.currentTarget.style.opacity = '0.5';
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.style.opacity = '1';
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault();
+    const dragIndex = parseInt(e.dataTransfer.getData('text/plain'));
+    
+    if (dragIndex === dropIndex) return;
+    
+    const newItems = [...items];
+    const draggedItem = newItems[dragIndex];
+    
+    // Remove the dragged item
+    newItems.splice(dragIndex, 1);
+    
+    // Insert it at the new position
+    newItems.splice(dropIndex, 0, draggedItem);
+    
+    // Update the order
+    reorderItems(newItems);
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl w-full max-w-5xl overflow-hidden shadow-2xl">
