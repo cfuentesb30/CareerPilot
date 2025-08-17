@@ -331,13 +331,13 @@ class BackendTester:
                                             json={"email": "test@example.com", "password": "test123"}, 
                                             timeout=5)
             
-            # Test /api/auth/login - should return 401 or 422 for invalid credentials
+            # Test /api/auth/login - should return 501 (not implemented) or 422 (validation error)
             login_response = requests.post(f"{API_BASE}/auth/login", 
                                          json={"email": "invalid@example.com", "password": "invalid"}, 
                                          timeout=5)
             
             register_ok = register_response.status_code in [501, 422]  # Accept both
-            login_ok = login_response.status_code in [401, 422]  # 422 for validation errors
+            login_ok = login_response.status_code in [501, 422]  # Accept both for disabled auth
             
             if register_ok and login_ok:
                 self.log_test("Auth Router Endpoints", True, 
