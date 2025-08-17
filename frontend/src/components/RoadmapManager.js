@@ -249,7 +249,7 @@ const RoadmapManager = ({ onClose }) => {
   );
 };
 
-const RoadmapRow = ({ item, onUpdate, onComplete, onDelete }) => {
+const RoadmapRow = ({ item, index, onUpdate, onComplete, onDelete, onDragStart, onDragEnd, onDragOver, onDrop }) => {
   const [edit, setEdit] = useState(false);
   const [form, setForm] = useState({
     status: item.status,
@@ -262,19 +262,36 @@ const RoadmapRow = ({ item, onUpdate, onComplete, onDelete }) => {
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl p-4">
+    <div 
+      className="border border-gray-200 rounded-xl p-4 cursor-move hover:shadow-md transition-all duration-200"
+      draggable={!edit}
+      onDragStart={(e) => onDragStart(e, index)}
+      onDragEnd={onDragEnd}
+      onDragOver={onDragOver}
+      onDrop={(e) => onDrop(e, index)}
+    >
       {!edit ? (
         <div className="flex items-start justify-between">
-          <div>
-            <div className="font-medium text-dark-blue">{item.title} <span className="text-xs px-2 py-1 rounded-full bg-soft-green/10 text-soft-green align-middle">{item.category}</span></div>
-            <div className="text-sm text-gray-600">Priority {item.priority} • {item.estimated_time_hours ? `${item.estimated_time_hours}h` : '—'} • Status: {item.status}</div>
-            {item.due_date && <div className="text-xs text-gray-500 mt-1">Due {toInput(item.due_date)}</div>}
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex flex-col items-center text-gray-400">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8h16M4 16h16"></path>
+                </svg>
+                <span className="text-xs">{index + 1}</span>
+              </div>
+              <div>
+                <div className="font-medium text-dark-blue">{item.title} <span className="text-xs px-2 py-1 rounded-full bg-soft-green/10 text-soft-green align-middle">{item.category}</span></div>
+                <div className="text-sm text-gray-600">Priority {item.priority} • {item.estimated_time_hours ? `${item.estimated_time_hours}h` : '—'} • Status: {item.status}</div>
+              </div>
+            </div>
+            {item.due_date && <div className="text-xs text-gray-500 ml-7">Due {toInput(item.due_date)}</div>}
             {item.resources && item.resources.length > 0 && (
-              <div className="text-xs text-gray-600 mt-1">Resources: {item.resources.join(', ')}</div>
+              <div className="text-xs text-gray-600 ml-7">Resources: {item.resources.join(', ')}</div>
             )}
-            {item.notes && <div className="text-sm text-gray-700 mt-1">Notes: {item.notes}</div>}
+            {item.notes && <div className="text-sm text-gray-700 ml-7">Notes: {item.notes}</div>}
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-3 ml-4">
             {item.status !== 'completed' && (
               <button className="text-green-600 hover:underline" onClick={() => onComplete(item.id)}>Mark Complete</button>
             )}
