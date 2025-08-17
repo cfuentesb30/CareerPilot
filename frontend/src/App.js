@@ -4,6 +4,8 @@ import './App.css';
 import InteractiveQuiz from './components/InteractiveQuiz';
 import ResultsDashboard from './components/ResultsDashboard';
 import LanguageSwitcher from './components/LanguageSwitcher';
+import { AuthProvider } from './context/AuthContext';
+import DevTools from './components/DevTools';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import RoadmapPreview from './components/RoadmapPreview';
