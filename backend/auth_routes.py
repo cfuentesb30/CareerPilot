@@ -47,42 +47,11 @@ async def register_user(user_data: UserRegistration, background_tasks: Backgroun
 
 @router.post("/login", response_model=TokenResponse)
 async def login_user(login_data: UserLogin):
-    """Login user and return JWT tokens."""
-    try:
-        # Get user by email
-        user = user_db.get_user_by_email(login_data.email)
-        if not user or not verify_password(login_data.password, user.password_hash):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid email or password"
-            )
-        
-        if not user.is_active:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Account is deactivated"
-            )
-        
-        # Create tokens
-        access_token = create_access_token(data={"sub": user.id})
-        refresh_token = create_refresh_token(data={"sub": user.id})
-        
-        # Update last login
-        user_db.update_user(user.id, {"last_login": datetime.now()})
-        
-        return TokenResponse(
-            access_token=access_token,
-            refresh_token=refresh_token,
-            expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60
-        )
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Login failed: {str(e)}"
-        )
+    """Login placeholder. Disabled for now; will be implemented later."""
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Login is temporarily disabled. We will enable this soon."
+    )
 
 @router.post("/refresh", response_model=TokenResponse)
 async def refresh_access_token(refresh_data: RefreshTokenRequest):
