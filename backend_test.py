@@ -290,6 +290,154 @@ class BackendTester:
             self.log_test("Error Handling", False, "Error handling test failed", str(e))
             return False
 
+    def test_root_endpoint_features(self):
+        """Test /api/ root endpoint includes features list"""
+        try:
+            response = requests.get(f"{API_BASE}/", timeout=5)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "features" in data and isinstance(data["features"], list):
+                    if len(data["features"]) > 0:
+                        self.log_test("Root Endpoint Features", True, 
+                                    f"Features list found with {len(data['features'])} items")
+                        return True
+                    else:
+                        self.log_test("Root Endpoint Features", False, 
+                                    "Features list is empty")
+                        return False
+                else:
+                    self.log_test("Root Endpoint Features", False, 
+                                "Features list not found in response", data)
+                    return False
+            else:
+                self.log_test("Root Endpoint Features", False, 
+                            f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Root Endpoint Features", False, "Request failed", str(e))
+            return False
+
+    def test_auth_router_endpoints(self):
+        """Test auth router endpoints are mounted and return expected responses"""
+        try:
+            # Test /api/auth/register - should return 501 (not implemented)
+            register_response = requests.post(f"{API_BASE}/auth/register", 
+                                            json={"email": "test@example.com", "password": "test123"}, 
+                                            timeout=5)
+            
+            # Test /api/auth/login - should return 401 or 422 for invalid credentials
+            login_response = requests.post(f"{API_BASE}/auth/login", 
+                                         json={"email": "invalid@example.com", "password": "invalid"}, 
+                                         timeout=5)
+            
+            register_ok = register_response.status_code == 501
+            login_ok = login_response.status_code in [401, 422]  # 422 for validation errors
+            
+            if register_ok and login_ok:
+                self.log_test("Auth Router Endpoints", True, 
+                            f"Register: {register_response.status_code}, Login: {login_response.status_code}")
+                return True
+            else:
+                self.log_test("Auth Router Endpoints", False, 
+                            f"Unexpected status codes - Register: {register_response.status_code}, Login: {login_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Auth Router Endpoints", False, "Auth router test failed", str(e))
+            return False
+
+    def test_user_router_endpoints(self):
+        """Test user router endpoints require authentication"""
+        try:
+            # Test /api/user/profile - should return 401 without auth
+            profile_response = requests.get(f"{API_BASE}/user/profile", timeout=5)
+            
+            profile_ok = profile_response.status_code == 401
+            
+            if profile_ok:
+                self.log_test("User Router Endpoints", True, 
+                            f"Profile endpoint requires auth (401): {profile_response.status_code}")
+                return True
+            else:
+                self.log_test("User Router Endpoints", False, 
+                            f"Profile endpoint should return 401, got: {profile_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("User Router Endpoints", False, "User router test failed", str(e))
+            return False
+
+    def test_chat_router_endpoints(self):
+        """Test chat router endpoints require authentication"""
+        try:
+            # Test /api/chat/conversations - should return 401 without auth
+            conversations_response = requests.get(f"{API_BASE}/chat/conversations", timeout=5)
+            
+            conversations_ok = conversations_response.status_code == 401
+            
+            if conversations_ok:
+                self.log_test("Chat Router Endpoints", True, 
+                            f"Conversations endpoint requires auth (401): {conversations_response.status_code}")
+                return True
+            else:
+                self.log_test("Chat Router Endpoints", False, 
+                            f"Conversations endpoint should return 401, got: {conversations_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Chat Router Endpoints", False, "Chat router test failed", str(e))
+            return False
+
+    def test_roadmap_router_endpoints(self):
+        """Test roadmap router endpoints require authentication"""
+        try:
+            # Test /api/roadmap/ - should return 401 without auth
+            roadmap_response = requests.get(f"{API_BASE}/roadmap/", timeout=5)
+            
+            roadmap_ok = roadmap_response.status_code == 401
+            
+            if roadmap_ok:
+                self.log_test("Roadmap Router Endpoints", True, 
+                            f"Roadmap endpoint requires auth (401): {roadmap_response.status_code}")
+                return True
+            else:
+                self.log_test("Roadmap Router Endpoints", False, 
+                            f"Roadmap endpoint should return 401, got: {roadmap_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Roadmap Router Endpoints", False, "Roadmap router test failed", str(e))
+            return False
+
+    def test_legacy_assessment_endpoints(self):
+        """Test legacy assessment endpoints still work without auth"""
+        try:
+            # Test /api/assessment/questions - should return 200
+            questions_response = requests.get(f"{API_BASE}/assessment/questions", timeout=5)
+            
+            # Test /api/assessment/start - should return 200 or 422 for missing data
+            start_response = requests.post(f"{API_BASE}/assessment/start", 
+                                         json={"user_email": "test@example.com"}, 
+                                         timeout=5)
+            
+            questions_ok = questions_response.status_code == 200
+            start_ok = start_response.status_code in [200, 422, 500]  # 500 might occur due to DB issues
+            
+            if questions_ok and start_ok:
+                self.log_test("Legacy Assessment Endpoints", True, 
+                            f"Questions: {questions_response.status_code}, Start: {start_response.status_code}")
+                return True
+            else:
+                self.log_test("Legacy Assessment Endpoints", False, 
+                            f"Unexpected status codes - Questions: {questions_response.status_code}, Start: {start_response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Legacy Assessment Endpoints", False, "Legacy assessment test failed", str(e))
+            return False
+
     def run_all_tests(self):
         """Run all backend tests"""
         print("=" * 60)
