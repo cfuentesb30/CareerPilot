@@ -7,7 +7,7 @@ import LanguageSwitcher from './components/LanguageSwitcher';
 import AuthPlaceholder from './components/AuthPlaceholder';
 
 // Hero Section Component
-const HeroSection = ({ onStartQuiz }) => {
+const HeroSection = ({ onStartQuiz, onOpenAuth }) => {
   const { t } = useTranslation();
   
   return (
