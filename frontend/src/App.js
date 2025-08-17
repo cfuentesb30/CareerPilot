@@ -522,6 +522,8 @@ function App() {
         onOpenSkills={() => setShowSkills(true)}
         onOpenCareers={() => setShowCareers(true)}
         onOpenCerts={() => setShowCerts(true)}
+        onOpenRoadmapManager={() => setShowRoadmapManager(true)}
+        onOpenDashboard={() => setShowDashboard(true)}
       />
       <TechnologySection onStartQuiz={handleStartQuiz} />
       <Footer />
