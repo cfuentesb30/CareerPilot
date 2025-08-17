@@ -1,8 +1,6 @@
 /* API client utilities - uses REACT_APP_BACKEND_URL. No hardcoded URLs. */
 
-const BACKEND_URL = (typeof import !== 'undefined' && import.meta && import.meta.env && import.meta.env.REACT_APP_BACKEND_URL)
-  || (typeof process !== 'undefined' && process.env && process.env.REACT_APP_BACKEND_URL)
-  || '';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 const TOKEN_KEY = 'cp_token';
 
