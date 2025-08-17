@@ -39,62 +39,11 @@ async def send_password_reset_email(email: str, token: str):
 
 @router.post("/register", response_model=dict)
 async def register_user(user_data: UserRegistration, background_tasks: BackgroundTasks):
-    """Register a new user."""
-    try:
-        # Validate input
-        if not validate_email(user_data.email):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Invalid email format"
-            )
-        
-        if user_data.password != user_data.confirm_password:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Passwords do not match"
-            )
-        
-        if not validate_password(user_data.password):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Password must be at least 8 characters long with letters and numbers"
-            )
-        
-        # Check if user already exists
-        existing_user = user_db.get_user_by_email(user_data.email)
-        if existing_user:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="User with this email already exists"
-            )
-        
-        # Create user
-        verification_token = generate_verification_token()
-        user = User(
-            email=user_data.email,
-            password_hash=get_password_hash(user_data.password),
-            first_name=user_data.first_name,
-            last_name=user_data.last_name,
-            verification_token=verification_token
-        )
-        
-        user_id = user_db.create_user(user)
-        
-        # Send verification email
-        background_tasks.add_task(send_verification_email, user_data.email, verification_token)
-        
-        return {
-            "message": "User registered successfully. Please check your email to verify your account.",
-            "user_id": user_id
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Registration failed: {str(e)}"
-        )
+    """Registration placeholder. Disabled for now; will be implemented later."""
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Registration is temporarily disabled. We will enable this soon."
+    )
 
 @router.post("/login", response_model=TokenResponse)
 async def login_user(login_data: UserLogin):
