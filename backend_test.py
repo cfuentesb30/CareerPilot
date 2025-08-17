@@ -109,8 +109,12 @@ class BackendTester:
             if response.status_code == 200:
                 data = response.json()
                 if "message" in data and "version" in data:
-                    expected_message = "AI Career Path Advisor API"
-                    if data["message"] == expected_message:
+                    # Accept both old and new message formats
+                    expected_messages = [
+                        "AI Career Path Advisor API",
+                        "CareerPilot API - Athena AI Career Advisor"
+                    ]
+                    if data["message"] in expected_messages:
                         self.log_test("Root Endpoint", True, 
                                     f"Welcome message correct: {data['message']}")
                         return True
