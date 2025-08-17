@@ -589,6 +589,10 @@ function App() {
       {showDashboard && (
         <DashboardModal onClose={() => setShowDashboard(false)} />
       )}
+
+      {showDashboardPreview && (
+        <DashboardPreview onClose={() => setShowDashboardPreview(false)} onOpenSignUp={() => setShowAuth('signup')} />
+      )}
           </div>
         </AuthProvider>
       </ToastProvider>
