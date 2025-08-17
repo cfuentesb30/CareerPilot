@@ -106,10 +106,10 @@ const ResultsDashboard = ({ assessmentId, onClose, onStartNew }) => {
   }
 
   const tabs = [
-    { id: 'recommendations', label: 'Career Recommendations', icon: '🎯' },
-    { id: 'skills', label: 'Skill Analysis', icon: '🔧' },
-    { id: 'personality', label: 'Personality Insights', icon: '🧠' },
-    { id: 'action', label: 'Action Plan', icon: '📋' }
+    { id: 'recommendations', label: t('results.tabs.recommendations'), icon: '🎯' },
+    { id: 'skills', label: t('results.tabs.skills'), icon: '🔧' },
+    { id: 'personality', label: t('results.tabs.personality'), icon: '🧠' },
+    { id: 'action', label: t('results.tabs.action'), icon: '📋' }
   ];
 
   return (
