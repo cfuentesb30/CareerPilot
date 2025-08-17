@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../api/client';
+import { useToast } from '../context/ToastContext';
 
 const levels = [
   { value: 'beginner', label: 'Beginner' },
@@ -15,6 +16,7 @@ const SkillsManager = ({ onClose }) => {
 
   const [form, setForm] = useState({ skill_name: '', level: 'beginner', years_of_experience: '' });
   const [saving, setSaving] = useState(false);
+  const { showToast } = useToast();
 
   const load = async () => {
     setError(''); setLoading(true);
@@ -41,6 +43,7 @@ const SkillsManager = ({ onClose }) => {
       };
       await api.post('/api/user/skills', payload);
       setForm({ skill_name: '', level: 'beginner', years_of_experience: '' });
+      showToast('Skill added', 'success');
       await load();
     } catch (e) {
       setError(e?.message || 'Failed to add skill');
@@ -53,6 +56,7 @@ const SkillsManager = ({ onClose }) => {
     if (!id) return;
     try {
       await api.del(`/api/user/skills/${id}`);
+      showToast('Skill deleted', 'success');
       await load();
     } catch (e) {
       setError(e?.message || 'Failed to delete skill');

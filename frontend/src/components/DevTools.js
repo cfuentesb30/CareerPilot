@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useDevMode } from '../context/DevModeContext';
+import { useToast } from '../context/ToastContext';
 
 const DevTools = () => {
   const { token, fetchDevToken, clearToken } = useAuth();
+  const { devMode } = useDevMode();
+  const { showToast } = useToast();
   const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState('');
+
+  if (!devMode) return null;
 
   const handleGetToken = async () => {
-    setBusy(true); setMsg('');
+    setBusy(true);
     try {
       await fetchDevToken();
-      setMsg('Dev token acquired.');
+      showToast('Dev token acquired', 'success');
     } catch (e) {
-      setMsg(e?.message || 'Failed to get dev token');
+      showToast(e?.message || 'Failed to get dev token', 'error');
     } finally {
       setBusy(false);
     }
@@ -20,7 +25,7 @@ const DevTools = () => {
 
   const handleClear = () => {
     clearToken();
-    setMsg('Token cleared.');
+    showToast('Token cleared', 'success');
   };
 
   return (
@@ -31,7 +36,6 @@ const DevTools = () => {
       {token && (
         <button onClick={handleClear} className="btn-secondary py-2 px-3">Clear Token</button>
       )}
-      {msg && <span className="text-xs text-blue-200 ml-2">{msg}</span>}
     </div>
   );
 };
