@@ -43,7 +43,7 @@ const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile, onOpenProfileEdit
           
           {/* Right Controls */}
           <div className="flex items-center gap-3">
-            {isAuthed ? (
+            {isAuthed && devMode ? (
               <button onClick={() => onOpenProfileEditor && onOpenProfileEditor()} className="hidden sm:inline-flex btn-secondary py-2 px-4">
                 Edit Profile (Dev)
               </button>
