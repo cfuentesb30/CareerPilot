@@ -221,6 +221,34 @@ async def logout_user(current_user_id: str = Depends(get_current_user)):
     # For now, we'll just return a success message
     return {"message": "Logged out successfully"}
 
+@router.post("/dev-token", response_model=TokenResponse)
+async def get_dev_token():
+    """DEV ONLY: Issue a temporary token for testing protected APIs.
+    Creates a dev user if it doesn't exist. Do NOT enable in production."""
+    try:
+        # Find or create a dev user
+        dev_email = "dev@careerpilot.local"
+        user = user_db.get_user_by_email(dev_email)
+        if not user:
+            user = User(
+                email=dev_email,
+                password_hash=get_password_hash("dev"),
+                first_name="Dev",
+                last_name="User",
+                is_verified=True
+            )
+            user_db.create_user(user)
+        # Create tokens
+        access_token = create_access_token(data={"sub": user.id})
+        refresh_token = create_refresh_token(data={"sub": user.id})
+        return TokenResponse(
+            access_token=access_token,
+            refresh_token=refresh_token,
+            expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to issue dev token: {str(e)}")
+
 # OAuth endpoints (structure for future implementation)
 @router.get("/google")
 async def google_oauth_login():
