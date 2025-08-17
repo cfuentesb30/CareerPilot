@@ -320,6 +320,17 @@ const ResultsDashboard = ({ assessmentId, onClose, onStartNew, onOpenRoadmap }) 
               Analysis completed on {new Date(results.generated_at).toLocaleDateString()}
             </p>
             <div className="flex gap-4">
+              {onOpenRoadmap && (
+                <button
+                  onClick={onOpenRoadmap}
+                  className="bg-gradient-to-r from-soft-green to-green-600 hover:from-green-600 hover:to-soft-green text-white px-6 py-2 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  Open Roadmap
+                </button>
+              )}
               <button
                 onClick={onStartNew}
                 className="btn-secondary"
