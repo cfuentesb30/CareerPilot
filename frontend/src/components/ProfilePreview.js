@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const Field = ({ label, value }) =&gt; (
-  &lt;div className="flex flex-col"&gt;
-    &lt;span className="text-sm text-gray-500"&gt;{label}&lt;/span&gt;
-    &lt;div className="mt-1 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700"&gt;
+const Field = ({ label, value }) => (
+  <div className="flex flex-col">
+    <span className="text-sm text-gray-500">{label}</span>
+    <div className="mt-1 px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700">
       {value || '-'}
-    &lt;/div&gt;
-  &lt;/div&gt;
+    </div>
+  </div>
 );
 
 const ProfilePreview = ({ onClose, onOpenSignUp }) =&gt; {
