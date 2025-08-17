@@ -504,6 +504,7 @@ function App() {
         <ChatTeaser onClose={() => setShowChat(false)} onOpenSignUp={() => setShowAuth('signup')} />
       )}
     </div>
+    </AuthProvider>
   );
 }
 
