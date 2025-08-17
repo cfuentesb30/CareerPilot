@@ -6,6 +6,7 @@ import ResultsDashboard from './components/ResultsDashboard';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
+import RoadmapPreview from './components/RoadmapPreview';
 
 // Hero Section Component
 const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile }) =&gt; {
