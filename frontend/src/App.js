@@ -17,6 +17,8 @@ import ProfileEditor from './components/ProfileEditor';
 import SkillsManager from './components/SkillsManager';
 import CareersManager from './components/CareersManager';
 import CertificationsManager from './components/CertificationsManager';
+import RoadmapManager from './components/RoadmapManager';
+import DashboardModal from './components/DashboardModal';
 
 // Hero Section Component
 const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile, onOpenProfileEditor }) => {
