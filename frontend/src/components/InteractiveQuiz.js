@@ -199,7 +199,7 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
         {/* Header */}
         <div className="sticky top-0 bg-white rounded-t-3xl p-6 border-b border-gray-200">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-dark-blue">Career Assessment</h2>
+            <h2 className="text-2xl font-bold text-dark-blue">{t('quiz.title')}</h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -218,7 +218,7 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
             ></div>
           </div>
           <p className="text-sm text-gray-600">
-            Question {currentQuestion + 1} of {questions.length}
+            {t('quiz.questionOf', { current: currentQuestion + 1, total: questions.length })}
           </p>
         </div>
 
