@@ -31,7 +31,9 @@ const RoadmapManager = ({ onClose }) => {
       const data = await api.get('/api/roadmap/');
       setItems(Array.isArray(data) ? data : []);
     } catch (e) {
-      setError(e?.message || 'Failed to load roadmap');
+      const msg = e?.message || 'Failed to load roadmap';
+      setError(msg);
+      showToast(msg, 'error');
     } finally {
       setLoading(false);
     }
@@ -57,7 +59,9 @@ const RoadmapManager = ({ onClose }) => {
       setForm({ title: '', description: '', category: 'skill_development', priority: 1, estimated_time_hours: '', due_date: '', resources: '' });
       await load();
     } catch (e) {
-      setError(e?.message || 'Failed to add item');
+      const msg = e?.message || 'Failed to add item';
+      setError(msg);
+      showToast(msg, 'error');
     } finally {
       setSaving(false);
     }
@@ -69,7 +73,9 @@ const RoadmapManager = ({ onClose }) => {
       showToast('Roadmap item updated', 'success');
       await load();
     } catch (e) {
-      setError(e?.message || 'Failed to update item');
+      const msg = e?.message || 'Failed to update item';
+      setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -79,7 +85,9 @@ const RoadmapManager = ({ onClose }) => {
       showToast('Marked as complete', 'success');
       await load();
     } catch (e) {
-      setError(e?.message || 'Failed to complete item');
+      const msg = e?.message || 'Failed to complete item';
+      setError(msg);
+      showToast(msg, 'error');
     }
   };
 
@@ -89,7 +97,9 @@ const RoadmapManager = ({ onClose }) => {
       showToast('Roadmap item deleted', 'success');
       await load();
     } catch (e) {
-      setError(e?.message || 'Failed to delete item');
+      const msg = e?.message || 'Failed to delete item';
+      setError(msg);
+      showToast(msg, 'error');
     }
   };
 
