@@ -567,8 +567,8 @@ function App() {
         <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
       )}
 
-      {showChat && (
-        <ChatTeaser onClose={() => setShowChat(false)} onOpenSignUp={() => setShowAuth('signup')} />
+      {showChatUI && (
+        <ChatUI onClose={() => setShowChatUI(false)} onOpenSignUp={() => setShowAuth('signup')} />
       )}
 
       {showSkills && (
