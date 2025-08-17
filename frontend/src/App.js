@@ -498,9 +498,9 @@ function App() {
 
   return (
     <DevModeProvider>
-    <ToastProvider>
-    <AuthProvider>
-    <div className="App">
+      <ToastProvider>
+        <AuthProvider>
+          <div className="App">
       <HeroSection 
         onStartQuiz={handleStartQuiz} 
         onOpenAuth={(mode) => setShowAuth(mode)} 
