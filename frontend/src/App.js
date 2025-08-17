@@ -497,6 +497,8 @@ function App() {
   };
 
   return (
+    <DevModeProvider>
+    <ToastProvider>
     <AuthProvider>
     <div className="App">
       <HeroSection 
