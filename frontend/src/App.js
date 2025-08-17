@@ -455,6 +455,9 @@ function App() {
           onStartNew={handleStartNew}
         />
       )}
+      {showAuth && (
+        <AuthPlaceholder type={showAuth} onClose={() => setShowAuth(null)} />
+      )}
     </div>
   );
 }
