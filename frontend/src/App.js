@@ -226,6 +226,7 @@ const HowItWorksSection = () => {
 const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenProfileEditor, onOpenAuth, onOpenRoadmap, onOpenChat, onOpenSkills, onOpenCareers, onOpenCerts }) => {
   const { t } = useTranslation();
   const { isAuthed } = useAuth();
+  const { devMode } = useDevMode();
   
   const benefits = [
     t('benefits.benefit1'),
