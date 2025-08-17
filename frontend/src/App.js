@@ -434,7 +434,7 @@ function App() {
 
   return (
     <div className="App">
-      <HeroSection onStartQuiz={handleStartQuiz} />
+      <HeroSection onStartQuiz={handleStartQuiz} onOpenAuth={setShowAuth} />
       <HowItWorksSection />
       <BenefitsSection onStartQuiz={handleStartQuiz} />
       <TechnologySection onStartQuiz={handleStartQuiz} />
