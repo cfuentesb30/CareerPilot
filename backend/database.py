@@ -4,6 +4,10 @@ from typing import List, Optional, Dict, Any
 from models import UserAssessment, AssessmentResult, CareerAssessmentQuestion
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 class DatabaseManager:
     def __init__(self):
