@@ -142,8 +142,8 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-soft-green mx-auto mb-4"></div>
-          <h2 className="text-2xl font-bold text-dark-blue mb-2">Loading Assessment</h2>
-          <p className="text-gray-600">Preparing your personalized career assessment...</p>
+          <h2 className="text-2xl font-bold text-dark-blue mb-2">{t('quiz.loading')}</h2>
+          <p className="text-gray-600">{t('quiz.loadingDesc')}</p>
         </div>
       </div>
     );
@@ -158,20 +158,20 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-red-600 mb-4">Error</h2>
+          <h2 className="text-2xl font-bold text-red-600 mb-4">{t('quiz.error')}</h2>
           <p className="text-gray-600 mb-6">{error}</p>
           <div className="flex gap-4 justify-center">
             <button
               onClick={startAssessment}
               className="btn-primary"
             >
-              Try Again
+              {t('quiz.tryAgain')}
             </button>
             <button
               onClick={onClose}
               className="btn-secondary"
             >
-              Close
+              {t('quiz.close')}
             </button>
           </div>
         </div>
@@ -184,7 +184,7 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 text-center">
           <p className="text-gray-600">No questions available. Please try again later.</p>
-          <button onClick={onClose} className="btn-primary mt-4">Close</button>
+          <button onClick={onClose} className="btn-primary mt-4">{t('quiz.close')}</button>
         </div>
       </div>
     );
