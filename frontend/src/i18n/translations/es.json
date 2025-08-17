@@ -119,10 +119,10 @@
     "skillsToDevelop": "🎯 Habilidades a Desarrollar",
     "developmentRec": "💡 Recomendaciones de Desarrollo de Athena",
     "personalityTitle": "🧠 Insights de Personalidad de Athena",
-    "actionTitle": "📋 Plan de Acción de Athena para Ti",
-    "completedOn": "Análisis completado por Athena el {{date}}",
-    "takeNew": "Realizar Nueva Evaluación con Athena",
-    "saveResults": "📄 Guardar Resultados de Athena"
+    "actionTitle": "📋 Plan de Acción",
+    "completedOn": "Análisis completado el {{date}}",
+    "takeNew": "Realizar Nueva Evaluación",
+    "saveResults": "📄 Guardar Resultados"
   },
   "common": {
     "loading": "Cargando...",
@@ -154,5 +154,20 @@
       "Chatea con Athena y conserva el historial",
       "Sincroniza en tus dispositivos con un perfil verificado"
     ]
+  },
+  "profilePreview": {
+    "title": "Vista Previa de Tu Perfil",
+    "subtitle": "Regístrate para completar y guardar tu perfil.",
+    "basicInfo": "Información Básica",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "currentRole": "Cargo actual",
+    "yearsExperience": "Años de experiencia",
+    "location": "Ubicación",
+    "website": "Sitio web",
+    "experience": "Experiencia",
+    "experienceHint": "Agrega tus puestos, empresas, fechas y logros.",
+    "skills": "Habilidades",
+    "skillsHint": "Añade tus habilidades con nivel de dominio y años de experiencia."
   }
 }

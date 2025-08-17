@@ -118,11 +118,11 @@
     "currentStrengths": "✅ Current Strengths",
     "skillsToDevelop": "🎯 Skills to Develop",
     "developmentRec": "💡 Athena's Development Recommendations",
-    "personalityTitle": "🧠 Athena's Personality Insights",
-    "actionTitle": "📋 Athena's Action Plan for You",
-    "completedOn": "Analysis completed by Athena on {{date}}",
-    "takeNew": "Take New Assessment with Athena",
-    "saveResults": "📄 Save Athena's Results"
+    "personalityTitle": "🧠 Personality Insights",
+    "actionTitle": "📋 Your Action Plan",
+    "completedOn": "Analysis completed on {{date}}",
+    "takeNew": "Take New Assessment",
+    "saveResults": "📄 Save Results"
   },
   "common": {
     "loading": "Loading...",
@@ -154,5 +154,20 @@
       "Chat with Athena and keep conversation history",
       "Sync across devices with a verified profile"
     ]
+  },
+  "profilePreview": {
+    "title": "Your Profile Preview",
+    "subtitle": "Sign up to fill in and save your profile.",
+    "basicInfo": "Basic Information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "currentRole": "Current role",
+    "yearsExperience": "Years of experience",
+    "location": "Location",
+    "website": "Website",
+    "experience": "Experience",
+    "experienceHint": "Add your roles, companies, dates, and achievements.",
+    "skills": "Skills",
+    "skillsHint": "Attach your skills with proficiency levels and years of experience."
   }
 }
