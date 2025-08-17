@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import InteractiveQuiz from './components/InteractiveQuiz';
+import ResultsDashboard from './components/ResultsDashboard';
 
 // Hero Section Component
-const HeroSection = () => {
+const HeroSection = ({ onStartQuiz }) => {
   return (
     <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden">
       {/* Background decoration */}
@@ -24,18 +26,45 @@ const HeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="btn-primary text-lg px-8 py-4">
-                Start Now
+              <button 
+                onClick={onStartQuiz}
+                className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300"
+              >
+                🚀 Start Now
               </button>
-              <button className="btn-secondary text-lg px-8 py-4">
-                Get Your Free Career Assessment
+              <button 
+                onClick={onStartQuiz}
+                className="btn-secondary text-lg px-8 py-4"
+              >
+                📋 Get Your Free Career Assessment
               </button>
+            </div>
+            
+            <div className="mt-8 flex items-center gap-6 justify-center lg:justify-start text-blue-200">
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span className="text-sm">100% Free</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span className="text-sm">AI-Powered</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
+                </svg>
+                <span className="text-sm">Instant Results</span>
+              </div>
             </div>
           </div>
           
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-soft-green/20 to-teal/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+              <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-soft-green/20 to-teal/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 float-animation">
                 <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-white/10 to-white/5 rounded-full flex items-center justify-center border border-white/30">
                   <div className="text-center">
                     <div className="w-16 h-16 mx-auto mb-4 bg-soft-green rounded-full flex items-center justify-center">
