@@ -134,6 +134,17 @@
     "edit": "Editar",
     "submit": "Enviar",
     "continue": "Continuar",
-    "back": "Atrás"
+    "back": "Atrás",
+    "close": "Cerrar"
+  },
+  "auth": {
+    "signupTitle": "Crea Tu Cuenta de CareerPilot",
+    "loginTitle": "Inicia Sesión en CareerPilot",
+    "signupComingSoon": "El registro estará disponible pronto",
+    "loginTemporarilyDisabled": "El inicio de sesión está temporalmente deshabilitado",
+    "signupDescription": "Estamos preparando una experiencia de incorporación fluida. Pronto podrás crear una cuenta y guardar tu progreso.",
+    "loginDescription": "Actualmente estamos actualizando nuestro sistema de autenticación. Vuelve a intentarlo más tarde.",
+    "createAccount": "Crear Cuenta",
+    "logIn": "Iniciar Sesión"
   }
 }
