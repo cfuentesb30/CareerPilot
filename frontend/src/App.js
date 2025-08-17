@@ -4,6 +4,7 @@ import './App.css';
 import InteractiveQuiz from './components/InteractiveQuiz';
 import ResultsDashboard from './components/ResultsDashboard';
 import LanguageSwitcher from './components/LanguageSwitcher';
+import AuthPlaceholder from './components/AuthPlaceholder';
 
 // Hero Section Component
 const HeroSection = ({ onStartQuiz }) => {
