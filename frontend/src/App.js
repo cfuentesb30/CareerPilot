@@ -15,6 +15,7 @@ const HeroSection = ({ onStartQuiz, onOpenAuth }) => {
       {/* Header with Logo and Language Switcher */}
       <div className="absolute top-0 left-0 right-0 z-30 p-6">
         <div className="flex justify-between items-center">
+          
           {/* Logo Placeholder - Replace with your actual logo */}
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/30">
