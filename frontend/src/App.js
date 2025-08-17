@@ -275,18 +275,18 @@ const BenefitsSection = ({ onStartQuiz }) => {
 
 // Technology Section Component
 const TechnologySection = ({ onStartQuiz }) => {
+  const { t } = useTranslation();
+  
   return (
     <section className="section-padding gradient-bg text-white">
       <div className="container mx-auto">
         <div className="text-center max-w-4xl mx-auto">
           <h2 className="text-4xl lg:text-5xl font-bold mb-8">
-            Behind the Technology
+            {t('technology.title')}
           </h2>
           
           <p className="text-xl lg:text-2xl text-blue-100 mb-12 leading-relaxed">
-            Powered by <span className="text-soft-green font-semibold">artificial intelligence</span> and 
-            <span className="text-teal font-semibold"> job market analytics</span>, using machine learning models 
-            trained on real-world professional data.
+            {t('technology.subtitle')}
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -296,8 +296,8 @@ const TechnologySection = ({ onStartQuiz }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Machine Learning</h3>
-              <p className="text-blue-100">Advanced algorithms analyze your unique profile</p>
+              <h3 className="text-lg font-semibold mb-2">{t('technology.machineLearning')}</h3>
+              <p className="text-blue-100">{t('technology.machineLearningDesc')}</p>
             </div>
             
             <div className="text-center p-6">
@@ -306,8 +306,8 @@ const TechnologySection = ({ onStartQuiz }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Real Data</h3>
-              <p className="text-blue-100">Based on actual job market trends and opportunities</p>
+              <h3 className="text-lg font-semibold mb-2">{t('technology.realData')}</h3>
+              <p className="text-blue-100">{t('technology.realDataDesc')}</p>
             </div>
             
             <div className="text-center p-6">
@@ -316,8 +316,8 @@ const TechnologySection = ({ onStartQuiz }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2">Instant Results</h3>
-              <p className="text-blue-100">Get personalized recommendations in seconds</p>
+              <h3 className="text-lg font-semibold mb-2">{t('technology.instantResults')}</h3>
+              <p className="text-blue-100">{t('technology.instantResultsDesc')}</p>
             </div>
           </div>
           
@@ -325,7 +325,7 @@ const TechnologySection = ({ onStartQuiz }) => {
             onClick={onStartQuiz}
             className="btn-primary text-lg px-10 py-4 mx-auto transform hover:scale-105 transition-all duration-300"
           >
-            🤖 Experience AI Career Guidance
+            {t('technology.experienceBtn')}
           </button>
         </div>
       </div>
@@ -335,42 +335,44 @@ const TechnologySection = ({ onStartQuiz }) => {
 
 // Footer Component
 const Footer = () => {
+  const { t } = useTranslation();
+  
   return (
     <footer className="bg-dark-blue text-white py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">AI Career Path Advisor</h3>
+            <h3 className="text-xl font-bold mb-4">{t('footer.title')}</h3>
             <p className="text-blue-200">
-              Empowering your career journey with intelligent recommendations and data-driven insights.
+              {t('footer.description')}
             </p>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">How It Works</h4>
+            <h4 className="text-lg font-semibold mb-4">{t('footer.howItWorksTitle')}</h4>
             <ul className="space-y-2 text-blue-200">
-              <li>• Take the career assessment</li>
-              <li>• AI analyzes your profile</li>
-              <li>• Get personalized recommendations</li>
-              <li>• Start your ideal career path</li>
+              <li>{t('footer.step1')}</li>
+              <li>{t('footer.step2')}</li>
+              <li>{t('footer.step3')}</li>
+              <li>{t('footer.step4')}</li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
+            <h4 className="text-lg font-semibold mb-4">{t('footer.contactTitle')}</h4>
             <div className="space-y-2 text-blue-200">
-              <p>support@careerpathai.com</p>
+              <p>{t('footer.email')}</p>
               <div className="flex space-x-4 mt-4">
-                <a href="#" className="hover:text-soft-green transition-colors">Twitter</a>
-                <a href="#" className="hover:text-soft-green transition-colors">LinkedIn</a>
-                <a href="#" className="hover:text-soft-green transition-colors">Facebook</a>
+                <a href="#" className="hover:text-soft-green transition-colors">{t('footer.twitter')}</a>
+                <a href="#" className="hover:text-soft-green transition-colors">{t('footer.linkedin')}</a>
+                <a href="#" className="hover:text-soft-green transition-colors">{t('footer.facebook')}</a>
               </div>
             </div>
           </div>
         </div>
         
         <div className="border-t border-blue-700 pt-8 text-center text-blue-200">
-          <p>&copy; 2024 AI Career Path Advisor. All rights reserved.</p>
+          <p>{t('footer.copyright')}</p>
         </div>
       </div>
     </footer>
