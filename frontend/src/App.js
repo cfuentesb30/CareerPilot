@@ -178,11 +178,13 @@ const HowItWorksSection = () => {
 
 //Benefits Section Component
 const BenefitsSection = ({ onStartQuiz }) => {
+  const { t } = useTranslation();
+  
   const benefits = [
-    "Personalized recommendations powered by real job market data",
-    "Designed for students, graduates, and career switchers",
-    "Smart AI-backed suggestions",
-    "Free access to the first analysis"
+    t('benefits.benefit1'),
+    t('benefits.benefit2'),
+    t('benefits.benefit3'),
+    t('benefits.benefit4')
   ];
 
   return (
@@ -191,8 +193,8 @@ const BenefitsSection = ({ onStartQuiz }) => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl lg:text-5xl font-bold text-dark-blue mb-8">
-              Why Choose Our
-              <span className="text-soft-green block mt-2">AI Career Advisor?</span>
+              {t('benefits.title')}
+              <span className="text-soft-green block mt-2">{t('benefits.titleHighlight')}</span>
             </h2>
             
             <div className="space-y-6">
@@ -215,7 +217,7 @@ const BenefitsSection = ({ onStartQuiz }) => {
                 onClick={onStartQuiz}
                 className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300"
               >
-                🚀 Start Your Career Journey
+                {t('benefits.startBtn')}
               </button>
             </div>
           </div>
@@ -229,8 +231,8 @@ const BenefitsSection = ({ onStartQuiz }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                   </div>
-                  <h4 className="font-semibold text-dark-blue mb-2">Fast Results</h4>
-                  <p className="text-sm text-gray-600">Get insights in minutes</p>
+                  <h4 className="font-semibold text-dark-blue mb-2">{t('benefits.fastResults')}</h4>
+                  <p className="text-sm text-gray-600">{t('benefits.fastResultsDesc')}</p>
                 </div>
                 
                 <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
@@ -239,8 +241,8 @@ const BenefitsSection = ({ onStartQuiz }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                   </div>
-                  <h4 className="font-semibold text-dark-blue mb-2">Accurate</h4>
-                  <p className="text-sm text-gray-600">97% accuracy rate</p>
+                  <h4 className="font-semibold text-dark-blue mb-2">{t('benefits.accurate')}</h4>
+                  <p className="text-sm text-gray-600">{t('benefits.accurateDesc')}</p>
                 </div>
                 
                 <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
@@ -249,8 +251,8 @@ const BenefitsSection = ({ onStartQuiz }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                     </svg>
                   </div>
-                  <h4 className="font-semibold text-dark-blue mb-2">Trusted</h4>
-                  <p className="text-sm text-gray-600">50,000+ users</p>
+                  <h4 className="font-semibold text-dark-blue mb-2">{t('benefits.trusted')}</h4>
+                  <p className="text-sm text-gray-600">{t('benefits.trustedDesc')}</p>
                 </div>
                 
                 <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 card-hover">
@@ -259,8 +261,8 @@ const BenefitsSection = ({ onStartQuiz }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
                   </div>
-                  <h4 className="font-semibold text-dark-blue mb-2">Supportive</h4>
-                  <p className="text-sm text-gray-600">24/7 guidance</p>
+                  <h4 className="font-semibold text-dark-blue mb-2">{t('benefits.supportive')}</h4>
+                  <p className="text-sm text-gray-600">{t('benefits.supportiveDesc')}</p>
                 </div>
               </div>
             </div>
