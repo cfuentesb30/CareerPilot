@@ -217,8 +217,29 @@ const RoadmapManager = ({ onClose }) => {
           ) : (
             <div className="space-y-3">
               {items.length === 0 && <div className="text-gray-500">No roadmap items yet.</div>}
-              {items.map((it) => (
-                <RoadmapRow key={it.id} item={it} onUpdate={updateItem} onComplete={markComplete} onDelete={deleteItem} />
+              {items.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+                  <p className="text-sm text-blue-700 flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                    </svg>
+                    Drag items to reorder your roadmap
+                  </p>
+                </div>
+              )}
+              {items.map((it, index) => (
+                <RoadmapRow 
+                  key={it.id} 
+                  item={it} 
+                  index={index}
+                  onUpdate={updateItem} 
+                  onComplete={markComplete} 
+                  onDelete={deleteItem}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                />
               ))}
             </div>
           )}
