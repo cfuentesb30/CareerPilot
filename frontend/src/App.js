@@ -476,6 +476,7 @@ function App() {
   const [showCerts, setShowCerts] = useState(false);
   const [showRoadmapManager, setShowRoadmapManager] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
+  const [showDashboardPreview, setShowDashboardPreview] = useState(false);
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
