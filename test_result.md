@@ -141,6 +141,18 @@ backend:
         agent: "testing"
         comment: "✅ Error responses properly formatted. 404 errors for non-existent endpoints return proper JSON format with detail field."
 
+  - task: "Legacy Assessment Endpoints"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ Legacy assessment endpoints working correctly without authentication: GET /api/assessment/questions returns 200 with 15 questions, POST /api/assessment/start returns 200. Assessment flow maintained for backward compatibility."
+
   - task: "User Profile CRUD Operations"
     implemented: true
     working: true
