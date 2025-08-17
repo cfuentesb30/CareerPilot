@@ -11,7 +11,13 @@ from models import *
 from database import db_manager
 from ai_analyzer import ai_analyzer
 
-app = FastAPI(title="AI Career Path Advisor API", version="1.0.0")
+# Import new user management modules
+from auth_routes import router as auth_router
+from user_routes import router as user_router
+from chat_routes import router as chat_router
+from roadmap_routes import router as roadmap_router
+
+app = FastAPI(title="CareerPilot API - Athena AI Career Advisor", version="2.0.0")
 
 # Enable CORS
 app.add_middleware(
@@ -22,17 +28,40 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include routers
+app.include_router(auth_router)
+app.include_router(user_router)
+app.include_router(chat_router)
+app.include_router(roadmap_router)
+
 # Health check endpoint
 @app.get("/api/health")
 async def health_check():
-    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+    return {
+        "status": "healthy", 
+        "timestamp": datetime.now().isoformat(),
+        "service": "CareerPilot with Athena",
+        "version": "2.0.0"
+    }
 
 # Welcome endpoint
 @app.get("/api/")
 async def root():
-    return {"message": "AI Career Path Advisor API", "version": "1.0.0"}
+    return {
+        "message": "CareerPilot API - Athena AI Career Advisor", 
+        "version": "2.0.0",
+        "features": [
+            "User Registration & Authentication",
+            "Profile Management",
+            "Career Tracking",
+            "Skills & Certifications",
+            "Chat with Athena",
+            "Personalized Roadmaps",
+            "Progress Tracking"
+        ]
+    }
 
-# Assessment endpoints
+# Legacy assessment endpoints (keep for backward compatibility)
 @app.post("/api/assessment/start", response_model=AssessmentResponse)
 async def start_assessment(request: StartAssessmentRequest):
     """Start a new career assessment"""
@@ -159,6 +188,14 @@ async def process_assessment_analysis(assessment_id: str):
         # Update assessment status
         db_manager.update_assessment(assessment_id, answers_dict, "completed")
         
+        # If user is logged in, generate roadmap
+        if assessment.user_email:
+            from user_database import user_db  
+            user = user_db.get_user_by_email(assessment.user_email)
+            if user:
+                from roadmap_routes import generate_roadmap_from_assessment
+                await generate_roadmap_from_assessment(user.id, assessment_id)
+        
     except Exception as e:
         # Mark assessment as failed
         assessment = db_manager.get_assessment(assessment_id)
@@ -198,7 +235,7 @@ async def complete_assessment(request: CompleteAssessmentRequest, background_tas
             assessment_id=request.assessment_id,
             result_id="",
             status="analyzing",
-            message="Assessment submitted successfully. AI analysis in progress. Please check back in a few moments."
+            message="Assessment submitted successfully. Athena is analyzing your responses. Please check back in a few moments."
         )
         
     except Exception as e:
@@ -219,7 +256,7 @@ async def get_assessment_results(assessment_id: str):
             return {
                 "assessment_id": assessment_id,
                 "status": assessment.status,
-                "message": "Analysis not yet completed. Please try again in a few moments."
+                "message": "Athena is still analyzing your assessment. Please try again in a few moments."
             }
         
         return {
@@ -259,6 +296,48 @@ async def get_detailed_results(result_id: str):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get detailed results: {str(e)}")
+
+# Demo/Testing endpoints
+@app.post("/api/demo/quick-analysis")
+async def quick_demo_analysis():
+    """Create a demo analysis for testing purposes"""
+    try:
+        # Create sample assessment data
+        sample_assessment = UserAssessment(
+            user_email="demo@careerpilot.com",
+            answers=[
+                AssessmentAnswer(question_id="edu_level", answer="Bachelor's Degree"),
+                AssessmentAnswer(question_id="work_experience", answer="2-5 years"),
+                AssessmentAnswer(question_id="technical_skills", answer="Python, JavaScript, SQL"),
+                AssessmentAnswer(question_id="work_interests", answer="Analyzing data and solving complex problems"),
+                AssessmentAnswer(question_id="career_goals", answer="Continuous learning and growth")
+            ]
+        )
+        
+        # Perform AI analysis
+        result = await ai_analyzer.analyze_assessment(sample_assessment)
+        
+        return {
+            "status": "success",
+            "message": "Demo analysis completed by Athena",
+            "results": {
+                "career_recommendations": [rec.dict() for rec in result.career_recommendations],
+                "skill_gap_analysis": result.skill_gap_analysis.dict(),
+                "personality_insights": result.personality_insights,
+                "action_plan": result.action_plan
+            }
+        }
+        
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"Demo analysis failed: {str(e)}",
+            "fallback_available": True
+        }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)
 
 # Demo/Testing endpoints
 @app.post("/api/demo/quick-analysis")
