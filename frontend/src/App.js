@@ -12,7 +12,7 @@ import DevTools from './components/DevTools';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import RoadmapPreview from './components/RoadmapPreview';
-import ChatTeaser from './components/ChatTeaser';
+import ChatUI from './components/ChatUI';
 import ProfileEditor from './components/ProfileEditor';
 import SkillsManager from './components/SkillsManager';
 import CareersManager from './components/CareersManager';
