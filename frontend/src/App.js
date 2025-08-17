@@ -366,13 +366,59 @@ const Footer = () => {
 
 // Main App Component
 function App() {
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [assessmentId, setAssessmentId] = useState(null);
+
+  const handleStartQuiz = () => {
+    setShowQuiz(true);
+    setShowResults(false);
+  };
+
+  const handleQuizComplete = (id, analysisData) => {
+    setAssessmentId(id);
+    setShowQuiz(false);
+    setShowResults(true);
+  };
+
+  const handleCloseQuiz = () => {
+    setShowQuiz(false);
+  };
+
+  const handleCloseResults = () => {
+    setShowResults(false);
+    setAssessmentId(null);
+  };
+
+  const handleStartNew = () => {
+    setShowResults(false);
+    setAssessmentId(null);
+    setShowQuiz(true);
+  };
+
   return (
     <div className="App">
-      <HeroSection />
+      <HeroSection onStartQuiz={handleStartQuiz} />
       <HowItWorksSection />
-      <BenefitsSection />
-      <TechnologySection />
+      <BenefitsSection onStartQuiz={handleStartQuiz} />
+      <TechnologySection onStartQuiz={handleStartQuiz} />
       <Footer />
+      
+      {/* Interactive Components */}
+      {showQuiz && (
+        <InteractiveQuiz 
+          onComplete={handleQuizComplete}
+          onClose={handleCloseQuiz}
+        />
+      )}
+      
+      {showResults && assessmentId && (
+        <ResultsDashboard
+          assessmentId={assessmentId}
+          onClose={handleCloseResults}
+          onStartNew={handleStartNew}
+        />
+      )}
     </div>
   );
 }
