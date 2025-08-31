@@ -8,7 +8,9 @@
     "signup": "Sign up",
     "profile": "Profile",
     "dashboard": "Dashboard",
-    "logout": "Log out"
+    "logout": "Log out",
+    "english": "English",
+    "spanish": "Español"
   },
   "pricing": {
     "title": "Choose Your Plan",
