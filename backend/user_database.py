@@ -49,6 +49,9 @@ class UserDatabaseManager:
         self.messages.create_index(["conversation_id", "created_at"])
         self.roadmap_items.create_index("user_id")
         self.roadmap_items.create_index(["user_id", "order_index"])
+        self.sessions.create_index("session_token", unique=True)
+        self.sessions.create_index("user_id")
+        self.sessions.create_index("expires_at")
         self.user_progress.create_index("user_id", unique=True)
     
     def _initialize_default_skills(self):
