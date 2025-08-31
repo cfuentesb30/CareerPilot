@@ -86,22 +86,12 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
     try {
       setSubmitting(true);
 
-      const response = await fetch(`${API_BASE}/api/assessment/complete`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          assessment_id: assessmentId,
-        }),
+      const response = await api.post('/api/assessment/complete', {
+        assessment_id: assessmentId,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to complete assessment');
-      }
-
-      const data = await response.json();
-      onComplete(assessmentId, data);
+      // Notify parent component with assessment results
+      onComplete(assessmentId, response);
       setSubmitting(false);
     } catch (err) {
       setError(err.message);
