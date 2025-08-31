@@ -204,7 +204,7 @@ const HowItWorksSection = () => {
 };
 
 //Benefits Section Component
-const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenProfileEditor, onOpenAuth, onOpenRoadmap, onOpenChat, onOpenSkills, onOpenCareers, onOpenCerts, onOpenRoadmapManager, onOpenDashboard, onOpenDashboardPreview }) => {
+const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenUserProfile, onOpenProfileEditor, onOpenAuth, onOpenRoadmap, onOpenChat, onOpenSkills, onOpenCareers, onOpenCerts, onOpenRoadmapManager, onOpenDashboard, onOpenDashboardPreview }) => {
   const { t } = useTranslation();
   const { isAuthed } = useAuth();
   const { devMode } = useDevMode();
