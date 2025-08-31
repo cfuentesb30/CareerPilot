@@ -38,6 +38,7 @@ app.include_router(chat_router)
 app.include_router(roadmap_router)
 app.include_router(payment_router)
 app.include_router(oauth_router)
+app.include_router(google_oauth_router)
 
 # Health check endpoint
 @app.get("/api/health")
