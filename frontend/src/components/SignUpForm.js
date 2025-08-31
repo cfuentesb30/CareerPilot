@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { api } from '../api/client';
 import { useToast } from '../context/ToastContext';
+import GoogleAuthButton from './GoogleAuthButton';
 
 const SignUpForm = ({ onClose, onSwitchToLogin }) => {
   const { t } = useTranslation();
