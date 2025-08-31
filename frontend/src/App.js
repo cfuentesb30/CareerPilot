@@ -619,10 +619,7 @@ function App() {
             )}
 
             {showPricing && (
-              <PricingSection onClose={() => {
-                setShowPricing(false);
-                setCurrentPage('home');
-              }} />
+              <PricingSection onClose={() => setShowPricing(false)} />
             )}
 
             {showAuth && (
