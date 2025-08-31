@@ -613,7 +613,19 @@ function App() {
             )}
 
             {showAuth && (
-              <AuthPlaceholder type={showAuth} onClose={() => setShowAuth(null)} />
+              <>
+                {showAuth === 'signup' ? (
+                  <SignUpForm 
+                    onClose={() => setShowAuth(null)}
+                    onSwitchToLogin={() => setShowAuth('login')}
+                  />
+                ) : (
+                  <LoginForm 
+                    onClose={() => setShowAuth(null)}
+                    onSwitchToSignUp={() => setShowAuth('signup')}
+                  />
+                )}
+              </>
             )}
 
             {showProfile && (
