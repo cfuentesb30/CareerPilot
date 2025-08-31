@@ -1886,8 +1886,8 @@ class BackendTester:
                 expected_components = [
                     "accounts.google.com/o/oauth2/v2/auth",
                     "client_id=1040524288328-0b86bje78ftvqo0a1iah6h321tavdhen.apps.googleusercontent.com",
-                    "redirect_uri=https://athena-advisor.preview.emergentagent.com/auth/google/callback",
-                    "scope=openid%20email%20profile"
+                    "redirect_uri=https%3A%2F%2Fathena-advisor.preview.emergentagent.com%2Fauth%2Fgoogle%2Fcallback",
+                    "scope=openid+email+profile"
                 ]
                 
                 missing_components = []
