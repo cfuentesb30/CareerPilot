@@ -1,8 +1,67 @@
 {
   "nav": {
-    "language": "Language",
-    "english": "English",
-    "spanish": "Spanish"
+    "home": "Home",
+    "pricing": "Pricing",
+    "about": "About", 
+    "contact": "Contact",
+    "login": "Log in",
+    "signup": "Sign up",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "logout": "Log out"
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Unlock your career potential with the right plan for you",
+    "free": {
+      "name": "Free",
+      "period": "forever",
+      "feature1": "Basic assessment",
+      "feature2": "1 career suggestion", 
+      "feature3": "Access to Athena's basic Q&A",
+      "feature4": "No progress saving",
+      "button": "Start Free",
+      "message": "Welcome to CareerPilot! You're now using the free plan."
+    },
+    "starter": {
+      "name": "Starter",
+      "period": "/month", 
+      "feature1": "Full assessment",
+      "feature2": "Up to 3 career suggestions",
+      "feature3": "Limited progress tracking",
+      "button": "Start Starter Plan"
+    },
+    "pro": {
+      "name": "Pro",
+      "period": "/month",
+      "feature1": "Unlimited assessments & suggestions", 
+      "feature2": "Full progress dashboard",
+      "feature3": "Advanced advice from Athena",
+      "button": "Upgrade to Pro"
+    },
+    "student": {
+      "name": "Student",
+      "period": "/month",
+      "feature1": "Same as Pro",
+      "feature2": "Discounted rate with .edu email or verification", 
+      "button": "Student Plan",
+      "badge": "Discount"
+    },
+    "lifetime": {
+      "name": "Lifetime Access",
+      "period": "one-time",
+      "feature1": "All Pro features",
+      "feature2": "One-time payment instead of subscription",
+      "button": "Buy Lifetime", 
+      "badge": "Best Value"
+    },
+    "messages": {
+      "success": "Payment successful! Thank you for your purchase.",
+      "cancelled": "Payment was cancelled. You can try again anytime.",
+      "expired": "Payment session expired. Please try again.",
+      "timeout": "Payment status check timed out. Please check your email for confirmation.",
+      "error": "Error checking payment status. Please try again."
+    }
   },
   "hero": {
     "title": "Find Your Ideal",
