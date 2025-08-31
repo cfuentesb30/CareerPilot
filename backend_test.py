@@ -1366,7 +1366,12 @@ class BackendTester:
             self.test_roadmap_router_endpoints,
             self.test_legacy_assessment_endpoints,
             self.test_minimal_dashboard_milestone,
-            self.test_roadmap_reordering_functionality
+            self.test_roadmap_reordering_functionality,
+            self.test_payment_pricing_plans_endpoint,
+            self.test_payment_checkout_session_creation,
+            self.test_payment_status_endpoint,
+            self.test_payment_database_integration,
+            self.test_payment_authentication_integration
         ]
         
         for test in tests:
