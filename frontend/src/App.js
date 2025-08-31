@@ -448,6 +448,7 @@ function App() {
   const [assessmentId, setAssessmentId] = useState(null);
   const [showAuth, setShowAuth] = useState(null); // 'signup' or 'login'
   const [showProfile, setShowProfile] = useState(false);
+  const [showUserProfile, setShowUserProfile] = useState(false);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showChat, setShowChat] = useState(false);
