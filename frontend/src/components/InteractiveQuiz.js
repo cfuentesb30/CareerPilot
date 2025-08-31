@@ -23,7 +23,7 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
       
       // Start new assessment using api client
       console.log('Calling /api/assessment/start...');
-      const startData = await api.post('/api/assessment/start', { user_email: null });
+      const startData = await api.post('/api/assessment/start', {});
       console.log('Assessment started:', startData);
       setAssessmentId(startData.assessment_id);
 
