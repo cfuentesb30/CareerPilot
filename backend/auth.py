@@ -97,3 +97,65 @@ class AuthTokens:
         self.access_token = access_token
         self.refresh_token = refresh_token
         self.token_type = token_type
+
+def verify_session_token(session_token: str) -> Optional[str]:
+    """Verify session token and return user ID."""
+    try:
+        # Find active session
+        session = user_db.sessions.find_one({
+            "session_token": session_token,
+            "is_active": True,
+            "expires_at": {"$gt": datetime.now()}
+        })
+        
+        if session:
+            return session["user_id"]
+        return None
+    except Exception:
+        return None
+
+async def get_current_user_hybrid(
+    request: Request,
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False))
+) -> str:
+    """Get current user from either JWT token or session cookie."""
+    user_id = None
+    
+    # Try JWT token first (from Authorization header)
+    if credentials:
+        try:
+            token = credentials.credentials
+            user_id = verify_token(token)
+        except HTTPException:
+            pass  # Fall back to session token
+    
+    # Try session token from cookie
+    if not user_id:
+        session_token = request.cookies.get("session_token")
+        if session_token:
+            user_id = verify_session_token(session_token)
+    
+    # Try session token from header as fallback
+    if not user_id:
+        session_token = request.headers.get("X-Session-Token")
+        if session_token:
+            user_id = verify_session_token(session_token)
+    
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    return user_id
+
+async def get_current_user_hybrid_optional(
+    request: Request,
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False))
+) -> Optional[str]:
+    """Get current user from either JWT token or session cookie, return None if not authenticated."""
+    try:
+        return await get_current_user_hybrid(request, credentials)
+    except HTTPException:
+        return None
