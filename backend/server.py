@@ -59,7 +59,8 @@ async def root():
             "Skills & Certifications",
             "Chat with Athena",
             "Personalized Roadmaps",
-            "Progress Tracking"
+            "Progress Tracking",
+            "Payment Processing"
         ]
     }
 
