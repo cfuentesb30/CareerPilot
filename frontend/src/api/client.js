@@ -45,7 +45,21 @@ export async function apiFetch(path, options = {}) {
     data = await res.text();
   }
   if (!res.ok) {
-    const err = new Error(typeof data === 'string' ? data : (data?.detail || 'Request failed'));
+    let errorMessage = 'Request failed';
+    if (typeof data === 'string') {
+      errorMessage = data;
+    } else if (data && data.detail) {
+      // Handle FastAPI validation errors
+      if (Array.isArray(data.detail)) {
+        errorMessage = data.detail.map(err => `${err.loc.join('.')}: ${err.msg}`).join(', ');
+      } else {
+        errorMessage = data.detail;
+      }
+    } else if (data && data.message) {
+      errorMessage = data.message;
+    }
+    
+    const err = new Error(errorMessage);
     err.status = res.status;
     err.data = data;
     throw err;
