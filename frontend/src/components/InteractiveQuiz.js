@@ -55,22 +55,12 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
     try {
       setSubmitting(true);
 
-      // Submit answer to backend
-      const response = await fetch(`${API_BASE}/api/assessment/answer`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          assessment_id: assessmentId,
-          question_id: question.id,
-          answer: answer,
-        }),
+      // Submit answer using api client
+      await api.post('/api/assessment/answer', {
+        assessment_id: assessmentId,
+        question_id: question.id,
+        answer: answer,
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit answer');
-      }
 
       // Move to next question or complete
       if (currentQuestion < questions.length - 1) {
