@@ -18,6 +18,7 @@ from chat_routes import router as chat_router
 from roadmap_routes import router as roadmap_router
 from payment_routes import router as payment_router
 from oauth_routes import router as oauth_router
+from google_oauth_routes import router as google_oauth_router
 
 app = FastAPI(title="CareerPilot API - Athena AI Career Advisor", version="2.0.0")
 
