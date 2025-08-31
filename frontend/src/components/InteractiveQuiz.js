@@ -19,28 +19,16 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
   const startAssessment = async () => {
     try {
       setLoading(true);
-      console.log('🚀 Starting assessment...');
-      console.log('Backend URL:', process.env.REACT_APP_BACKEND_URL);
       
       // Start new assessment using api client
-      console.log('📡 Calling /api/assessment/start...');
       const startData = await api.post('/api/assessment/start', {});
-      console.log('✅ Assessment started:', startData);
       setAssessmentId(startData.assessment_id);
 
       // Get all questions using api client
-      console.log('📡 Calling /api/assessment/questions...');
       const questionsData = await api.get('/api/assessment/questions');
-      console.log('✅ Questions loaded:', questionsData.questions.length);
       setQuestions(questionsData.questions);
       setLoading(false);
     } catch (err) {
-      console.error('❌ Assessment start error:', err);
-      console.error('❌ Error details:', {
-        message: err.message,
-        status: err.status,
-        data: err.data
-      });
       setError(`Failed to start assessment: ${err.message}`);
       setLoading(false);
     }
