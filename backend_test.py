@@ -1649,7 +1649,12 @@ class BackendTester:
             self.test_payment_status_endpoint,
             self.test_payment_database_integration,
             self.test_payment_authentication_integration,
-            self.test_registration_functionality
+            self.test_registration_functionality,
+            self.test_oauth_login_url_generation,
+            self.test_oauth_profile_endpoint_unauthorized,
+            self.test_oauth_callback_simulation,
+            self.test_sessions_collection_verification,
+            self.test_oauth_backend_health_check
         ]
         
         for test in tests:
