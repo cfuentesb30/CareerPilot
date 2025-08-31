@@ -580,6 +580,8 @@ function App() {
             <NavigationBar 
               onNavigate={handleNavigate} 
               currentPage={currentPage}
+              onOpenProfile={() => setShowProfileEditor(true)}
+              onOpenDashboard={() => setShowDashboard(true)}
             />
             
             {renderCurrentPage()}
