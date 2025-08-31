@@ -2151,7 +2151,13 @@ class BackendTester:
             self.test_oauth_profile_endpoint_unauthorized,
             self.test_oauth_callback_simulation,
             self.test_sessions_collection_verification,
-            self.test_oauth_backend_health_check
+            self.test_oauth_backend_health_check,
+            # New Google OAuth tests
+            self.test_google_oauth_login_url,
+            self.test_google_oauth_callback_endpoint,
+            self.test_google_oauth_user_endpoint,
+            self.test_google_oauth_routes_registration,
+            self.test_google_oauth_backend_health_after_integration
         ]
         
         for test in tests:
