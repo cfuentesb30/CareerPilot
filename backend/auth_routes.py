@@ -340,6 +340,85 @@ async def logout_user(current_user_id: str = Depends(get_current_user)):
     # For now, we'll just return a success message
     return {"message": "Logged out successfully"}
 
+@router.post("/verify-email")
+async def verify_email(token: str):
+    """Verify user email with token."""
+    try:
+        # Find user by verification token
+        user = user_db.users.find_one({"verification_token": token})
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid or expired verification token"
+            )
+        
+        # Check if already verified
+        if user.get("is_verified", False):
+            return {"message": "Email already verified"}
+        
+        # Update user as verified
+        user_db.users.update_one(
+            {"id": user["id"]},
+            {
+                "$set": {
+                    "is_verified": True,
+                    "verification_token": None,
+                    "updated_at": datetime.now()
+                }
+            }
+        )
+        
+        return {"message": "Email verified successfully"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Email verification failed: {str(e)}"
+        )
+
+@router.post("/resend-verification")
+async def resend_verification(email: str, background_tasks: BackgroundTasks):
+    """Resend verification email."""
+    try:
+        user = user_db.users.find_one({"email": email})
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        
+        if user.get("is_verified", False):
+            return {"message": "Email already verified"}
+        
+        # Generate new verification token
+        verification_token = str(uuid.uuid4())
+        
+        user_db.users.update_one(
+            {"id": user["id"]},
+            {
+                "$set": {
+                    "verification_token": verification_token,
+                    "updated_at": datetime.now()
+                }
+            }
+        )
+        
+        # Send verification email
+        background_tasks.add_task(send_verification_email, email, verification_token)
+        
+        return {"message": "Verification email sent"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to resend verification: {str(e)}"
+        )
+
+# Dev token endpoint (keep for development)
 @router.post("/dev-token", response_model=TokenResponse)
 async def get_dev_token():
     """DEV ONLY: Issue a temporary token for testing protected APIs.
