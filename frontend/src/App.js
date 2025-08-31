@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './App.css';
-import './i18n/i18n'; // Ensure i18n is loaded
 import InteractiveQuiz from './components/InteractiveQuiz';
 import ResultsDashboard from './components/ResultsDashboard';
 import NavigationBar from './components/NavigationBar';
@@ -11,7 +10,6 @@ import { DevModeProvider, useDevMode } from './context/DevModeContext';
 import { ToastProvider, useToast } from './context/ToastContext';
 import DevToggle from './components/DevToggle';
 import DevTools from './components/DevTools';
-import LanguageSwitcher from './components/LanguageSwitcher';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import RoadmapPreview from './components/RoadmapPreview';
