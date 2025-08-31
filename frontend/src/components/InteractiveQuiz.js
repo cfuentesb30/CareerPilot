@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { api } from '../api/client';
 
 const InteractiveQuiz = ({ onComplete, onClose }) => {
   const { t } = useTranslation();
@@ -11,8 +12,6 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  const API_BASE = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
-
   useEffect(() => {
     startAssessment();
   }, []);
@@ -21,29 +20,12 @@ const InteractiveQuiz = ({ onComplete, onClose }) => {
     try {
       setLoading(true);
       
-      // Start new assessment
-      const startResponse = await fetch(`${API_BASE}/api/assessment/start`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({}),
-      });
-
-      if (!startResponse.ok) {
-        throw new Error('Failed to start assessment');
-      }
-
-      const startData = await startResponse.json();
+      // Start new assessment using api client
+      const startData = await api.post('/api/assessment/start', { user_email: null });
       setAssessmentId(startData.assessment_id);
 
-      // Get all questions
-      const questionsResponse = await fetch(`${API_BASE}/api/assessment/questions`);
-      if (!questionsResponse.ok) {
-        throw new Error('Failed to load questions');
-      }
-
-      const questionsData = await questionsResponse.json();
+      // Get all questions using api client
+      const questionsData = await api.get('/api/assessment/questions');
       setQuestions(questionsData.questions);
       setLoading(false);
     } catch (err) {
