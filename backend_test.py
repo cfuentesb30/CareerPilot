@@ -17,7 +17,11 @@ def get_backend_url():
         with open('/app/frontend/.env', 'r') as f:
             for line in f:
                 if line.startswith('REACT_APP_BACKEND_URL='):
-                    return line.split('=', 1)[1].strip()
+                    url = line.split('=', 1)[1].strip()
+                    # If the URL contains ngrok, use localhost instead for testing
+                    if 'ngrok' in url:
+                        return "http://localhost:8001"
+                    return url
     except FileNotFoundError:
         return "http://localhost:8001"
     return "http://localhost:8001"
