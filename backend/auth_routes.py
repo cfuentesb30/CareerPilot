@@ -39,11 +39,89 @@ async def send_password_reset_email(email: str, token: str):
 
 @router.post("/register", response_model=dict)
 async def register_user(user_data: UserRegistration, background_tasks: BackgroundTasks):
-    """Registration placeholder. Disabled for now; will be implemented later."""
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Registration is temporarily disabled. We will enable this soon."
-    )
+    """Register a new user with email verification."""
+    try:
+        # Validate email format
+        if not validate_email(user_data.email):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Invalid email format"
+            )
+        
+        # Validate password strength
+        if not validate_password(user_data.password):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Password must be at least 8 characters with letters and numbers"
+            )
+        
+        # Check if user already exists
+        existing_user = user_db.users.find_one({"email": user_data.email})
+        if existing_user:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="User with this email already exists"
+            )
+        
+        # Hash password
+        hashed_password = get_password_hash(user_data.password)
+        
+        # Generate verification token
+        verification_token = str(uuid.uuid4())
+        
+        # Create user record
+        user_id = str(uuid.uuid4())
+        user_record = {
+            "id": user_id,
+            "email": user_data.email,
+            "first_name": user_data.first_name,
+            "last_name": user_data.last_name,
+            "hashed_password": hashed_password,
+            "is_verified": False,
+            "verification_token": verification_token,
+            "created_at": datetime.now(),
+            "updated_at": datetime.now(),
+            "subscription_plan": "free",
+            "last_login": None
+        }
+        
+        # Insert user into database
+        user_db.users.insert_one(user_record)
+        
+        # Create default user profile
+        profile_record = {
+            "id": str(uuid.uuid4()),
+            "user_id": user_id,
+            "email": user_data.email,
+            "first_name": user_data.first_name,
+            "last_name": user_data.last_name,
+            "current_role": "",
+            "years_experience": 0,
+            "location": "",
+            "website": "",
+            "created_at": datetime.now(),
+            "updated_at": datetime.now()
+        }
+        
+        user_db.profiles.insert_one(profile_record)
+        
+        # Send verification email (background task)
+        background_tasks.add_task(send_verification_email, user_data.email, verification_token)
+        
+        return {
+            "message": "User registered successfully. Please check your email for verification.",
+            "user_id": user_id,
+            "email": user_data.email,
+            "requires_verification": True
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Registration failed: {str(e)}"
+        )
 
 @router.post("/login", response_model=TokenResponse)
 async def login_user(login_data: UserLogin):
