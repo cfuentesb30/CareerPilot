@@ -69,15 +69,13 @@
   "hero": {
     "title": "Encuentra Tu",
     "titleHighlight": "Carrera Ideal",
-    "titleSuffix": "con Athena",
-    "subtitle": "Athena, la asesora de IA de CareerPilot, analiza tus habilidades, intereses y objetivos para ayudarte a elegir la carrera perfecta.",
-    "startNowBtn": "🚀 Comenzar Ahora",
-    "assessmentBtn": "📋 Obtén Tu Evaluación Gratuita",
-    "free": "100% Gratis",
-    "aiPowered": "Impulsado por Athena",
-    "instantResults": "Resultados Instantáneos",
-    "aiAnalysis": "Análisis de Athena",
-    "smartRecommendations": "Recomendaciones inteligentes de Athena"
+    "subtitle": "con Athena",
+    "description": "Athena, la asesora de IA de CareerPilot, analiza tus habilidades, intereses y objetivos para ayudarte a elegir la carrera perfecta.",
+    "startBtn": "🚀 Comenzar Ahora",
+    "assessmentBtn": "📊 Obtén Tu Evaluación Gratuita",
+    "feature1": "100% Gratis",
+    "feature2": "Impulsado por Athena",
+    "feature3": "Resultados Instantáneos"
   },
   "howItWorks": {
     "title": "Cómo Funciona Athena",
