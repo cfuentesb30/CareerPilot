@@ -10,6 +10,7 @@ import { DevModeProvider, useDevMode } from './context/DevModeContext';
 import { ToastProvider, useToast } from './context/ToastContext';
 import DevToggle from './components/DevToggle';
 import DevTools from './components/DevTools';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import RoadmapPreview from './components/RoadmapPreview';
