@@ -439,6 +439,7 @@ const Footer = () => {
 
 // Main App Component
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [assessmentId, setAssessmentId] = useState(null);
@@ -454,6 +455,7 @@ function App() {
   const [showRoadmapManager, setShowRoadmapManager] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
   const [showDashboardPreview, setShowDashboardPreview] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
@@ -486,92 +488,167 @@ function App() {
     setShowRoadmapManager(true);
   };
 
+  const handleNavigate = (page) => {
+    setCurrentPage(page);
+    
+    // Handle special page navigation
+    switch(page) {
+      case 'pricing':
+        setShowPricing(true);
+        break;
+      case 'login':
+        setShowAuth('login');
+        break;
+      case 'signup':
+        setShowAuth('signup');
+        break;
+      default:
+        break;
+    }
+  };
+
+  const renderCurrentPage = () => {
+    switch(currentPage) {
+      case 'home':
+        return (
+          <>
+            <HeroSection onStartQuiz={handleStartQuiz} />
+            <HowItWorksSection />
+            <BenefitsSection 
+              onStartQuiz={handleStartQuiz}
+              onOpenProfile={() => setShowProfile(true)}
+              onOpenProfileEditor={() => setShowProfileEditor(true)}
+              onOpenAuth={(mode) => setShowAuth(mode)}
+              onOpenRoadmap={() => setShowRoadmap(true)}
+              onOpenChat={() => setShowChat(true)}
+              onOpenSkills={() => setShowSkills(true)}
+              onOpenCareers={() => setShowCareers(true)}
+              onOpenCerts={() => setShowCerts(true)}
+              onOpenRoadmapManager={() => setShowRoadmapManager(true)}
+              onOpenDashboard={() => setShowDashboard(true)}
+              onOpenDashboardPreview={() => setShowDashboardPreview(true)}
+            />
+            <TechnologySection />
+            <Footer />
+          </>
+        );
+      case 'about':
+        return (
+          <div className="pt-16 min-h-screen bg-gray-50">
+            <div className="container mx-auto px-6 py-16 text-center">
+              <h1 className="text-4xl font-bold text-dark-blue mb-8">About CareerPilot</h1>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                CareerPilot is revolutionizing career guidance with AI-powered insights from Athena. 
+                We help professionals make informed decisions about their career paths through 
+                personalized recommendations and expert guidance.
+              </p>
+            </div>
+          </div>
+        );
+      case 'contact':
+        return (
+          <div className="pt-16 min-h-screen bg-gray-50">
+            <div className="container mx-auto px-6 py-16 text-center">
+              <h1 className="text-4xl font-bold text-dark-blue mb-8">Contact Us</h1>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Have questions? We'd love to hear from you. Get in touch with our team.
+              </p>
+              <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto">
+                <div className="space-y-4">
+                  <div>
+                    <strong className="text-dark-blue">Email:</strong>
+                    <p className="text-gray-600">support@careerpilot.com</p>
+                  </div>
+                  <div>
+                    <strong className="text-dark-blue">Response Time:</strong>
+                    <p className="text-gray-600">Within 24 hours</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <DevModeProvider>
       <ToastProvider>
         <AuthProvider>
           <div className="App">
-      <HeroSection 
-        onStartQuiz={handleStartQuiz} 
-      />
-      <HowItWorksSection />
-      <BenefitsSection 
-        onStartQuiz={handleStartQuiz} 
-        onOpenProfile={() => setShowProfile(true)} 
-        onOpenProfileEditor={() => setShowProfileEditor(true)}
-        onOpenAuth={() => setShowAuth('signup')} 
-        onOpenRoadmap={() => setShowRoadmap(true)} 
-        onOpenChat={() => setShowChatUI(true)}
-        onOpenSkills={() => setShowSkills(true)}
-        onOpenCareers={() => setShowCareers(true)}
-        onOpenCerts={() => setShowCerts(true)}
-        onOpenRoadmapManager={() => setShowRoadmapManager(true)}
-        onOpenDashboard={() => setShowDashboard(true)}
-        onOpenDashboardPreview={() => setShowDashboardPreview(true)}
-      />
-      <TechnologySection onStartQuiz={handleStartQuiz} />
-      <Footer />
-      
-      {/* Interactive Components */}
-      {showQuiz && (
-        <InteractiveQuiz 
-          onComplete={handleQuizComplete}
-          onClose={handleCloseQuiz}
-        />
-      )}
-      
-      {showResults && assessmentId && (
-        <ResultsDashboard
-          assessmentId={assessmentId}
-          onClose={handleCloseResults}
-          onStartNew={handleStartNew}
-          onOpenRoadmap={handleOpenRoadmapFromResults}
-        />
-      )}
+            <NavigationBar 
+              onNavigate={handleNavigate} 
+              currentPage={currentPage}
+            />
+            
+            {renderCurrentPage()}
 
-      {showAuth && (
-        <AuthPlaceholder type={showAuth} onClose={() => setShowAuth(null)} />
-      )}
+            {/* Modals and Overlays */}
+            {showQuiz && (
+              <InteractiveQuiz 
+                onComplete={handleQuizComplete}
+                onClose={handleCloseQuiz}
+              />
+            )}
+            
+            {showResults && assessmentId && (
+              <ResultsDashboard
+                assessmentId={assessmentId}
+                onClose={handleCloseResults}
+                onStartNew={handleStartNew}
+                onOpenRoadmap={handleOpenRoadmapFromResults}
+              />
+            )}
 
-      {showProfile && (
-        <ProfilePreview onClose={() => setShowProfile(false)} onOpenSignUp={() => setShowAuth('signup')} />
-      )}
+            {showPricing && (
+              <PricingSection onClose={() => setShowPricing(false)} />
+            )}
 
-      {showProfileEditor && (
-        <ProfileEditor onClose={() => setShowProfileEditor(false)} />
-      )}
+            {showAuth && (
+              <AuthPlaceholder type={showAuth} onClose={() => setShowAuth(null)} />
+            )}
 
-      {showRoadmap && (
-        <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
-      )}
+            {showProfile && (
+              <ProfilePreview onClose={() => setShowProfile(false)} onOpenSignUp={() => setShowAuth('signup')} />
+            )}
 
-      {showChatUI && (
-        <ChatUI onClose={() => setShowChatUI(false)} onOpenSignUp={() => setShowAuth('signup')} />
-      )}
+            {showProfileEditor && (
+              <ProfileEditor onClose={() => setShowProfileEditor(false)} />
+            )}
 
-      {showSkills && (
-        <SkillsManager onClose={() => setShowSkills(false)} />
-      )}
+            {showRoadmap && (
+              <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
+            )}
 
-      {showCareers && (
-        <CareersManager onClose={() => setShowCareers(false)} />
-      )}
+            {showRoadmapManager && (
+              <RoadmapManager onClose={() => setShowRoadmapManager(false)} />
+            )}
 
-      {showCerts && (
-        <CertificationsManager onClose={() => setShowCerts(false)} />
-      )}
+            {showChat && (
+              <ChatUI onClose={() => setShowChat(false)} />
+            )}
 
-      {showRoadmapManager && (
-        <RoadmapManager onClose={() => setShowRoadmapManager(false)} />
-      )}
+            {showSkills && (
+              <SkillsManager onClose={() => setShowSkills(false)} />
+            )}
 
-      {showDashboard && (
-        <DashboardModal onClose={() => setShowDashboard(false)} />
-      )}
+            {showCareers && (
+              <CareersManager onClose={() => setShowCareers(false)} />
+            )}
 
-      {showDashboardPreview && (
-        <DashboardPreview onClose={() => setShowDashboardPreview(false)} onOpenSignUp={() => setShowAuth('signup')} />
-      )}
+            {showCerts && (
+              <CertificationsManager onClose={() => setShowCerts(false)} />
+            )}
+
+            {showDashboard && (
+              <DashboardModal onClose={() => setShowDashboard(false)} />
+            )}
+
+            {showDashboardPreview && (
+              <DashboardPreview onClose={() => setShowDashboardPreview(false)} />
+            )}
           </div>
         </AuthProvider>
       </ToastProvider>
