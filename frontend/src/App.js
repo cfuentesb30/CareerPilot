@@ -570,6 +570,8 @@ function App() {
             </div>
           </div>
         );
+      case 'profile':
+        return <ProfilePage />;
       default:
         return null;
     }
