@@ -271,7 +271,7 @@ async def send_verification_email(email: str, verification_token: str):
     try:
         # For now, using a placeholder verification link
         # In production, this should be your actual domain
-        verification_link = f"https://career-compass-97.preview.emergentagent.com/verify-email?token={verification_token}"
+        verification_link = f"https://athena-advisor.preview.emergentagent.com/verify-email?token={verification_token}"
         
         # Extract name from email (simple approach)
         user_name = email.split('@')[0].replace('.', ' ').replace('_', ' ').title()
