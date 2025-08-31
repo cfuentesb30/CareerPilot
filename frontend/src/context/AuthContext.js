@@ -28,7 +28,20 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const value = useMemo(() => ({ token, loading, setToken, clearToken, fetchDevToken, isAuthed: !!token }), [token, loading]);
+  const logout = () => {
+    clearToken();
+    // Could add additional logout logic here if needed (e.g., API call to invalidate token)
+  };
+
+  const value = useMemo(() => ({ 
+    token, 
+    loading, 
+    setToken, 
+    clearToken, 
+    logout,
+    fetchDevToken, 
+    isAuthed: !!token 
+  }), [token, loading]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
