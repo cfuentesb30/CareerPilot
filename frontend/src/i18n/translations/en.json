@@ -66,15 +66,13 @@
   "hero": {
     "title": "Find Your Ideal",
     "titleHighlight": "Career Path",
-    "titleSuffix": "with Athena",
-    "subtitle": "CareerPilot's AI advisor Athena analyzes your skills, interests, and goals to help you choose the perfect career.",
-    "startNowBtn": "🚀 Start Now",
-    "assessmentBtn": "📋 Get Your Free Career Assessment",
-    "free": "100% Free",
-    "aiPowered": "AI-Powered by Athena",
-    "instantResults": "Instant Results",
-    "aiAnalysis": "Athena Analysis",
-    "smartRecommendations": "Smart career recommendations by Athena"
+    "subtitle": "with Athena",
+    "description": "CareerPilot's AI advisor Athena analyzes your skills, interests, and goals to help you choose the perfect career.",
+    "startBtn": "🚀 Start Now",
+    "assessmentBtn": "📊 Get Your Free Career Assessment",
+    "feature1": "100% Free",
+    "feature2": "AI-Powered by Athena", 
+    "feature3": "Instant Results"
   },
   "howItWorks": {
     "title": "How Athena Works",
