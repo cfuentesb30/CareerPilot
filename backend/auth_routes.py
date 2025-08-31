@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, status, Depends, BackgroundTasks
+from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer
 from user_models import *
 from user_database import user_db
 from auth import *
+from email_service import send_verification_email, send_welcome_email
 import uuid
 from datetime import datetime, timedelta
 import re
