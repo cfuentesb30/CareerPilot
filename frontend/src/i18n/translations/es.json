@@ -8,7 +8,10 @@
     "signup": "Registrarse", 
     "profile": "Perfil",
     "dashboard": "Panel",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español"
   },
   "pricing": {
     "title": "Elige Tu Plan",
