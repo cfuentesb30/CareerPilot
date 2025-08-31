@@ -4,12 +4,30 @@ import { useAuth } from '../context/AuthContext';
 import { useDevMode } from '../context/DevModeContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const NavigationBar = ({ onNavigate, currentPage }) => {
+const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard }) => {
   const { t } = useTranslation();
-  const { isAuthed, user } = useAuth();
+  const { isAuthed, user, logout } = useAuth();
   const { devMode, toggleDevMode } = useDevMode();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const handleUserMenuClick = (action) => {
+    setShowUserMenu(false); // Close the menu
+    
+    switch(action) {
+      case 'profile':
+        if (onOpenProfile) onOpenProfile();
+        break;
+      case 'dashboard':
+        if (onOpenDashboard) onOpenDashboard();
+        break;
+      case 'logout':
+        logout();
+        break;
+      default:
+        break;
+    }
+  };
 
   const navigation = [
     { name: t('nav.home'), key: 'home' },
