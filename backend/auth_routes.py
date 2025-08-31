@@ -27,17 +27,7 @@ def validate_email(email: str) -> bool:
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(pattern, email) is not None
 
-async def send_verification_email(email: str, token: str):
-    """Send verification email (placeholder - implement with your email service)."""
-    # TODO: Implement actual email sending
-    print(f"Verification email would be sent to {email} with token {token}")
-    # Example verification URL: https://careerpilot.com/verify-email?token={token}
 
-async def send_password_reset_email(email: str, token: str):
-    """Send password reset email (placeholder)."""
-    # TODO: Implement actual email sending  
-    print(f"Password reset email would be sent to {email} with token {token}")
-    # Example reset URL: https://careerpilot.com/reset-password?token={token}
 
 @router.post("/register", response_model=dict)
 async def register_user(user_data: UserRegistration, background_tasks: BackgroundTasks):
