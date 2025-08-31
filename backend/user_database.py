@@ -24,6 +24,7 @@ class UserDatabaseManager:
         self.messages = self.db.messages
         self.roadmap_items = self.db.roadmap_items
         self.user_progress = self.db.user_progress
+        self.payment_transactions = self.db.payment_transactions
         
         # Initialize default skills
         self._initialize_default_skills()
