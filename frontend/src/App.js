@@ -637,6 +637,16 @@ function App() {
               <ProfilePreview onClose={() => setShowProfile(false)} onOpenSignUp={() => setShowAuth('signup')} />
             )}
 
+            {showUserProfile && (
+              <UserProfile 
+                onClose={() => setShowUserProfile(false)} 
+                onEdit={() => {
+                  setShowUserProfile(false);
+                  setShowProfileEditor(true);
+                }}
+              />
+            )}
+
             {showProfileEditor && (
               <ProfileEditor onClose={() => setShowProfileEditor(false)} />
             )}
