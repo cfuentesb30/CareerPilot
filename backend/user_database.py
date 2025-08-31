@@ -25,6 +25,7 @@ class UserDatabaseManager:
         self.roadmap_items = self.db.roadmap_items
         self.user_progress = self.db.user_progress
         self.payment_transactions = self.db.payment_transactions
+        self.sessions = self.db.sessions  # OAuth session storage
         
         # Initialize default skills
         self._initialize_default_skills()
