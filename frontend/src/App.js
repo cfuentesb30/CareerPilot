@@ -248,8 +248,12 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenUserProfile, onOpen
               >
                 {t('benefits.startBtn')}
               </button>
-              {isAuthed && devMode ? (
-                <button onClick={onOpenProfileEditor} className="btn-secondary">Edit Profile (Dev)</button>
+              {isAuthed ? (
+                devMode ? (
+                  <button onClick={onOpenProfileEditor} className="btn-secondary">Edit Profile (Dev)</button>
+                ) : (
+                  <button onClick={onOpenUserProfile} className="btn-secondary">My Profile</button>
+                )
               ) : (
                 <button onClick={onOpenProfile} className="btn-secondary">{t('profilePreview.title')}</button>
               )}
