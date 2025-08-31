@@ -33,7 +33,7 @@ export async function apiFetch(path, options = {}) {
   const headers = new Headers(options.headers || {});
   const token = getToken();
   if (token) headers.set('Authorization', `Bearer ${token}`);
-  if (!headers.has('Content-Type') && options.body && typeof options.body === 'object') {
+  if (!headers.has('Content-Type') && options.body) {
     headers.set('Content-Type', 'application/json');
   }
   
