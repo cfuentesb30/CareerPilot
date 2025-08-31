@@ -175,6 +175,15 @@ const SignUpForm = ({ onClose, onSwitchToLogin }) => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          {/* Google OAuth Button */}
+          <GoogleAuthButton text="Sign up with Google" />
+          
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-1 border-t border-gray-300"></div>
+            <span className="px-4 text-gray-500 text-sm">Or sign up with email</span>
+            <div className="flex-1 border-t border-gray-300"></div>
+          </div>
           {/* Name Fields */}
           <div className="grid grid-cols-2 gap-4">
             <div>
