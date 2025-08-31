@@ -1648,7 +1648,8 @@ class BackendTester:
             self.test_payment_checkout_session_creation,
             self.test_payment_status_endpoint,
             self.test_payment_database_integration,
-            self.test_payment_authentication_integration
+            self.test_payment_authentication_integration,
+            self.test_registration_functionality
         ]
         
         for test in tests:
