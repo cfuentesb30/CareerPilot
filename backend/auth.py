@@ -76,6 +76,19 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     user_id = verify_token(token)
     return user_id
 
+def get_current_user_optional(credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False))) -> Optional[str]:
+    """Extract user ID from JWT token, return None if no token provided."""
+    if not credentials:
+        return None
+    
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: str = payload.get("sub")
+        return user_id
+    except JWTError:
+        return None
+
 class AuthTokens:
     """Class to hold authentication tokens."""
     def __init__(self, access_token: str, refresh_token: str, token_type: str = "bearer"):
