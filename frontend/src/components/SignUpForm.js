@@ -65,7 +65,8 @@ const SignUpForm = ({ onClose, onSwitchToLogin }) => {
         first_name: formData.firstName,
         last_name: formData.lastName,
         email: formData.email,
-        password: formData.password
+        password: formData.password,
+        confirm_password: formData.confirmPassword
       });
 
       showToast('Account created successfully! Check your email for verification.', 'success');
