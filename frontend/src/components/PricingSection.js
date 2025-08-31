@@ -238,8 +238,8 @@ const PricingSection = ({ onClose }) => {
                 key={plan.id}
                 className={`relative rounded-2xl border-2 p-6 transition-all duration-300 hover:shadow-xl ${
                   plan.popular
-                    ? 'border-soft-green shadow-lg scale-105 bg-gradient-to-br from-soft-green/5 to-green-50'
-                    : 'border-gray-200 hover:border-soft-green/50'
+                    ? 'border-soft-green shadow-lg scale-105 lg:scale-110 bg-gradient-to-br from-soft-green/5 to-green-50 z-10 transform hover:scale-105 lg:hover:scale-115'
+                    : 'border-gray-200 hover:border-soft-green/50 hover:scale-102'
                 }`}
               >
                 {/* Popular Badge */}
