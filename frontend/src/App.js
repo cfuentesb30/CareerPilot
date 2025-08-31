@@ -525,6 +525,7 @@ function App() {
             <BenefitsSection 
               onStartQuiz={handleStartQuiz}
               onOpenProfile={() => setShowProfile(true)}
+              onOpenUserProfile={() => setShowUserProfile(true)}
               onOpenProfileEditor={() => setShowProfileEditor(true)}
               onOpenAuth={(mode) => setShowAuth(mode)}
               onOpenRoadmap={() => setShowRoadmap(true)}
