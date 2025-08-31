@@ -330,26 +330,26 @@ class BackendTester:
     def test_auth_router_endpoints(self):
         """Test auth router endpoints are mounted and return expected responses"""
         try:
-            # Test /api/auth/register - should return 501 (not implemented) or 422 (validation error)
+            # Test /api/auth/register - should return 422 for incomplete data (missing required fields)
             register_response = requests.post(f"{API_BASE}/auth/register", 
                                             json={"email": "test@example.com", "password": "test123"}, 
                                             timeout=5)
             
-            # Test /api/auth/login - should return 501 (not implemented) or 422 (validation error)
+            # Test /api/auth/login - should return 401 for invalid credentials
             login_response = requests.post(f"{API_BASE}/auth/login", 
                                          json={"email": "invalid@example.com", "password": "invalid"}, 
                                          timeout=5)
             
-            register_ok = register_response.status_code in [501, 422]  # Accept both
-            login_ok = login_response.status_code in [501, 422]  # Accept both for disabled auth
+            register_ok = register_response.status_code == 422  # Missing required fields
+            login_ok = login_response.status_code == 401  # Invalid credentials
             
             if register_ok and login_ok:
                 self.log_test("Auth Router Endpoints", True, 
-                            f"Register: {register_response.status_code}, Login: {login_response.status_code}")
+                            f"Register: {register_response.status_code} (validation error for missing fields), Login: {login_response.status_code} (invalid credentials)")
                 return True
             else:
                 self.log_test("Auth Router Endpoints", False, 
-                            f"Unexpected status codes - Register: {register_response.status_code}, Login: {login_response.status_code}")
+                            f"Unexpected status codes - Register: {register_response.status_code} (expected 422), Login: {login_response.status_code} (expected 401)")
                 return False
                 
         except Exception as e:
