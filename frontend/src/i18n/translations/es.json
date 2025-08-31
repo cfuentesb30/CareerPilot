@@ -1,8 +1,67 @@
 {
   "nav": {
-    "language": "Idioma",
-    "english": "Inglés",
-    "spanish": "Español"
+    "home": "Inicio",
+    "pricing": "Precios",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "signup": "Registrarse", 
+    "profile": "Perfil",
+    "dashboard": "Panel",
+    "logout": "Cerrar sesión"
+  },
+  "pricing": {
+    "title": "Elige Tu Plan",
+    "subtitle": "Desbloquea tu potencial profesional con el plan adecuado para ti",
+    "free": {
+      "name": "Gratis",
+      "period": "siempre",
+      "feature1": "Evaluación básica",
+      "feature2": "1 sugerencia de carrera",
+      "feature3": "Acceso básico a preguntas de Athena", 
+      "feature4": "Sin guardado de progreso",
+      "button": "Empezar Gratis",
+      "message": "¡Bienvenido a CareerPilot! Ahora estás usando el plan gratuito."
+    },
+    "starter": {
+      "name": "Iniciador",
+      "period": "/mes",
+      "feature1": "Evaluación completa",
+      "feature2": "Hasta 3 sugerencias de carrera",
+      "feature3": "Seguimiento de progreso limitado",
+      "button": "Empezar Plan Iniciador"
+    },
+    "pro": {
+      "name": "Profesional", 
+      "period": "/mes",
+      "feature1": "Evaluaciones y sugerencias ilimitadas",
+      "feature2": "Panel de progreso completo",
+      "feature3": "Consejos avanzados de Athena",
+      "button": "Mejorar a Pro"
+    },
+    "student": {
+      "name": "Estudiante",
+      "period": "/mes",
+      "feature1": "Lo mismo que Pro",
+      "feature2": "Tarifa con descuento para estudiantes",
+      "button": "Plan Estudiante", 
+      "badge": "Descuento"
+    },
+    "lifetime": {
+      "name": "Acceso de Por Vida",
+      "period": "pago único", 
+      "feature1": "Todas las características Pro",
+      "feature2": "Pago único en lugar de suscripción",
+      "button": "Comprar de Por Vida",
+      "badge": "Mejor Valor"
+    },
+    "messages": {
+      "success": "¡Pago exitoso! Gracias por tu compra.",
+      "cancelled": "El pago fue cancelado. Puedes intentar de nuevo cuando quieras.",
+      "expired": "La sesión de pago expiró. Por favor intenta de nuevo.",
+      "timeout": "El tiempo de verificación de pago se agotó. Por favor revisa tu correo para confirmación.",
+      "error": "Error al verificar el estado del pago. Por favor intenta de nuevo."
+    }
   },
   "hero": {
     "title": "Encuentra Tu",
