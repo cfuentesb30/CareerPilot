@@ -493,9 +493,6 @@ function App() {
           <div className="App">
       <HeroSection 
         onStartQuiz={handleStartQuiz} 
-        onOpenAuth={(mode) => setShowAuth(mode)} 
-        onOpenProfile={() => setShowProfile(true)} 
-        onOpenProfileEditor={() => setShowProfileEditor(true)}
       />
       <HowItWorksSection />
       <BenefitsSection 
