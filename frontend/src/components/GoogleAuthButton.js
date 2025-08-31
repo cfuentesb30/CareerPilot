@@ -8,7 +8,7 @@ const GoogleAuthButton = ({ text = "Continue with Google", className = "" }) => 
     setLoading(true);
     try {
       // Get Google OAuth URL from backend
-      const response = await api.get('/api/oauth/google/login-url');
+      const response = await api.get('/api/auth/google/login');
       const { auth_url } = response;
       
       // Redirect to Google Auth
