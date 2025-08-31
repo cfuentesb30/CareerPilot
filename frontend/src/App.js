@@ -590,6 +590,9 @@ function App() {
       <ToastProvider>
         <AuthProvider>
           <div className="App">
+            {/* Google OAuth Callback Handler */}
+            <GoogleCallback />
+            
             <NavigationBar 
               onNavigate={handleNavigate} 
               currentPage={currentPage}
