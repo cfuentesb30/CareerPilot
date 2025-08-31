@@ -497,20 +497,20 @@ function App() {
   };
 
   const handleNavigate = (page) => {
-    setCurrentPage(page);
-    
-    // Handle special page navigation
+    // Handle special page navigation that don't change currentPage
     switch(page) {
       case 'pricing':
         setShowPricing(true);
-        break;
+        // Don't change currentPage for modal-based navigation
+        return;
       case 'login':
         setShowAuth('login');
-        break;
+        return;
       case 'signup':
         setShowAuth('signup');
-        break;
+        return;
       default:
+        setCurrentPage(page);
         break;
     }
   };
