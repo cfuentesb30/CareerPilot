@@ -36,6 +36,15 @@ export async function apiFetch(path, options = {}) {
   if (!headers.has('Content-Type') && options.body && typeof options.body === 'object') {
     headers.set('Content-Type', 'application/json');
   }
+  
+  // Debug logging
+  console.log('API Request:', {
+    url: `${BACKEND_URL}${path}`,
+    method: options.method || 'GET',
+    headers: Object.fromEntries(headers.entries()),
+    body: options.body
+  });
+  
   const res = await fetch(`${BACKEND_URL}${path}`, { ...options, headers });
   let data = null;
   const ct = res.headers.get('content-type') || '';
@@ -44,6 +53,13 @@ export async function apiFetch(path, options = {}) {
   } else {
     data = await res.text();
   }
+  
+  console.log('API Response:', {
+    status: res.status,
+    contentType: ct,
+    data: data
+  });
+  
   if (!res.ok) {
     let errorMessage = 'Request failed';
     if (typeof data === 'string') {
