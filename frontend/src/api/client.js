@@ -85,7 +85,19 @@ export async function apiFetch(path, options = {}) {
 
 export const api = {
   get: (path) => apiFetch(path, { method: 'GET' }),
-  post: (path, body) => apiFetch(path, { method: 'POST', body: body ? JSON.stringify(body) : undefined }),
-  put: (path, body) => apiFetch(path, { method: 'PUT', body: body ? JSON.stringify(body) : undefined }),
+  post: (path, body) => {
+    const options = { method: 'POST' };
+    if (body !== undefined && body !== null) {
+      options.body = JSON.stringify(body);
+    }
+    return apiFetch(path, options);
+  },
+  put: (path, body) => {
+    const options = { method: 'PUT' };
+    if (body !== undefined && body !== null) {
+      options.body = JSON.stringify(body);
+    }
+    return apiFetch(path, options);
+  },
   del: (path) => apiFetch(path, { method: 'DELETE' })
 };
