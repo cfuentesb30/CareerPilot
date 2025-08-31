@@ -6,6 +6,8 @@ import ResultsDashboard from './components/ResultsDashboard';
 import NavigationBar from './components/NavigationBar';
 import PricingSection from './components/PricingSection';
 import DevTools from './components/DevTools';
+import SignUpForm from './components/SignUpForm';
+import LoginForm from './components/LoginForm';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { DevModeProvider, useDevMode } from './context/DevModeContext';
 import { ToastProvider, useToast } from './context/ToastContext';
