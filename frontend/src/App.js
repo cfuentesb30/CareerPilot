@@ -24,122 +24,95 @@ import DashboardModal from './components/DashboardModal';
 import DashboardPreview from './components/DashboardPreview';
 
 // Hero Section Component
-const HeroSection = ({ onStartQuiz, onOpenAuth, onOpenProfile, onOpenProfileEditor }) => {
+const HeroSection = ({ onStartQuiz }) => {
   const { t } = useTranslation();
-  const { isAuthed } = useAuth();
-  const { devMode } = useDevMode();
   
   return (
-    <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden">
-      {/* Header with Logo and Language Switcher */}
-      <div className="absolute top-0 left-0 right-0 z-30 p-6">
-        <div className="flex justify-between items-center">
-          
-          {/* Logo Placeholder - Replace with your actual logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/30">
-              <span className="text-2xl font-bold text-white">CP</span>
-            </div>
-            <div className="text-white">
-              <div className="text-xl font-bold">CareerPilot</div>
-              <div className="text-sm text-blue-200">powered by Athena</div>
-            </div>
-          </div>
-          
-          {/* Right Controls */}
-          <div className="flex items-center gap-3">
-            {isAuthed && devMode ? (
-              <button onClick={() => onOpenProfileEditor && onOpenProfileEditor()} className="hidden sm:inline-flex btn-secondary py-2 px-4">
-                Edit Profile (Dev)
-              </button>
-            ) : (
-              <button onClick={() => onOpenProfile && onOpenProfile()} className="hidden sm:inline-flex btn-secondary py-2 px-4">
-                {t('profilePreview.title')}
-              </button>
-            )}
-            <button onClick={() => onOpenAuth && onOpenAuth('signup')} className="hidden sm:inline-flex btn-primary py-2 px-4">
-              {t('auth.signupCTA')}
-            </button>
-            <DevToggle />
-            <DevTools />
-            <LanguageSwitcher />
-          </div>
-        </div>
-      </div>
-      
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-transparent"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-soft-green/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-teal/10 rounded-full blur-3xl"></div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              {t('hero.title')} 
-              <span className="text-soft-green block mt-2">{t('hero.titleHighlight')}</span>
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-normal mt-4 block">{t('hero.titleSuffix')}</span>
+    <section className="gradient-bg text-white min-h-screen flex items-center relative overflow-hidden pt-16">
+      <div className="container mx-auto px-6 lg:px-8 z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-4rem)]">
+          {/* Content */}
+          <div className="space-y-8 text-center lg:text-left">
+            <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+              {t('hero.title')}{' '}
+              <span className="text-soft-green block lg:inline">
+                {t('hero.titleHighlight')}
+              </span>
+              <div className="text-3xl lg:text-5xl font-light mt-2 text-blue-200">
+                {t('hero.subtitle')}
+              </div>
             </h1>
             
-            <p className="text-xl sm:text-2xl text-blue-100 mb-8 max-w-2xl mx-auto lg:mx-0">
-              {t('hero.subtitle')}
+            <p className="text-xl lg:text-2xl text-blue-100 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              {t('hero.description')}
             </p>
             
+            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={onStartQuiz}
                 className="btn-primary text-lg px-8 py-4 transform hover:scale-105 transition-all duration-300"
               >
-                {t('hero.startNowBtn')}
+                {t('hero.startBtn')}
               </button>
               <button 
                 onClick={onStartQuiz}
-                className="btn-secondary text-lg px-8 py-4"
+                className="btn-secondary text-lg px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-dark-blue"
               >
                 {t('hero.assessmentBtn')}
               </button>
             </div>
             
-            <div className="mt-8 flex items-center gap-6 justify-center lg:justify-start text-blue-200">
+            {/* Features */}
+            <div className="flex flex-wrap gap-6 justify-center lg:justify-start text-sm">
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span className="text-sm">{t('hero.free')}</span>
+                <span className="text-soft-green">✓</span>
+                <span>{t('hero.feature1')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span className="text-sm">{t('hero.aiPowered')}</span>
+                <span className="text-soft-green">✓</span>
+                <span>{t('hero.feature2')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-soft-green" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path>
-                </svg>
-                <span className="text-sm">{t('hero.instantResults')}</span>
+                <span className="text-soft-green">✓</span>
+                <span>{t('hero.feature3')}</span>
               </div>
             </div>
           </div>
           
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-soft-green/20 to-teal/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20 float-animation">
-                <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-white/10 to-white/5 rounded-full flex items-center justify-center border border-white/30">
+          {/* Visual */}
+          <div className="relative">
+            <div className="relative z-10">
+              <div className="w-80 h-80 lg:w-96 lg:h-96 mx-auto bg-gradient-to-br from-soft-green/20 to-teal/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
+                <div className="w-60 h-60 lg:w-72 lg:h-72 bg-gradient-to-br from-soft-green to-teal rounded-full flex items-center justify-center shadow-2xl">
                   <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-soft-green rounded-full flex items-center justify-center">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">{t('hero.aiAnalysis')}</h3>
-                    <p className="text-blue-100">{t('hero.smartRecommendations')}</p>
+                    <div className="text-6xl mb-4">💡</div>
+                    <div className="text-xl font-bold">Athena Analysis</div>
+                    <div className="text-sm text-blue-200 mt-2">Smart career recommendations by Athena</div>
                   </div>
                 </div>
               </div>
             </div>
+            
+            {/* Floating Elements */}
+            <div className="absolute top-4 left-4 w-16 h-16 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20 flex items-center justify-center animate-float">
+              <span className="text-2xl">🎯</span>
+            </div>
+            <div className="absolute top-20 right-8 w-12 h-12 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 flex items-center justify-center animate-float-delayed">
+              <span className="text-xl">📊</span>
+            </div>
+            <div className="absolute bottom-20 left-8 w-14 h-14 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 flex items-center justify-center animate-float">
+              <span className="text-xl">🚀</span>
+            </div>
           </div>
         </div>
+      </div>
+      
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-soft-green rounded-full blur-xl"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-teal rounded-full blur-lg"></div>
+        <div className="absolute bottom-32 left-1/4 w-40 h-40 bg-blue-400 rounded-full blur-2xl"></div>
       </div>
     </section>
   );
