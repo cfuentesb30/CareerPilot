@@ -244,8 +244,8 @@ const PricingSection = ({ onClose }) => {
               >
                 {/* Popular Badge */}
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-soft-green to-green-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <span className="bg-gradient-to-r from-soft-green to-green-600 text-white px-4 py-1.5 lg:px-6 lg:py-2 rounded-full text-sm lg:text-base font-bold shadow-lg animate-pulse">
                       {isSpanish ? 'Más Popular' : 'Most Popular'}
                     </span>
                   </div>
