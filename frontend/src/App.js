@@ -584,6 +584,9 @@ function App() {
               onOpenDashboard={() => setShowDashboard(true)}
             />
             
+            {/* Dev Tools - floating when dev mode is enabled */}
+            <DevTools />
+            
             {renderCurrentPage()}
 
             {/* Modals and Overlays */}
