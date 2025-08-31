@@ -125,11 +125,52 @@ async def register_user(user_data: UserRegistration, background_tasks: Backgroun
 
 @router.post("/login", response_model=TokenResponse)
 async def login_user(login_data: UserLogin):
-    """Login placeholder. Disabled for now; will be implemented later."""
-    raise HTTPException(
-        status_code=status.HTTP_501_NOT_IMPLEMENTED,
-        detail="Login is temporarily disabled. We will enable this soon."
-    )
+    """Authenticate user and return JWT token."""
+    try:
+        # Find user by email
+        user = user_db.users.find_one({"email": login_data.email})
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password"
+            )
+        
+        # Verify password
+        if not verify_password(login_data.password, user["hashed_password"]):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password"
+            )
+        
+        # Check if email is verified
+        if not user.get("is_verified", False):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Please verify your email before logging in"
+            )
+        
+        # Update last login
+        user_db.users.update_one(
+            {"id": user["id"]},
+            {"$set": {"last_login": datetime.now()}}
+        )
+        
+        # Create JWT token
+        token_data = {"sub": user["id"], "email": user["email"]}
+        access_token = create_access_token(data=token_data)
+        
+        return TokenResponse(
+            access_token=access_token,
+            token_type="bearer"
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Login failed: {str(e)}"
+        )
 
 @router.post("/refresh", response_model=TokenResponse)
 async def refresh_access_token(refresh_data: RefreshTokenRequest):
