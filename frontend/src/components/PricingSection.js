@@ -290,7 +290,9 @@ const PricingSection = ({ onClose }) => {
                   onClick={() => handleSelectPlan(plan.id)}
                   disabled={loading && processingPlan === plan.id}
                   className={`w-full py-3 rounded-xl font-medium transition-all duration-300 ${
-                    plan.buttonStyle === 'btn-primary'
+                    plan.id === 'free'
+                      ? 'border-2 border-dark-blue text-dark-blue hover:bg-dark-blue hover:text-white'
+                      : plan.buttonStyle === 'btn-primary'
                       ? 'bg-gradient-to-r from-soft-green to-green-600 hover:from-green-600 hover:to-soft-green text-white shadow-lg hover:shadow-xl'
                       : 'border-2 border-dark-blue text-dark-blue hover:bg-dark-blue hover:text-white'
                   } ${loading && processingPlan === plan.id ? 'opacity-50 cursor-not-allowed' : ''}`}
