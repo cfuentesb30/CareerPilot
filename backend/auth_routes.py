@@ -47,6 +47,13 @@ async def register_user(user_data: UserRegistration, background_tasks: Backgroun
                 detail="Password must be at least 8 characters with letters and numbers"
             )
         
+        # Validate password confirmation
+        if user_data.password != user_data.confirm_password:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Passwords do not match"
+            )
+        
         # Check if user already exists
         existing_user = user_db.users.find_one({"email": user_data.email})
         if existing_user:
