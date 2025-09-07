@@ -742,6 +742,10 @@ function App() {
               <ProfileEditor onClose={() => setShowProfileEditor(false)} />
             )}
 
+            {showEnterpriseAdmin && (
+              <EnterpriseAdmin onClose={() => setShowEnterpriseAdmin(false)} />
+            )}
+
             {showRoadmap && (
               <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
             )}
