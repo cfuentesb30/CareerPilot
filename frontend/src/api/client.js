@@ -50,7 +50,7 @@ export async function apiFetch(path, options = {}) {
     headers.set('Content-Type', 'application/json');
   }
   
-  const res = await fetch(`${BACKEND_URL}${path}`, { ...options, headers });
+  const res = await fetch(`${baseURL}${path}`, { ...options, headers });
   let data = null;
   const ct = res.headers.get('content-type') || '';
   if (ct.includes('application/json')) {
