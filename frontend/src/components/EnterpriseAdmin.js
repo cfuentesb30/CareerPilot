@@ -88,7 +88,8 @@ const EnterpriseAdmin = ({ onClose }) => {
 
   const updateBranding = async (brandingData) => {
     try {
-      await api.put(`/api/enterprise/organizations/${organizationData.id}/branding`, brandingData);
+      const orgId = "demo-org";
+      await api.put(`/api/enterprise/organizations/${orgId}/branding`, brandingData);
       showToast('Branding updated successfully', 'success');
       setBranding({ ...branding, ...brandingData });
     } catch (error) {
