@@ -677,6 +677,7 @@ function App() {
               currentPage={currentPage}
               onOpenProfile={() => setShowUserProfile(true)}
               onOpenDashboard={() => setShowDashboard(true)}
+              onOpenEnterpriseAdmin={() => setShowEnterpriseAdmin(true)}
             />
             
             {/* Dev Tools - floating when dev mode is enabled */}
