@@ -677,6 +677,9 @@ function App() {
       <ToastProvider>
         <AuthProvider>
           <div className="App">
+            {/* Demo Mode Banner */}
+            {isDemoMode && <DemoBanner />}
+            
             {/* Google OAuth Callback Handler */}
             <GoogleCallback />
             
