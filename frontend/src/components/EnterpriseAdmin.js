@@ -957,19 +957,7 @@ const EnterpriseAdmin = ({ onClose }) => {
           {activeTab === 'overview' && renderOverview()}
           {activeTab === 'users' && renderUsers()}
           {activeTab === 'branding' && renderBranding()}
-          {activeTab === 'teams' && (
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <div className="flex items-center gap-3 mb-4">
-                <img 
-                  src="/athena-logo.png" 
-                  alt="Athena Logo" 
-                  className="w-6 h-6 object-contain"
-                />
-                <h3 className="text-xl font-bold text-dark-blue">Team Management</h3>
-              </div>
-              <p className="text-gray-600">Team management features coming soon...</p>
-            </div>
-          )}
+          {activeTab === 'teams' && renderTeams()}
           {activeTab === 'analytics' && (
             <div className="bg-white rounded-2xl p-6 shadow-lg">
               <div className="flex items-center gap-3 mb-4">
