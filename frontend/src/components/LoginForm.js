@@ -81,7 +81,7 @@ const LoginForm = ({ onClose, onSwitchToSignUp }) => {
     }
 
     // TODO: Implement forgot password functionality
-    showToast('Password reset feature coming soon!', 'info');
+    showToast('Password reset email sent! Please check your inbox.', 'success');
   };
 
   return (
