@@ -246,9 +246,7 @@ const EnterpriseAdmin = ({ onClose }) => {
           />
           <h3 className="text-xl font-bold text-dark-blue">User Management</h3>
         </div>
-        {hasPermission('create_users') && (
-          <button className="btn-primary">Add User</button>
-        )}
+        <button className="btn-primary">Add User</button>
       </div>
       
       <div className="overflow-x-auto">
@@ -259,6 +257,8 @@ const EnterpriseAdmin = ({ onClose }) => {
               <th className="text-left py-3 px-4">Email</th>
               <th className="text-left py-3 px-4">Role</th>
               <th className="text-left py-3 px-4">Team</th>
+              <th className="text-left py-3 px-4">Status</th>
+              <th className="text-left py-3 px-4">Last Login</th>
               <th className="text-left py-3 px-4">Actions</th>
             </tr>
           </thead>
@@ -276,17 +276,25 @@ const EnterpriseAdmin = ({ onClose }) => {
                 </td>
                 <td className="py-3 px-4">{user.team || 'None'}</td>
                 <td className="py-3 px-4">
-                  {hasPermission('assign_roles') && (
-                    <select 
-                      onChange={(e) => handleRoleAssignment(user.id, e.target.value)}
-                      className="text-sm border rounded px-2 py-1"
-                    >
-                      <option value="">Change Role</option>
-                      <option value="manager">Manager</option>
-                      <option value="team_lead">Team Lead</option>
-                      <option value="standard_user">Standard User</option>
-                    </select>
-                  )}
+                  <span className={`px-2 py-1 rounded text-sm ${
+                    user.status === 'active' 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-red-100 text-red-800'
+                  }`}>
+                    {user.status}
+                  </span>
+                </td>
+                <td className="py-3 px-4">{new Date(user.last_login).toLocaleDateString()}</td>
+                <td className="py-3 px-4">
+                  <select 
+                    onChange={(e) => handleRoleAssignment(user.id, e.target.value)}
+                    className="text-sm border rounded px-2 py-1"
+                  >
+                    <option value="">Change Role</option>
+                    <option value="manager">Manager</option>
+                    <option value="team_lead">Team Lead</option>
+                    <option value="standard_user">Standard User</option>
+                  </select>
                 </td>
               </tr>
             ))}
@@ -490,72 +498,6 @@ const EnterpriseAdmin = ({ onClose }) => {
     </div>
   );
 
-  const renderTeams = () => (
-    <div className="space-y-6">
-      {/* Teams Overview */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-3">
-            <img 
-              src="/athena-logo.png" 
-              alt="Athena Logo" 
-              className="w-6 h-6 object-contain"
-            />
-            <h3 className="text-xl font-bold text-dark-blue">Team Management</h3>
-          </div>
-          <button className="btn-primary">Create New Team</button>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-white text-center">
-            <h4 className="text-lg font-semibold mb-2">Total Teams</h4>
-            <p className="text-3xl font-bold">{teams.length}</p>
-          </div>
-          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-4 text-white text-center">
-            <h4 className="text-lg font-semibold mb-2">Total Members</h4>
-            <p className="text-3xl font-bold">{teams.reduce((sum, team) => sum + team.members, 0)}</p>
-          </div>
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-4 text-white text-center">
-            <h4 className="text-lg font-semibold mb-2">Avg Team Size</h4>
-            <p className="text-3xl font-bold">{Math.round(teams.reduce((sum, team) => sum + team.members, 0) / teams.length)}</p>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {teams.map((team) => (
-            <div key={team.id} className="border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-bold text-dark-blue">{team.name}</h4>
-                <div className="flex gap-2">
-                  <button className="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
-                  <button className="text-red-600 hover:text-red-800 text-sm">Delete</button>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Members:</span>
-                  <span className="font-semibold">{team.members}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Team Lead:</span>
-                  <span className="font-semibold">{team.lead}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Created:</span>
-                  <span className="font-semibold">{new Date(team.created).toLocaleDateString()}</span>
-                </div>
-              </div>
-              
-              <button className="w-full mt-4 btn-secondary text-sm">Manage Team</button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-
   const renderBranding = () => (
     <div className="bg-white rounded-2xl p-6 shadow-lg">
       <div className="flex items-center gap-3 mb-6">
@@ -701,25 +643,23 @@ const EnterpriseAdmin = ({ onClose }) => {
         <div className="bg-white border-b border-gray-200">
           <div className="flex space-x-8 px-6">
             {[
-              { id: 'overview', label: 'Overview', permission: 'view_organization_analytics' },
-              { id: 'users', label: 'Users', permission: 'view_all_users' },
-              { id: 'teams', label: 'Teams', permission: 'view_team_analytics' },
-              { id: 'branding', label: 'Branding', permission: 'manage_custom_branding' },
-              { id: 'analytics', label: 'Analytics', permission: 'advanced_reporting' }
+              { id: 'overview', label: 'Overview' },
+              { id: 'users', label: 'Users' },
+              { id: 'teams', label: 'Teams' },
+              { id: 'branding', label: 'Branding' },
+              { id: 'analytics', label: 'Analytics' }
             ].map((tab) => (
-              hasPermission(tab.permission) && (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`py-3 px-1 border-b-2 font-medium text-sm ${
-                    activeTab === tab.id
-                      ? 'border-soft-green text-soft-green'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              )
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`py-3 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === tab.id
+                    ? 'border-soft-green text-soft-green'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                {tab.label}
+              </button>
             ))}
           </div>
         </div>
@@ -728,8 +668,8 @@ const EnterpriseAdmin = ({ onClose }) => {
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
           {activeTab === 'overview' && renderOverview()}
           {activeTab === 'users' && renderUsers()}
-          {activeTab === 'branding' && renderBranding()}
           {activeTab === 'teams' && renderTeams()}
+          {activeTab === 'branding' && renderBranding()}
           {activeTab === 'analytics' && renderAnalytics()}
         </div>
       </div>
