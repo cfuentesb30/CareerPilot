@@ -94,7 +94,7 @@ const HeroSection = ({ onStartQuiz }) => {
                       <img 
                         src="/athena-logo.png" 
                         alt="Athena - AI Career Advisor" 
-                        className="w-24 h-24 lg:w-32 lg:h-32 object-contain filter brightness-0 invert"
+                        className="w-24 h-24 lg:w-32 lg:h-32 object-contain brightness-0 invert"
                       />
                     </div>
                     <div className="text-xl font-bold">Athena Analysis</div>
