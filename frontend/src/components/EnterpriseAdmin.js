@@ -489,6 +489,300 @@ const EnterpriseAdmin = ({ onClose }) => {
       </div>
     </div>
   );
+
+  const renderTeams = () => (
+    <div className="space-y-6">
+      {/* Teams Overview */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <img 
+              src="/athena-logo.png" 
+              alt="Athena Logo" 
+              className="w-6 h-6 object-contain"
+            />
+            <h3 className="text-xl font-bold text-dark-blue">Team Management</h3>
+          </div>
+          <button className="btn-primary">Create New Team</button>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-lg font-semibold mb-2">Total Teams</h4>
+            <p className="text-3xl font-bold">{teams.length}</p>
+          </div>
+          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-lg font-semibold mb-2">Total Members</h4>
+            <p className="text-3xl font-bold">{teams.reduce((sum, team) => sum + team.members, 0)}</p>
+          </div>
+          <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-lg font-semibold mb-2">Avg Team Size</h4>
+            <p className="text-3xl font-bold">{Math.round(teams.reduce((sum, team) => sum + team.members, 0) / teams.length)}</p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {teams.map((team) => (
+            <div key={team.id} className="border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-bold text-dark-blue">{team.name}</h4>
+                <div className="flex gap-2">
+                  <button className="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
+                  <button className="text-red-600 hover:text-red-800 text-sm">Delete</button>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Members:</span>
+                  <span className="font-semibold">{team.members}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Team Lead:</span>
+                  <span className="font-semibold">{team.lead}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Created:</span>
+                  <span className="font-semibold">{new Date(team.created).toLocaleDateString()}</span>
+                </div>
+              </div>
+              
+              <button className="w-full mt-4 btn-secondary text-sm">Manage Team</button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderAnalytics = () => (
+    <div className="space-y-6">
+      {/* Analytics Overview */}
+      <div className="bg-white rounded-2xl p-6 shadow-lg">
+        <div className="flex items-center gap-3 mb-6">
+          <img 
+            src="/athena-logo.png" 
+            alt="Athena Logo" 
+            className="w-6 h-6 object-contain"
+          />
+          <h3 className="text-xl font-bold text-dark-blue">Advanced Analytics</h3>
+        </div>
+        
+        {/* Key Metrics */}
+        <div className="grid md:grid-cols-4 gap-4 mb-8">
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-sm font-medium mb-1">User Growth</h4>
+            <p className="text-2xl font-bold">+23%</p>
+            <p className="text-xs opacity-80">This month</p>
+          </div>
+          <div className="bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-sm font-medium mb-1">Engagement Rate</h4>
+            <p className="text-2xl font-bold">87%</p>
+            <p className="text-xs opacity-80">Daily active</p>
+          </div>
+          <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-sm font-medium mb-1">Completion Rate</h4>
+            <p className="text-2xl font-bold">64%</p>
+            <p className="text-xs opacity-80">Assessments</p>
+          </div>
+          <div className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl p-4 text-white text-center">
+            <h4 className="text-sm font-medium mb-1">Satisfaction</h4>
+            <p className="text-2xl font-bold">4.8/5</p>
+            <p className="text-xs opacity-80">User rating</p>
+          </div>
+        </div>
+
+        {/* Detailed Analytics */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* Usage Statistics */}
+          <div className="border border-gray-200 rounded-2xl p-6">
+            <h4 className="text-lg font-bold text-dark-blue mb-4">Usage Statistics</h4>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Total Assessments Completed</span>
+                <span className="font-bold text-dark-blue">{analytics.assessments_completed}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Roadmaps Created</span>
+                <span className="font-bold text-dark-blue">{analytics.roadmaps_created}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Chat Sessions</span>
+                <span className="font-bold text-dark-blue">{analytics.chat_sessions}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Average Session Time</span>
+                <span className="font-bold text-dark-blue">24 min</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-600">Profile Completion Rate</span>
+                <span className="font-bold text-dark-blue">78%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Team Performance */}
+          <div className="border border-gray-200 rounded-2xl p-6">
+            <h4 className="text-lg font-bold text-dark-blue mb-4">Team Performance</h4>
+            <div className="space-y-4">
+              {teams.slice(0, 5).map((team, index) => (
+                <div key={team.id} className="flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-3 h-3 rounded-full ${
+                      index === 0 ? 'bg-green-500' : 
+                      index === 1 ? 'bg-blue-500' : 
+                      index === 2 ? 'bg-yellow-500' : 
+                      index === 3 ? 'bg-purple-500' : 'bg-gray-500'
+                    }`}></div>
+                    <span className="text-gray-700">{team.name}</span>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-dark-blue">{85 + index * 3}%</div>
+                    <div className="text-xs text-gray-500">completion</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Activity Timeline */}
+        <div className="mt-6 border border-gray-200 rounded-2xl p-6">
+          <h4 className="text-lg font-bold text-dark-blue mb-4">Recent Activity</h4>
+          <div className="space-y-3">
+            <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="flex-1">
+                <p className="text-sm font-medium">New user registered: james.miller@demo.com</p>
+                <p className="text-xs text-gray-500">2 hours ago</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              <div className="flex-1">
+                <p className="text-sm font-medium">Assessment completed by Engineering team</p>
+                <p className="text-xs text-gray-500">4 hours ago</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+              <div className="flex-1">
+                <p className="text-sm font-medium">New roadmap created for Product team</p>
+                <p className="text-xs text-gray-500">6 hours ago</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+              <div className="flex-1">
+                <p className="text-sm font-medium">Team Lead role assigned to Sarah Connor</p>
+                <p className="text-xs text-gray-500">1 day ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderBranding = () => (
+    <div className="bg-white rounded-2xl p-6 shadow-lg">
+      <div className="flex items-center gap-3 mb-6">
+        <img 
+          src="/athena-logo.png" 
+          alt="Athena Logo" 
+          className="w-6 h-6 object-contain"
+        />
+        <h3 className="text-xl font-bold text-dark-blue">Custom Branding</h3>
+      </div>
+      
+      <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Company Name
+            </label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              value={branding.company_name || ''}
+              onChange={(e) => setBranding({...branding, company_name: e.target.value})}
+              placeholder="Your Company Name"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Tagline
+            </label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              value={branding.tagline || ''}
+              onChange={(e) => setBranding({...branding, tagline: e.target.value})}
+              placeholder="Your company tagline"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Primary Color
+            </label>
+            <input
+              type="color"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 h-12"
+              value={branding.primary_color || '#17a2b8'}
+              onChange={(e) => setBranding({...branding, primary_color: e.target.value})}
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Secondary Color
+            </label>
+            <input
+              type="color"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 h-12"
+              value={branding.secondary_color || '#20c997'}
+              onChange={(e) => setBranding({...branding, secondary_color: e.target.value})}
+            />
+          </div>
+          
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Logo URL
+            </label>
+            <input
+              type="url"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              value={branding.logo_url || ''}
+              onChange={(e) => setBranding({...branding, logo_url: e.target.value})}
+              placeholder="https://your-domain.com/logo.png"
+            />
+          </div>
+        </div>
+        
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id="hide_pricing"
+            checked={branding.hide_pricing || false}
+            onChange={(e) => setBranding({...branding, hide_pricing: e.target.checked})}
+            className="mr-2"
+          />
+          <label htmlFor="hide_pricing" className="text-sm text-gray-700">
+            Hide pricing section for organization users
+          </label>
+        </div>
+        
+        <button
+          onClick={() => updateBranding(branding)}
+          className="btn-primary"
+        >
+          Save Branding
+        </button>
+      </div>
+    </div>
+  );
     <div className="bg-white rounded-2xl p-6 shadow-lg">
       <div className="flex items-center gap-3 mb-6">
         <img 
