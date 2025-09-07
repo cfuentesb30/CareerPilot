@@ -157,7 +157,14 @@ const EnterpriseAdmin = ({ onClose }) => {
     <div className="space-y-6">
       {/* Organization Info */}
       <div className="bg-white rounded-2xl p-6 shadow-lg">
-        <h3 className="text-xl font-bold text-dark-blue mb-4">Organization Overview</h3>
+        <div className="flex items-center gap-3 mb-4">
+          <img 
+            src="/athena-logo.png" 
+            alt="Athena Logo" 
+            className="w-8 h-8 object-contain"
+          />
+          <h3 className="text-xl font-bold text-dark-blue">Organization Overview</h3>
+        </div>
         {organizationData && (
           <div className="grid md:grid-cols-2 gap-4">
             <div>
@@ -207,7 +214,14 @@ const EnterpriseAdmin = ({ onClose }) => {
   const renderUsers = () => (
     <div className="bg-white rounded-2xl p-6 shadow-lg">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-bold text-dark-blue">User Management</h3>
+        <div className="flex items-center gap-3">
+          <img 
+            src="/athena-logo.png" 
+            alt="Athena Logo" 
+            className="w-6 h-6 object-contain"
+          />
+          <h3 className="text-xl font-bold text-dark-blue">User Management</h3>
+        </div>
         {hasPermission('create_users') && (
           <button className="btn-primary">Add User</button>
         )}
@@ -260,7 +274,14 @@ const EnterpriseAdmin = ({ onClose }) => {
 
   const renderBranding = () => (
     <div className="bg-white rounded-2xl p-6 shadow-lg">
-      <h3 className="text-xl font-bold text-dark-blue mb-6">Custom Branding</h3>
+      <div className="flex items-center gap-3 mb-6">
+        <img 
+          src="/athena-logo.png" 
+          alt="Athena Logo" 
+          className="w-6 h-6 object-contain"
+        />
+        <h3 className="text-xl font-bold text-dark-blue">Custom Branding</h3>
+      </div>
       
       <div className="space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
@@ -357,6 +378,11 @@ const EnterpriseAdmin = ({ onClose }) => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-3xl max-w-md w-full mx-4 p-8 text-center">
+          <img 
+            src="/athena-logo.png" 
+            alt="Athena Logo" 
+            className="w-12 h-12 mx-auto mb-4 object-contain animate-pulse"
+          />
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-soft-green border-t-transparent mx-auto mb-4"></div>
           <p className="text-gray-600">Loading enterprise dashboard...</p>
         </div>
@@ -370,9 +396,16 @@ const EnterpriseAdmin = ({ onClose }) => {
         {/* Header */}
         <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold">Enterprise Dashboard</h2>
-              <p className="text-blue-200">Role: {userRole?.replace('_', ' ').toUpperCase()}</p>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-10 h-10 object-contain brightness-0 invert"
+              />
+              <div>
+                <h2 className="text-2xl font-bold">Enterprise Dashboard</h2>
+                <p className="text-blue-200">Role: {userRole?.replace('_', ' ').toUpperCase()}</p>
+              </div>
             </div>
             <button onClick={onClose} className="text-white hover:text-gray-300">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -416,13 +449,27 @@ const EnterpriseAdmin = ({ onClose }) => {
           {activeTab === 'branding' && renderBranding()}
           {activeTab === 'teams' && (
             <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-dark-blue mb-4">Team Management</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="Athena Logo" 
+                  className="w-6 h-6 object-contain"
+                />
+                <h3 className="text-xl font-bold text-dark-blue">Team Management</h3>
+              </div>
               <p className="text-gray-600">Team management features coming soon...</p>
             </div>
           )}
           {activeTab === 'analytics' && (
             <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold text-dark-blue mb-4">Advanced Analytics</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="Athena Logo" 
+                  className="w-6 h-6 object-contain"
+                />
+                <h3 className="text-xl font-bold text-dark-blue">Advanced Analytics</h3>
+              </div>
               <p className="text-gray-600">Advanced reporting features coming soon...</p>
             </div>
           )}
