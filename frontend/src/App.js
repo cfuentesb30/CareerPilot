@@ -463,6 +463,7 @@ function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
+  const [showEnterpriseAdmin, setShowEnterpriseAdmin] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showChatUI, setShowChatUI] = useState(false);
