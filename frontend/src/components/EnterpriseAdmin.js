@@ -490,7 +490,7 @@ const EnterpriseAdmin = ({ onClose }) => {
     </div>
   );
 
-  const renderTeams = () => (
+  const renderBranding = () => (
     <div className="space-y-6">
       {/* Teams Overview */}
       <div className="bg-white rounded-2xl p-6 shadow-lg">
