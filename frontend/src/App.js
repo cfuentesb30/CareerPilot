@@ -90,7 +90,13 @@ const HeroSection = ({ onStartQuiz }) => {
               <div className="w-80 h-80 lg:w-96 lg:h-96 mx-auto bg-gradient-to-br from-soft-green/20 to-teal/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
                 <div className="w-60 h-60 lg:w-72 lg:h-72 bg-gradient-to-br from-soft-green to-teal rounded-full flex items-center justify-center shadow-2xl">
                   <div className="text-center">
-                    <div className="text-6xl mb-4">💡</div>
+                    <div className="mb-4 flex justify-center">
+                      <img 
+                        src="/athena-logo.png" 
+                        alt="Athena - AI Career Advisor" 
+                        className="w-24 h-24 lg:w-32 lg:h-32 object-contain filter brightness-0 invert"
+                      />
+                    </div>
                     <div className="text-xl font-bold">Athena Analysis</div>
                     <div className="text-sm text-blue-200 mt-2">Smart career recommendations by Athena</div>
                   </div>
