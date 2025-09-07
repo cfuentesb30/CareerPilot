@@ -12,6 +12,19 @@
     "english": "English",
     "spanish": "Español"
   },
+  "about": {
+    "title": "About CareerPilot",
+    "intro": "At CareerPilot, we believe that finding the right career path shouldn't feel overwhelming—it should feel like an exciting journey.",
+    "athena": "Our AI-powered assistant, Athena, is designed to guide you step by step, helping you discover your strengths, set goals, and track your progress with clarity.",
+    "audience": "Whether you're just starting out, looking to switch industries, or aiming to level up in your current field, CareerPilot provides the tools, insights, and resources you need to move forward with confidence.",
+    "features": "With features like personalized career roadmaps, progress tracking, and skill development suggestions, CareerPilot empowers you to take control of your professional journey.",
+    "languages": "Available in English and Spanish",
+    "accessible": "CareerPilot makes career guidance accessible to everyone.",
+    "future": "Your future isn't just a destination—it's a path.",
+    "together": "Let's navigate it together.",
+    "startButton": "Start Your Journey",
+    "plansButton": "View Plans"
+  },
   "pricing": {
     "title": "Choose Your Plan",
     "subtitle": "Unlock your career potential with the right plan for you",
