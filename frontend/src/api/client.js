@@ -17,7 +17,7 @@ if (isDemoMode && !sessionStorage.getItem('demo_banner_shown')) {
 
 const TOKEN_KEY = 'cp_token';
 
-export const getBackendUrl = () => BACKEND_URL;
+export const getBackendUrl = () => baseURL;
 
 export const getToken = () => {
   try {
