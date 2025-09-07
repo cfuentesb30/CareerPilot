@@ -199,7 +199,7 @@
   "auth": {
     "signupTitle": "Create Your CareerPilot Account",
     "loginTitle": "Log in to CareerPilot",
-    "signupComingSoon": "Sign up is coming soon",
+    "signupComingSoon": "Ready to get started",
     "loginTemporarilyDisabled": "Login is temporarily disabled",
     "signupDescription": "We’re preparing a smooth onboarding experience. You’ll be able to create an account and save your progress soon.",
     "loginDescription": "We’re currently upgrading our authentication system. Please check back later.",
