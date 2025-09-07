@@ -10,6 +10,9 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
   const { devMode, toggleDevMode } = useDevMode();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  
+  // Check if user is enterprise admin
+  const isEnterpriseAdmin = user?.role === 'enterprise_admin';
 
   const handleUserMenuClick = (action) => {
     setShowUserMenu(false); // Close the menu
