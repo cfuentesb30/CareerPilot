@@ -659,9 +659,6 @@ function App() {
         );
       case 'profile':
         return <ProfilePage />;
-      case 'enterprise-admin':
-        setShowEnterpriseAdmin(true);
-        return null;
       default:
         return null;
     }
