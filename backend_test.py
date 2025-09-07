@@ -2312,6 +2312,8 @@ class BackendTester:
             print("=" * 50)
             
             # Test database connection and collections
+            import sys
+            sys.path.append('/app/backend')
             from user_database import user_db
             
             # Test organizations collection
