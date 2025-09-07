@@ -1,21 +1,8 @@
-/* API client utilities - uses REACT_APP_BACKEND_URL or mock API */
-import mockApi from '../mock/mockApi';
-
-// Check if we're in demo mode (GitHub Pages deployment)
-const isDemoMode = process.env.NODE_ENV === 'production' && 
-                   (window.location.hostname.includes('github.io') || 
-                    window.location.hostname === 'localhost' ||
-                    !process.env.REACT_APP_BACKEND_URL);
-
-const baseURL = isDemoMode ? '' : (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001');
-
-// Demo mode banner
-if (isDemoMode && !sessionStorage.getItem('demo_banner_shown')) {
-  console.log('🎭 CareerPilot Demo Mode - Using mock data for demonstration');
-  sessionStorage.setItem('demo_banner_shown', 'true');
-}
+/* API client utilities - uses REACT_APP_BACKEND_URL */
 
 const TOKEN_KEY = 'cp_token';
+
+const baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
 export const getBackendUrl = () => baseURL;
 
@@ -40,31 +27,6 @@ export const clearToken = () => {
 };
 
 export async function apiFetch(path, options = {}) {
-  // Use mock API in demo mode
-  if (isDemoMode) {
-    try {
-      const method = options.method || 'GET';
-      const body = options.body ? JSON.parse(options.body) : null;
-      
-      switch (method.toUpperCase()) {
-        case 'GET':
-          return await mockApi.get(path);
-        case 'POST':
-          return await mockApi.post(path, body);
-        case 'PUT':
-          return await mockApi.put(path, body);
-        case 'DELETE':
-          return await mockApi.delete(path);
-        default:
-          return await mockApi.get(path);
-      }
-    } catch (error) {
-      console.error('Mock API Error:', error);
-      throw new Error(error.message || 'Demo API request failed');
-    }
-  }
-
-  // Regular API call for non-demo mode
   if (!path.startsWith('/')) {
     throw new Error('apiFetch path must start with /');
   }

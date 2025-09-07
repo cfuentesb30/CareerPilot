@@ -8,9 +8,9 @@ import PricingSection from './components/PricingSection';
 import DevTools from './components/DevTools';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { DevModeProvider, useDevMode } from './context/DevModeContext';
-import { ToastProvider, useToast } from './context/ToastContext';
+import { ToastProvider } from './context/ToastContext';
 import DevToggle from './components/DevToggle';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
@@ -18,7 +18,6 @@ import ProfilePage from './components/ProfilePage';
 import UserProfile from './components/UserProfile';
 import GoogleCallback from './components/GoogleCallback';
 import EnterpriseAdmin from './components/EnterpriseAdmin';
-import DemoBanner from './components/DemoBanner';
 import RoadmapPreview from './components/RoadmapPreview';
 import ChatUI from './components/ChatUI';
 import ProfileEditor from './components/ProfileEditor';
@@ -28,6 +27,7 @@ import CertificationsManager from './components/CertificationsManager';
 import RoadmapManager from './components/RoadmapManager';
 import DashboardModal from './components/DashboardModal';
 import DashboardPreview from './components/DashboardPreview';
+import { useAuth } from './context/AuthContext';
 
 // Hero Section Component
 const HeroSection = ({ onStartQuiz }) => {
@@ -378,7 +378,7 @@ const TechnologySection = ({ onStartQuiz }) => {
               <div className="w-16 h-16 mx-auto mb-4 bg-teal/20 rounded-full flex items-center justify-center">
                 <svg className="w-8 h-8 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-              </svg>
+                </svg>
               </div>
               <h3 className="text-lg font-semibold mb-2">{t('technology.realData')}</h3>
               <p className="text-blue-100">{t('technology.realDataDesc')}</p>
@@ -456,12 +456,6 @@ const Footer = () => {
 // Main App Component
 function App() {
   const { t } = useTranslation();
-  
-  // Check if we're in demo mode
-  const isDemoMode = process.env.NODE_ENV === 'production' && 
-                     (window.location.hostname.includes('github.io') || 
-                      window.location.hostname === 'localhost' ||
-                      !process.env.REACT_APP_BACKEND_URL);
   
   const [currentPage, setCurrentPage] = useState('home');
   const [showQuiz, setShowQuiz] = useState(false);
@@ -677,9 +671,6 @@ function App() {
       <ToastProvider>
         <AuthProvider>
           <div className="App">
-            {/* Demo Mode Banner */}
-            {isDemoMode && <DemoBanner />}
-            
             {/* Google OAuth Callback Handler */}
             <GoogleCallback />
             
