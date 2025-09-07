@@ -456,6 +456,13 @@ const Footer = () => {
 // Main App Component
 function App() {
   const { t } = useTranslation();
+  
+  // Check if we're in demo mode
+  const isDemoMode = process.env.NODE_ENV === 'production' && 
+                     (window.location.hostname.includes('github.io') || 
+                      window.location.hostname === 'localhost' ||
+                      !process.env.REACT_APP_BACKEND_URL);
+  
   const [currentPage, setCurrentPage] = useState('home');
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResults, setShowResults] = useState(false);
