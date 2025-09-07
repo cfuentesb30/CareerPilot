@@ -2364,6 +2364,8 @@ class BackendTester:
             print("=" * 50)
             
             # Test UserRole enum values
+            import sys
+            sys.path.append('/app/backend')
             from rbac_models import UserRole, Permission, ROLE_PERMISSIONS
             
             expected_roles = [
