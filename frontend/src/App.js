@@ -551,13 +551,83 @@ function App() {
       case 'about':
         return (
           <div className="pt-16 min-h-screen bg-gray-50">
-            <div className="container mx-auto px-6 py-16 text-center">
-              <h1 className="text-4xl font-bold text-dark-blue mb-8">About CareerPilot</h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                CareerPilot is revolutionizing career guidance with AI-powered insights from Athena. 
-                We help professionals make informed decisions about their career paths through 
-                personalized recommendations and expert guidance.
-              </p>
+            <div className="container mx-auto px-6 py-16">
+              {/* Header */}
+              <div className="text-center mb-16">
+                <h1 className="text-5xl font-bold text-dark-blue mb-6">About CareerPilot</h1>
+                <div className="w-24 h-1 bg-gradient-to-r from-soft-green to-teal mx-auto mb-8"></div>
+              </div>
+              
+              {/* Main Content */}
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-12">
+                  <div className="text-center mb-8">
+                    <img 
+                      src="/athena-logo.png" 
+                      alt="Athena - AI Career Advisor" 
+                      className="w-16 h-16 mx-auto mb-6 object-contain"
+                    />
+                  </div>
+                  
+                  <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    <p className="text-xl mb-6 text-center text-dark-blue font-medium">
+                      At CareerPilot, we believe that finding the right career path shouldn't feel overwhelming—it should feel like an exciting journey.
+                    </p>
+                    
+                    <p className="mb-6">
+                      Our AI-powered assistant, <strong className="text-soft-green">Athena</strong>, is designed to guide you step by step, helping you discover your strengths, set goals, and track your progress with clarity.
+                    </p>
+                    
+                    <p className="mb-6">
+                      Whether you're just starting out, looking to switch industries, or aiming to level up in your current field, CareerPilot provides the tools, insights, and resources you need to move forward with confidence.
+                    </p>
+                    
+                    <p className="mb-8">
+                      With features like personalized career roadmaps, progress tracking, and skill development suggestions, CareerPilot empowers you to take control of your professional journey.
+                    </p>
+                    
+                    <div className="bg-gradient-to-r from-soft-green/10 to-teal/10 rounded-2xl p-6 mb-8">
+                      <p className="text-center text-lg font-medium text-dark-blue mb-2">
+                        🌍 Available in English and Spanish
+                      </p>
+                      <p className="text-center text-gray-600">
+                        CareerPilot makes career guidance accessible to everyone.
+                      </p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-dark-blue mb-4">
+                        Your future isn't just a destination—it's a path.
+                      </p>
+                      <p className="text-xl text-soft-green font-semibold">
+                        Let's navigate it together.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Call to Action */}
+                <div className="text-center">
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('home');
+                      setTimeout(() => {
+                        const element = document.querySelector('#quiz-section');
+                        if (element) element.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
+                    className="btn-primary text-lg px-8 py-4 mr-4"
+                  >
+                    Start Your Journey
+                  </button>
+                  <button 
+                    onClick={() => handleNavigate('pricing')}
+                    className="btn-secondary text-lg px-8 py-4"
+                  >
+                    View Plans
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         );
