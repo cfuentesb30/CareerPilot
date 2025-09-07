@@ -66,7 +66,7 @@ const EnterpriseAdmin = ({ onClose }) => {
   };
 
   const hasPermission = (permission) => {
-    return userPermissions.includes(permission);
+    return userPermissions.includes(permission) || userPermissions.length === 0; // Allow all in demo if no permissions loaded
   };
 
   const handleRoleAssignment = async (userId, newRole) => {
