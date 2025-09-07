@@ -70,9 +70,23 @@ const EnterpriseAdmin = ({ onClose }) => {
       });
       
       setTeams([
-        { id: 'team1', name: 'Engineering', members: 15 },
-        { id: 'team2', name: 'Product', members: 8 },
-        { id: 'team3', name: 'Design', members: 5 }
+        { id: 'team1', name: 'Engineering', members: 15, lead: 'Sarah Connor', created: '2024-01-15' },
+        { id: 'team2', name: 'Product', members: 8, lead: 'John Smith', created: '2024-02-20' },
+        { id: 'team3', name: 'Design', members: 5, lead: 'Emma Watson', created: '2024-03-10' },
+        { id: 'team4', name: 'Marketing', members: 12, lead: 'Michael Brown', created: '2024-01-30' },
+        { id: 'team5', name: 'Sales', members: 18, lead: 'Lisa Johnson', created: '2024-02-05' }
+      ]);
+      
+      // Set demo users data
+      setUsers([
+        { id: 'user1', first_name: 'John', last_name: 'Smith', email: 'john.smith@demo.com', role: 'Team Lead', team: 'Product', status: 'active', last_login: '2024-12-07' },
+        { id: 'user2', first_name: 'Sarah', last_name: 'Connor', email: 'sarah.connor@demo.com', role: 'Manager', team: 'Engineering', status: 'active', last_login: '2024-12-07' },
+        { id: 'user3', first_name: 'Emma', last_name: 'Watson', email: 'emma.watson@demo.com', role: 'Team Lead', team: 'Design', status: 'active', last_login: '2024-12-06' },
+        { id: 'user4', first_name: 'Michael', last_name: 'Brown', email: 'michael.brown@demo.com', role: 'Manager', team: 'Marketing', status: 'active', last_login: '2024-12-07' },
+        { id: 'user5', first_name: 'Lisa', last_name: 'Johnson', email: 'lisa.johnson@demo.com', role: 'Team Lead', team: 'Sales', status: 'active', last_login: '2024-12-07' },
+        { id: 'user6', first_name: 'David', last_name: 'Wilson', email: 'david.wilson@demo.com', role: 'Standard User', team: 'Engineering', status: 'active', last_login: '2024-12-06' },
+        { id: 'user7', first_name: 'Emily', last_name: 'Davis', email: 'emily.davis@demo.com', role: 'Standard User', team: 'Design', status: 'inactive', last_login: '2024-12-03' },
+        { id: 'user8', first_name: 'James', last_name: 'Miller', email: 'james.miller@demo.com', role: 'Standard User', team: 'Sales', status: 'active', last_login: '2024-12-07' }
       ]);
       
       setBranding({
@@ -80,7 +94,8 @@ const EnterpriseAdmin = ({ onClose }) => {
         primary_color: '#17a2b8',
         secondary_color: '#20c997',
         company_name: 'Demo Organization',
-        tagline: 'AI-Powered Career Development'
+        tagline: 'AI-Powered Career Development',
+        hide_pricing: false
       });
       
       // Try to load real data and override demo data if successful
