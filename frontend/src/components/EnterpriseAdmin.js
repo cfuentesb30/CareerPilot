@@ -35,8 +35,8 @@ const EnterpriseAdmin = ({ onClose }) => {
     try {
       setLoading(true);
       
-      // Load organization details (would need org ID from user context)
-      const orgId = "sample-org-id"; // Would come from user's organization
+      // Use correct organization ID for demo
+      const orgId = "demo-org"; // Fixed: was "sample-org-id"
       
       if (hasPermission('view_organization_analytics')) {
         const [orgResponse, analyticsResponse] = await Promise.all([
