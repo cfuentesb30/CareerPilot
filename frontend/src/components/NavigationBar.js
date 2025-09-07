@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useDevMode } from '../context/DevModeContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard }) => {
+const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard, onOpenEnterpriseAdmin }) => {
   const { t } = useTranslation();
   const { isAuthed, user, logout } = useAuth();
   const { devMode, toggleDevMode } = useDevMode();
