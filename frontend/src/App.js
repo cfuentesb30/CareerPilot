@@ -8,15 +8,16 @@ import PricingSection from './components/PricingSection';
 import DevTools from './components/DevTools';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { DevModeProvider, useDevMode } from './context/DevModeContext';
-import { ToastProvider, useToast } from './context/ToastContext';
+import { ToastProvider } from './context/ToastContext';
 import DevToggle from './components/DevToggle';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import ProfilePage from './components/ProfilePage';
 import UserProfile from './components/UserProfile';
 import GoogleCallback from './components/GoogleCallback';
+import EnterpriseAdmin from './components/EnterpriseAdmin';
 import RoadmapPreview from './components/RoadmapPreview';
 import ChatUI from './components/ChatUI';
 import ProfileEditor from './components/ProfileEditor';
@@ -26,6 +27,7 @@ import CertificationsManager from './components/CertificationsManager';
 import RoadmapManager from './components/RoadmapManager';
 import DashboardModal from './components/DashboardModal';
 import DashboardPreview from './components/DashboardPreview';
+import { useAuth } from './context/AuthContext';
 
 // Hero Section Component
 const HeroSection = ({ onStartQuiz }) => {
@@ -90,7 +92,13 @@ const HeroSection = ({ onStartQuiz }) => {
               <div className="w-80 h-80 lg:w-96 lg:h-96 mx-auto bg-gradient-to-br from-soft-green/20 to-teal/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
                 <div className="w-60 h-60 lg:w-72 lg:h-72 bg-gradient-to-br from-soft-green to-teal rounded-full flex items-center justify-center shadow-2xl">
                   <div className="text-center">
-                    <div className="text-6xl mb-4">💡</div>
+                    <div className="mb-4 flex justify-center">
+                      <img 
+                        src="/athena-logo.png" 
+                        alt="Athena - AI Career Advisor" 
+                        className="w-24 h-24 lg:w-32 lg:h-32 object-contain brightness-0 invert"
+                      />
+                    </div>
                     <div className="text-xl font-bold">Athena Analysis</div>
                     <div className="text-sm text-blue-200 mt-2">Smart career recommendations by Athena</div>
                   </div>
@@ -370,7 +378,7 @@ const TechnologySection = ({ onStartQuiz }) => {
               <div className="w-16 h-16 mx-auto mb-4 bg-teal/20 rounded-full flex items-center justify-center">
                 <svg className="w-8 h-8 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-              </svg>
+                </svg>
               </div>
               <h3 className="text-lg font-semibold mb-2">{t('technology.realData')}</h3>
               <p className="text-blue-100">{t('technology.realDataDesc')}</p>
@@ -447,6 +455,8 @@ const Footer = () => {
 
 // Main App Component
 function App() {
+  const { t } = useTranslation();
+  
   const [currentPage, setCurrentPage] = useState('home');
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -455,6 +465,7 @@ function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [showProfileEditor, setShowProfileEditor] = useState(false);
+  const [showEnterpriseAdmin, setShowEnterpriseAdmin] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [showChatUI, setShowChatUI] = useState(false);
@@ -545,13 +556,83 @@ function App() {
       case 'about':
         return (
           <div className="pt-16 min-h-screen bg-gray-50">
-            <div className="container mx-auto px-6 py-16 text-center">
-              <h1 className="text-4xl font-bold text-dark-blue mb-8">About CareerPilot</h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                CareerPilot is revolutionizing career guidance with AI-powered insights from Athena. 
-                We help professionals make informed decisions about their career paths through 
-                personalized recommendations and expert guidance.
-              </p>
+            <div className="container mx-auto px-6 py-16">
+              {/* Header */}
+              <div className="text-center mb-16">
+                <h1 className="text-5xl font-bold text-dark-blue mb-6">{t('about.title')}</h1>
+                <div className="w-24 h-1 bg-gradient-to-r from-soft-green to-teal mx-auto mb-8"></div>
+              </div>
+              
+              {/* Main Content */}
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-12">
+                  <div className="text-center mb-8">
+                    <img 
+                      src="/athena-logo.png" 
+                      alt="Athena - AI Career Advisor" 
+                      className="w-16 h-16 mx-auto mb-6 object-contain"
+                    />
+                  </div>
+                  
+                  <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    <p className="text-xl mb-6 text-center text-dark-blue font-medium">
+                      {t('about.intro')}
+                    </p>
+                    
+                    <p className="mb-6">
+                      {t('about.athena')}
+                    </p>
+                    
+                    <p className="mb-6">
+                      {t('about.audience')}
+                    </p>
+                    
+                    <p className="mb-8">
+                      {t('about.features')}
+                    </p>
+                    
+                    <div className="bg-gradient-to-r from-soft-green/10 to-teal/10 rounded-2xl p-6 mb-8">
+                      <p className="text-center text-lg font-medium text-dark-blue mb-2">
+                        🌍 {t('about.languages')}
+                      </p>
+                      <p className="text-center text-gray-600">
+                        {t('about.accessible')}
+                      </p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-dark-blue mb-4">
+                        {t('about.future')}
+                      </p>
+                      <p className="text-xl text-soft-green font-semibold">
+                        {t('about.together')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Call to Action */}
+                <div className="text-center">
+                  <button 
+                    onClick={() => {
+                      setCurrentPage('home');
+                      setTimeout(() => {
+                        const element = document.querySelector('#quiz-section');
+                        if (element) element.scrollIntoView({ behavior: 'smooth' });
+                      }, 100);
+                    }}
+                    className="btn-primary text-lg px-8 py-4 mr-4"
+                  >
+                    {t('about.startButton')}
+                  </button>
+                  <button 
+                    onClick={() => handleNavigate('pricing')}
+                    className="btn-secondary text-lg px-8 py-4"
+                  >
+                    {t('about.plansButton')}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -598,6 +679,7 @@ function App() {
               currentPage={currentPage}
               onOpenProfile={() => setShowUserProfile(true)}
               onOpenDashboard={() => setShowDashboard(true)}
+              onOpenEnterpriseAdmin={() => setShowEnterpriseAdmin(true)}
             />
             
             {/* Dev Tools - floating when dev mode is enabled */}
@@ -658,6 +740,10 @@ function App() {
 
             {showProfileEditor && (
               <ProfileEditor onClose={() => setShowProfileEditor(false)} />
+            )}
+
+            {showEnterpriseAdmin && (
+              <EnterpriseAdmin onClose={() => setShowEnterpriseAdmin(false)} />
             )}
 
             {showRoadmap && (

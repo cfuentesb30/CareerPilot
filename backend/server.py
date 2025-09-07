@@ -19,6 +19,7 @@ from roadmap_routes import router as roadmap_router
 from payment_routes import router as payment_router
 from oauth_routes import router as oauth_router
 from google_oauth_routes import router as google_oauth_router
+from enterprise_routes import router as enterprise_router
 
 app = FastAPI(title="CareerPilot API - Athena AI Career Advisor", version="2.0.0")
 
@@ -39,6 +40,7 @@ app.include_router(roadmap_router)
 app.include_router(payment_router)
 app.include_router(oauth_router)
 app.include_router(google_oauth_router)
+app.include_router(enterprise_router)
 
 # Health check endpoint
 @app.get("/api/health")

@@ -27,6 +27,12 @@ class UserDatabaseManager:
         self.payment_transactions = self.db.payment_transactions
         self.sessions = self.db.sessions  # OAuth session storage
         
+        # RBAC Collections
+        self.organizations = self.db.organizations
+        self.user_roles = self.db.user_roles
+        self.teams = self.db.teams
+        self.enterprise_analytics = self.db.enterprise_analytics
+        
         # Initialize default skills
         self._initialize_default_skills()
         
@@ -52,6 +58,15 @@ class UserDatabaseManager:
         self.sessions.create_index("session_token", unique=True)
         self.sessions.create_index("user_id")
         self.sessions.create_index("expires_at")
+        
+        # RBAC Indexes
+        self.organizations.create_index("id", unique=True)
+        self.organizations.create_index("domain")
+        self.user_roles.create_index(["user_id", "organization_id"])
+        self.user_roles.create_index("organization_id")
+        self.user_roles.create_index("expires_at")
+        self.teams.create_index("organization_id")
+        self.teams.create_index("manager_id")
         self.user_progress.create_index("user_id", unique=True)
     
     def _initialize_default_skills(self):

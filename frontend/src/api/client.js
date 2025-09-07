@@ -1,10 +1,10 @@
-/* API client utilities - uses REACT_APP_BACKEND_URL. No hardcoded URLs. */
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
+/* API client utilities - uses REACT_APP_BACKEND_URL */
 
 const TOKEN_KEY = 'cp_token';
 
-export const getBackendUrl = () => BACKEND_URL;
+const baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+
+export const getBackendUrl = () => baseURL;
 
 export const getToken = () => {
   try {
@@ -37,7 +37,7 @@ export async function apiFetch(path, options = {}) {
     headers.set('Content-Type', 'application/json');
   }
   
-  const res = await fetch(`${BACKEND_URL}${path}`, { ...options, headers });
+  const res = await fetch(`${baseURL}${path}`, { ...options, headers });
   let data = null;
   const ct = res.headers.get('content-type') || '';
   if (ct.includes('application/json')) {

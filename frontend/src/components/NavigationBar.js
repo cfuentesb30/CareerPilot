@@ -4,12 +4,15 @@ import { useAuth } from '../context/AuthContext';
 import { useDevMode } from '../context/DevModeContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard }) => {
+const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard, onOpenEnterpriseAdmin }) => {
   const { t } = useTranslation();
   const { isAuthed, user, logout } = useAuth();
   const { devMode, toggleDevMode } = useDevMode();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  
+  // Check if user is enterprise admin or dev mode for testing
+  const isEnterpriseAdmin = user?.role === 'enterprise_admin' || devMode;
 
   const handleUserMenuClick = (action) => {
     setShowUserMenu(false); // Close the menu
@@ -20,6 +23,12 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
         break;
       case 'dashboard':
         if (onOpenDashboard) onOpenDashboard();
+        break;
+      case 'enterprise':
+        // Handle enterprise admin directly here
+        if (onOpenEnterpriseAdmin) {
+          onOpenEnterpriseAdmin();
+        }
         break;
       case 'logout':
         logout();
@@ -51,8 +60,12 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
               onClick={() => handleNavClick('home')}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-soft-green to-teal rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-lg font-bold text-white">CP</span>
+              <div className="w-10 h-10 flex items-center justify-center">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="CareerPilot - Athena AI Career Advisor" 
+                  className="w-10 h-10 object-contain"
+                />
               </div>
               <div className="text-dark-blue">
                 <div className="text-xl font-bold">CareerPilot</div>
@@ -138,6 +151,20 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
                         {t('nav.dashboard')}
                       </div>
                     </button>
+                    {/* Enterprise Admin Features - Always show for testing */}
+                    {true && (
+                      <button
+                        onClick={() => handleUserMenuClick('enterprise')}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="flex items-center gap-2">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                          </svg>
+                          Enterprise Admin (Test)
+                        </div>
+                      </button>
+                    )}
                     <hr className="my-2" />
                     <button 
                       onClick={() => handleUserMenuClick('logout')}
@@ -228,6 +255,20 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
                     {t('nav.dashboard')}
                   </div>
                 </button>
+                {/* Enterprise Admin Features - Always show for testing */}
+                {true && (
+                  <button
+                    onClick={() => handleUserMenuClick('enterprise')}
+                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                      </svg>
+                      Enterprise Admin (Test)
+                    </div>
+                  </button>
+                )}
                 <button 
                   onClick={() => handleUserMenuClick('logout')}
                   className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 rounded-lg transition-colors"

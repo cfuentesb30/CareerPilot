@@ -9,8 +9,8 @@ module.exports = {
       colors: {
         'dark-blue': '#1e3a8a',
         'navy': '#1e40af',
-        'soft-green': '#10b981',
-        'teal': '#14b8a6',
+        'soft-green': '#17a2b8',  // Updated to match your turquoise owl logo
+        'teal': '#20c997',        // Complementary teal green
         'light-gray': '#f8fafc',
         'medium-gray': '#e2e8f0',
       },

@@ -12,6 +12,19 @@
     "english": "English",
     "spanish": "Español"
   },
+  "about": {
+    "title": "Acerca de CareerPilot",
+    "intro": "En CareerPilot, creemos que encontrar el camino profesional adecuado no debería ser abrumador, sino que debería sentirse como un viaje emocionante.",
+    "athena": "Nuestro asistente impulsado por IA, Athena, está diseñado para guiarte paso a paso, ayudándote a descubrir tus fortalezas, establecer metas y seguir tu progreso con claridad.",
+    "audience": "Ya sea que estés comenzando, buscando cambiar de industria, o apuntando a subir de nivel en tu campo actual, CareerPilot proporciona las herramientas, insights y recursos que necesitas para avanzar con confianza.",
+    "features": "Con características como hojas de ruta profesionales personalizadas, seguimiento de progreso y sugerencias de desarrollo de habilidades, CareerPilot te empodera para tomar control de tu viaje profesional.",
+    "languages": "Disponible en inglés y español",
+    "accessible": "CareerPilot hace que la orientación profesional sea accesible para todos.",
+    "future": "Tu futuro no es solo un destino—es un camino.",
+    "together": "Naveguémoslo juntos.",
+    "startButton": "Comienza Tu Viaje",
+    "plansButton": "Ver Planes"
+  },
   "pricing": {
     "title": "Elige Tu Plan",
     "subtitle": "Desbloquea tu potencial profesional con el plan adecuado para ti",
@@ -199,13 +212,13 @@
   "auth": {
     "signupTitle": "Crea Tu Cuenta de CareerPilot",
     "loginTitle": "Inicia Sesión en CareerPilot",
-    "signupComingSoon": "El registro estará disponible pronto",
+    "signupComingSoon": "Listo para comenzar",
     "loginTemporarilyDisabled": "El inicio de sesión está temporalmente deshabilitado",
-    "signupDescription": "Estamos preparando una experiencia de incorporación fluida. Pronto podrás crear una cuenta y guardar tu progreso.",
+    "signupDescription": "Crea una cuenta y guarda tu progreso. Comienza tu camino profesional con Athena.",
     "loginDescription": "Actualmente estamos actualizando nuestro sistema de autenticación. Vuelve a intentarlo más tarde.",
     "createAccount": "Crear Cuenta",
     "logIn": "Iniciar Sesión",
-    "signupCTA": "Regístrate (Próximamente)",
+    "signupCTA": "Regístrate",
     "whyTitle": "¿Por qué crear una cuenta?",
     "whyPoints": [
       "Guarda el progreso y resultados de tu evaluación",
