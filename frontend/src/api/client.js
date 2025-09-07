@@ -1,6 +1,19 @@
-/* API client utilities - uses REACT_APP_BACKEND_URL. No hardcoded URLs. */
+/* API client utilities - uses REACT_APP_BACKEND_URL or mock API */
+import mockApi from '../mock/mockApi';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
+// Check if we're in demo mode (GitHub Pages deployment)
+const isDemoMode = process.env.NODE_ENV === 'production' && 
+                   (window.location.hostname.includes('github.io') || 
+                    window.location.hostname === 'localhost' ||
+                    !process.env.REACT_APP_BACKEND_URL);
+
+const baseURL = isDemoMode ? '' : (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001');
+
+// Demo mode banner
+if (isDemoMode && !sessionStorage.getItem('demo_banner_shown')) {
+  console.log('🎭 CareerPilot Demo Mode - Using mock data for demonstration');
+  sessionStorage.setItem('demo_banner_shown', 'true');
+}
 
 const TOKEN_KEY = 'cp_token';
 
