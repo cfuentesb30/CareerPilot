@@ -46,7 +46,7 @@ const ChatTeaser = ({ onClose, onOpenSignUp }) => {
 
           <div className="flex gap-3 justify-end">
             <button className="btn-secondary" onClick={onClose}>Close</button>
-            <button className="btn-primary" onClick={onOpenSignUp}>Sign up (Coming soon)</button>
+            <button className="btn-primary" onClick={onOpenSignUp}>Sign up</button>
           </div>
         </div>
       </div>
