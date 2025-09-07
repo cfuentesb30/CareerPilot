@@ -453,6 +453,7 @@ const Footer = () => {
 
 // Main App Component
 function App() {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState('home');
   const [showQuiz, setShowQuiz] = useState(false);
   const [showResults, setShowResults] = useState(false);
