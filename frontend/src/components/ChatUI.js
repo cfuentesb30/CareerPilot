@@ -131,7 +131,7 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
             <div className="p-4 text-sm text-gray-700">
               You are not authenticated. Turn on Dev mode and click "Use Dev Token" in the header. Or use Chat Preview from the homepage.
               <div className="mt-3">
-                <button className="btn-secondary w-full" onClick={onOpenSignUp}>Sign up (Coming soon)</button>
+                <button className="btn-secondary w-full" onClick={onOpenSignUp}>Sign up</button>
               </div>
             </div>
           ) : (
