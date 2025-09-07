@@ -27,6 +27,12 @@ class UserDatabaseManager:
         self.payment_transactions = self.db.payment_transactions
         self.sessions = self.db.sessions  # OAuth session storage
         
+        # RBAC Collections
+        self.organizations = self.db.organizations
+        self.user_roles = self.db.user_roles
+        self.teams = self.db.teams
+        self.enterprise_analytics = self.db.enterprise_analytics
+        
         # Initialize default skills
         self._initialize_default_skills()
         
