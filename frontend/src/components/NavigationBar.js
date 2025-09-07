@@ -25,8 +25,10 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
         if (onOpenDashboard) onOpenDashboard();
         break;
       case 'enterprise':
-        // Handle enterprise admin navigation
-        onNavigate('enterprise-admin');
+        // Handle enterprise admin directly here
+        if (onOpenEnterpriseAdmin) {
+          onOpenEnterpriseAdmin();
+        }
         break;
       case 'logout':
         logout();
