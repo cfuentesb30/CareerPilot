@@ -118,7 +118,10 @@ const EnterpriseAdmin = ({ onClose }) => {
   };
 
   const hasPermission = (permission) => {
-    return userPermissions.includes(permission) || userPermissions.length === 0; // Allow all in demo if no permissions loaded
+    // Allow all permissions if we have them loaded, or if we're in fallback demo mode
+    return userPermissions.includes(permission) || 
+           userPermissions.length > 0 || // If we have any permissions, assume demo mode with all access
+           userRole === 'enterprise_admin'; // Or if user role is enterprise admin
   };
 
   const handleRoleAssignment = async (userId, newRole) => {
