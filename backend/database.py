@@ -61,7 +61,7 @@ class DatabaseManager:
                 },
                 {
                     "id": "technical_skills",
-                    "question": "Which technical skills do you currently have? (Select all that apply)",
+                    "question": "Which technical skills do you currently have?",
                     "type": "text",
                     "options": None,
                     "category": "skills"
