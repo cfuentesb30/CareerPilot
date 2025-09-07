@@ -91,9 +91,16 @@ const ProfileEditor = ({ onClose }) => {
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl">
         <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-6 flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Edit Profile (Dev)</h2>
-            <p className="text-blue-100">Use the dev token to edit and save your profile.</p>
+          <div className="flex items-center gap-3">
+            <img 
+              src="/athena-logo.png" 
+              alt="Athena Logo" 
+              className="w-8 h-8 object-contain brightness-0 invert"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">Edit Profile (Dev)</h2>
+              <p className="text-blue-100">Use the dev token to edit and save your profile.</p>
+            </div>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +120,14 @@ const ProfileEditor = ({ onClose }) => {
           )}
 
           {loading ? (
-            <div className="text-gray-500">Loading profile…</div>
+            <div className="text-center py-8">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-12 h-12 mx-auto mb-4 object-contain animate-pulse opacity-50"
+              />
+              <div className="text-gray-500">Loading profile…</div>
+            </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-4">
               <TextInput label="First name" value={profile.first_name} onChange={(v) => update('first_name', v)} />

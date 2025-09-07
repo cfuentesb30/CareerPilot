@@ -124,7 +124,14 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
         {/* Sidebar */}
         <div className="w-72 border-r border-gray-200 flex flex-col">
           <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-            <div className="font-semibold text-dark-blue">Conversations</div>
+            <div className="flex items-center gap-2">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-6 h-6 object-contain"
+              />
+              <div className="font-semibold text-dark-blue">Conversations</div>
+            </div>
             <button onClick={onClose} className="text-gray-500 hover:text-gray-800">✖</button>
           </div>
           {!isAuthed ? (
@@ -161,11 +168,25 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
         {/* Chat area */}
         <div className="flex-1 flex flex-col">
           <div className="p-4 border-b border-gray-200">
-            <div className="font-semibold text-dark-blue">{activeTitle}</div>
+            <div className="flex items-center gap-2">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-6 h-6 object-contain"
+              />
+              <div className="font-semibold text-dark-blue">{activeTitle}</div>
+            </div>
           </div>
           <div ref={listRef} className="flex-1 overflow-auto p-4 space-y-3 bg-gray-50">
             {messages.length === 0 ? (
-              <div className="text-gray-500 text-sm">Start a conversation to chat with Athena.</div>
+              <div className="text-center py-8">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="Athena Logo" 
+                  className="w-16 h-16 mx-auto mb-4 object-contain opacity-50"
+                />
+                <div className="text-gray-500 text-sm">Start a conversation to chat with Athena.</div>
+              </div>
             ) : (
               messages.map((m) => (
                 <div key={m.id} className="flex">
