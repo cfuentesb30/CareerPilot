@@ -51,8 +51,12 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
               onClick={() => handleNavClick('home')}
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-soft-green to-teal rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-lg font-bold text-white">CP</span>
+              <div className="w-10 h-10 flex items-center justify-center">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="CareerPilot - Athena AI Career Advisor" 
+                  className="w-10 h-10 object-contain"
+                />
               </div>
               <div className="text-dark-blue">
                 <div className="text-xl font-bold">CareerPilot</div>
