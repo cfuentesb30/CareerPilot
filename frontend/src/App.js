@@ -17,6 +17,7 @@ import ProfilePreview from './components/ProfilePreview';
 import ProfilePage from './components/ProfilePage';
 import UserProfile from './components/UserProfile';
 import GoogleCallback from './components/GoogleCallback';
+import EnterpriseAdmin from './components/EnterpriseAdmin';
 import RoadmapPreview from './components/RoadmapPreview';
 import ChatUI from './components/ChatUI';
 import ProfileEditor from './components/ProfileEditor';
