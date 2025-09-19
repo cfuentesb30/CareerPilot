@@ -74,9 +74,9 @@ class DatabaseManager:
                 },
                 {
                     "id": "soft_skills",
-                    "question": "Rate your soft skills on a scale of 1-5:",
-                    "type": "text",
-                    "options": None,
+                    "question": "Rate your overall soft skills (communication, teamwork, leadership, problem-solving):",
+                    "type": "rating_scale",
+                    "options": ["1 - Beginner", "2 - Basic", "3 - Intermediate", "4 - Advanced", "5 - Expert"],
                     "category": "skills"
                 },
                 {
