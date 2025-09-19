@@ -79,23 +79,117 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
 
   const sendMessage = async () => {
     const content = input.trim();
-    if (!content || !activeId) return;
+    if (!content || !activeId || isStreaming) return;
+    
     setInput('');
+    setIsStreaming(true);
+    
+    // Add user message optimistically
+    const userMessage = { 
+      id: 'temp_user_' + Date.now(), 
+      message_type: 'user', 
+      content 
+    };
+    setMessages((prev) => [...prev, userMessage]);
+    
+    // Scroll to bottom immediately
+    setTimeout(() => {
+      if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
+    }, 50);
+    
     try {
-      const payload = { content };
-      const res = await api.post(`/api/chat/conversations/${activeId}/messages`, payload);
-      // optimistic: append user message and Athena response
-      setMessages((prev) => [
-        ...prev,
-        { id: 'temp_user_' + Date.now(), message_type: 'user', content },
-        { id: res?.athena_message_id || ('temp_athena_' + Date.now()), message_type: 'athena', content: res?.athena_response || '...' }
-      ]);
-      setTimeout(() => {
-        if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
-      }, 50);
-      showToast('Message sent', 'success');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/chat/conversations/${activeId}/messages/stream`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ content })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let athenaMessageId = null;
+      let athenaMessageContent = '';
+      
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              
+              switch (data.type) {
+                case 'user_message_added':
+                  // User message already added optimistically
+                  break;
+                  
+                case 'athena_response_start':
+                  athenaMessageId = data.message_id;
+                  setCurrentStreamingMessageId(athenaMessageId);
+                  // Add empty Athena message that will be updated
+                  setMessages((prev) => [...prev, {
+                    id: athenaMessageId,
+                    message_type: 'athena',
+                    content: '',
+                    streaming: true
+                  }]);
+                  break;
+                  
+                case 'athena_response_chunk':
+                  if (data.message_id === athenaMessageId) {
+                    athenaMessageContent = data.content;
+                    setMessages((prev) => prev.map(msg => 
+                      msg.id === athenaMessageId 
+                        ? { ...msg, content: data.content, streaming: !data.is_final }
+                        : msg
+                    ));
+                    
+                    // Auto-scroll as content updates
+                    setTimeout(() => {
+                      if (listRef.current) {
+                        listRef.current.scrollTop = listRef.current.scrollHeight;
+                      }
+                    }, 10);
+                  }
+                  break;
+                  
+                case 'response_complete':
+                  setCurrentStreamingMessageId(null);
+                  if (data.error) {
+                    showToast('AI temporarily unavailable', 'error');
+                  } else {
+                    showToast('Message sent', 'success');
+                  }
+                  break;
+                  
+                case 'error':
+                  showToast(data.message || 'Streaming error occurred', 'error');
+                  break;
+              }
+            } catch (e) {
+              console.warn('Failed to parse streaming data:', e);
+            }
+          }
+        }
+      }
+      
     } catch (e) {
       showToast(e?.message || 'Failed to send message', 'error');
+      // Remove the optimistic user message on error
+      setMessages((prev) => prev.filter(msg => msg.id !== userMessage.id));
+    } finally {
+      setIsStreaming(false);
+      setCurrentStreamingMessageId(null);
     }
   };
 
