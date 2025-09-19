@@ -314,7 +314,17 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
               onChange={(e) => setInput(e.target.value)}
               disabled={!isAuthed || !activeId}
             />
-            <button className="btn-primary" onClick={sendMessage} disabled={!isAuthed || !activeId || !input.trim()}>Send</button>
+            <button 
+              className={`px-4 py-2 rounded-lg text-white font-medium ${
+                isStreaming 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-gradient-to-r from-soft-green to-dark-blue hover:from-soft-green/90 hover:to-dark-blue/90'
+              }`} 
+              onClick={sendMessage} 
+              disabled={!isAuthed || !activeId || !input.trim() || isStreaming}
+            >
+              {isStreaming ? 'Sending...' : 'Send'}
+            </button>
           </div>
         </div>
       </div>
