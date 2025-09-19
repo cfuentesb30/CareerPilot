@@ -21,6 +21,8 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [creating, setCreating] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [currentStreamingMessageId, setCurrentStreamingMessageId] = useState(null);
 
   const listRef = useRef(null);
 
