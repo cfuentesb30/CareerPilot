@@ -98,8 +98,8 @@ const ProfileEditor = ({ onClose }) => {
               className="w-8 h-8 object-contain brightness-0 invert"
             />
             <div>
-              <h2 className="text-2xl font-bold">Edit Profile (Dev)</h2>
-              <p className="text-blue-100">Use the dev token to edit and save your profile.</p>
+              <h2 className="text-2xl font-bold">Edit Profile</h2>
+              <p className="text-blue-100">Update your profile information.</p>
             </div>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
