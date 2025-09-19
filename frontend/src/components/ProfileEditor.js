@@ -112,7 +112,7 @@ const ProfileEditor = ({ onClose }) => {
         <div className="p-6">
           {!isAuthed && (
             <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-xl p-4 mb-4 text-sm">
-              You are not authenticated. Click "Use Dev Token" button in the header, then reopen this editor.
+              You are not authenticated. Please sign up or log in to edit your profile.
             </div>
           )}
           {error && (
