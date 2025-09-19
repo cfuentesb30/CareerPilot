@@ -1,10 +1,13 @@
 from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi.responses import StreamingResponse
 from user_models import *
 from user_database import user_db
 from auth import get_current_user
 from ai_analyzer import ai_analyzer
-from typing import List
+from typing import List, AsyncGenerator
 import asyncio
+import json
+import uuid
 
 router = APIRouter(prefix="/api/chat", tags=["chat_with_athena"])
 
@@ -79,7 +82,7 @@ class AthenaChat:
     def __init__(self):
         self.ai_analyzer = ai_analyzer
     
-    async def create_athena_session(self, user_id: str, conversation_id: str):
+    async def create_athena_session(self, user_id: str, conversation_id: str, streaming: bool = False):
         """Create a chat session with user context for Athena."""
         user_context = await get_user_context(user_id)
         
@@ -118,6 +121,11 @@ Remember: You are Athena, their dedicated AI career advisor at CareerPilot. You 
 
         chat = self.ai_analyzer._create_chat_session(conversation_id)
         chat.system_message = system_message
+        
+        # Configure streaming if requested
+        if streaming:
+            chat = chat.with_params(stream=True)
+        
         return chat
 
 athena_chat = AthenaChat()
@@ -278,7 +286,132 @@ async def send_message(
             detail=f"Failed to send message: {str(e)}"
         )
 
-@router.delete("/conversations/{conversation_id}")
+@router.post("/conversations/{conversation_id}/messages/stream")
+async def send_streaming_message(
+    conversation_id: str,
+    message_data: ChatMessageCreate,
+    current_user_id: str = Depends(get_current_user)
+):
+    """Send a message to Athena with streaming response."""
+    try:
+        # Verify conversation belongs to user
+        conversation = user_db.conversations.find_one({
+            "id": conversation_id,
+            "user_id": current_user_id
+        })
+        
+        if not conversation:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Conversation not found"
+            )
+        
+        # Add user message
+        user_message = ChatMessage(
+            user_id=current_user_id,
+            conversation_id=conversation_id,
+            message_type=ChatMessageType.USER,
+            content=message_data.content
+        )
+        
+        user_db.add_chat_message(user_message)
+        
+        # Create Athena message placeholder
+        athena_message_id = str(uuid.uuid4())
+        
+        async def generate_streaming_response() -> AsyncGenerator[str, None]:
+            """Generate streaming response from Athena."""
+            try:
+                # Send initial event with user message confirmation
+                yield f"data: {json.dumps({'type': 'user_message_added', 'message_id': user_message.id})}\n\n"
+                
+                # Start streaming from Athena
+                yield f"data: {json.dumps({'type': 'athena_response_start', 'message_id': athena_message_id})}\n\n"
+                
+                # Get Athena's streaming response
+                chat = await athena_chat.create_athena_session(current_user_id, conversation_id, streaming=True)
+                
+                from emergentintegrations.llm.chat import UserMessage
+                user_msg = UserMessage(text=message_data.content)
+                
+                # For streaming, we need to handle it differently
+                # Since emergentintegrations might not return a streaming object directly,
+                # we'll simulate streaming by getting the full response and streaming it word by word
+                try:
+                    response = await chat.send_message(user_msg)
+                    
+                    # Stream the response word by word to simulate real-time typing
+                    words = response.split(' ')
+                    accumulated_response = ""
+                    
+                    for i, word in enumerate(words):
+                        accumulated_response += word
+                        if i < len(words) - 1:
+                            accumulated_response += " "
+                        
+                        # Send partial response
+                        yield f"data: {json.dumps({'type': 'athena_response_chunk', 'message_id': athena_message_id, 'content': accumulated_response, 'is_final': False})}\n\n"
+                        
+                        # Add small delay to simulate typing
+                        await asyncio.sleep(0.05)
+                    
+                    # Send final response
+                    yield f"data: {json.dumps({'type': 'athena_response_chunk', 'message_id': athena_message_id, 'content': accumulated_response, 'is_final': True})}\n\n"
+                    
+                    # Add Athena's response to database
+                    athena_message = ChatMessage(
+                        id=athena_message_id,
+                        user_id=current_user_id,
+                        conversation_id=conversation_id,
+                        message_type=ChatMessageType.ATHENA,
+                        content=accumulated_response,
+                        metadata={"model": "gpt-4o", "streaming": True, "timestamp": datetime.now().isoformat()}
+                    )
+                    
+                    user_db.add_chat_message(athena_message)
+                    
+                    # Send completion event
+                    yield f"data: {json.dumps({'type': 'response_complete', 'message_id': athena_message_id})}\n\n"
+                    
+                except Exception as ai_error:
+                    # If AI fails, send error and fallback message
+                    fallback_content = "I apologize, but I'm having trouble processing your message right now. Please try again in a moment. In the meantime, feel free to explore your career profile and roadmap!"
+                    
+                    yield f"data: {json.dumps({'type': 'athena_response_chunk', 'message_id': athena_message_id, 'content': fallback_content, 'is_final': True})}\n\n"
+                    
+                    fallback_message = ChatMessage(
+                        id=athena_message_id,
+                        user_id=current_user_id,
+                        conversation_id=conversation_id,
+                        message_type=ChatMessageType.ATHENA,
+                        content=fallback_content,
+                        metadata={"error": str(ai_error), "fallback": True, "streaming": True}
+                    )
+                    
+                    user_db.add_chat_message(fallback_message)
+                    
+                    yield f"data: {json.dumps({'type': 'response_complete', 'message_id': athena_message_id, 'error': 'AI temporarily unavailable'})}\n\n"
+                    
+            except Exception as e:
+                yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+        
+        return StreamingResponse(
+            generate_streaming_response(),
+            media_type="text/plain",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "Content-Type": "text/event-stream",
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to start streaming message: {str(e)}"
+        )
 async def delete_conversation(
     conversation_id: str,
     current_user_id: str = Depends(get_current_user)

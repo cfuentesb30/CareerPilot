@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/auth/google", tags=["google-oauth"])
 # Google OAuth Configuration
 GOOGLE_CLIENT_ID = "1040524288328-0b86bje78ftvqo0a1iah6h321tavdhen.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = "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"
-GOOGLE_REDIRECT_URI = "https://career-advisor-3.preview.emergentagent.com/auth/google/callback"
+GOOGLE_REDIRECT_URI = "https://pilot-advisor.preview.emergentagent.com/auth/google/callback"
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo"
@@ -205,7 +205,7 @@ async def google_oauth_callback(
         jwt_token = create_access_token(data=token_data)
         
         # Redirect to frontend with token
-        frontend_url = f"https://career-advisor-3.preview.emergentagent.com/?token={jwt_token}&auth=google&name={name}"
+        frontend_url = f"https://pilot-advisor.preview.emergentagent.com/?token={jwt_token}&auth=google&name={name}"
         
         return RedirectResponse(url=frontend_url)
         

@@ -48,9 +48,16 @@ const DashboardModal = ({ onClose }) => {
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl w-full max-w-6xl overflow-hidden shadow-2xl">
         <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-6 flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Dashboard (Dev)</h2>
-            <p className="text-blue-100">Roadmap progress, profile completion, recent chats</p>
+          <div className="flex items-center gap-3">
+            <img 
+              src="/athena-logo.png" 
+              alt="Athena Logo" 
+              className="w-8 h-8 object-contain brightness-0 invert"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">Dashboard</h2>
+              <p className="text-blue-100">Your profile, roadmap progress, and recent chats</p>
+            </div>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +69,7 @@ const DashboardModal = ({ onClose }) => {
         <div className="p-6 space-y-6 bg-gray-50">
           {!isAuthed && (
             <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-xl p-4 text-sm">
-              You are not authenticated. Turn on Dev mode, click "Use Dev Token" in header, then reopen the dashboard.
+              You are not authenticated. Please sign up or log in to access your dashboard.
             </div>
           )}
 
@@ -71,7 +78,14 @@ const DashboardModal = ({ onClose }) => {
           )}
 
           {loading ? (
-            <div className="text-gray-600">Loading…</div>
+            <div className="text-center py-8">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-12 h-12 mx-auto mb-4 object-contain animate-pulse opacity-50"
+              />
+              <div className="text-gray-600">Loading dashboard…</div>
+            </div>
           ) : data ? (
             <>
               {/* Top stats */}
@@ -85,7 +99,14 @@ const DashboardModal = ({ onClose }) => {
               <div className="grid lg:grid-cols-3 gap-6">
                 {/* Upcoming Roadmap */}
                 <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-5">
-                  <div className="text-lg font-semibold text-dark-blue mb-3">Upcoming roadmap items</div>
+                  <div className="text-lg font-semibold text-dark-blue mb-3 flex items-center gap-2">
+                    <img 
+                      src="/athena-logo.png" 
+                      alt="Athena Logo" 
+                      className="w-5 h-5 object-contain"
+                    />
+                    Upcoming roadmap items
+                  </div>
                   {data.upcoming_roadmap_items?.length ? (
                     <div className="space-y-3">
                       {data.upcoming_roadmap_items.map((it) => (
@@ -99,7 +120,14 @@ const DashboardModal = ({ onClose }) => {
 
                 {/* Recent Chats */}
                 <div className="bg-white border border-gray-200 rounded-2xl p-5">
-                  <div className="text-lg font-semibold text-dark-blue mb-3">Recent chats</div>
+                  <div className="text-lg font-semibold text-dark-blue mb-3 flex items-center gap-2">
+                    <img 
+                      src="/athena-logo.png" 
+                      alt="Athena Logo" 
+                      className="w-5 h-5 object-contain"
+                    />
+                    Recent chats
+                  </div>
                   {data.recent_conversations?.length ? (
                     <div className="space-y-3">
                       {data.recent_conversations.map((c) => (
@@ -120,7 +148,14 @@ const DashboardModal = ({ onClose }) => {
               </div>
             </>
           ) : (
-            <div className="text-gray-600">No data.</div>
+            <div className="text-center py-8">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-12 h-12 mx-auto mb-4 object-contain opacity-50"
+              />
+              <div className="text-gray-600">No data available.</div>
+            </div>
           )}
         </div>
       </div>

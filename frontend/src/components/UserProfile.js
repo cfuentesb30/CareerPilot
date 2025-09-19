@@ -67,6 +67,11 @@ const UserProfile = ({ onClose, onEdit }) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-3xl max-w-4xl w-full overflow-hidden">
           <div className="p-8 text-center">
+            <img 
+              src="/athena-logo.png" 
+              alt="Athena Logo" 
+              className="w-16 h-16 mx-auto mb-4 object-contain animate-pulse opacity-50"
+            />
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-soft-green border-t-transparent mx-auto mb-4"></div>
             <p className="text-gray-600">Loading your profile...</p>
           </div>
@@ -81,7 +86,14 @@ const UserProfile = ({ onClose, onEdit }) => {
         <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden">
           <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold">Profile</h2>
+              <div className="flex items-center gap-3">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="Athena Logo" 
+                  className="w-8 h-8 object-contain brightness-0 invert"
+                />
+                <h2 className="text-2xl font-bold">Profile</h2>
+              </div>
               <button onClick={onClose} className="text-white hover:text-gray-300">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -104,7 +116,14 @@ const UserProfile = ({ onClose, onEdit }) => {
         {/* Header */}
         <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">My Profile</h2>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-8 h-8 object-contain brightness-0 invert"
+              />
+              <h2 className="text-2xl font-bold">My Profile</h2>
+            </div>
             <button onClick={onClose} className="text-white hover:text-gray-300">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -267,7 +286,14 @@ const UserProfile = ({ onClose, onEdit }) => {
           {/* Quick Stats */}
           {stats && (
             <div className="bg-gradient-to-r from-soft-green/10 to-teal/10 rounded-2xl p-6">
-              <h3 className="text-xl font-bold text-dark-blue mb-4">Quick Stats</h3>
+              <h3 className="text-xl font-bold text-dark-blue mb-4 flex items-center gap-2">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="Athena Logo" 
+                  className="w-5 h-5 object-contain"
+                />
+                Quick Stats
+              </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {Object.entries(stats).map(([key, value]) => (
                   <div key={key} className="text-center">

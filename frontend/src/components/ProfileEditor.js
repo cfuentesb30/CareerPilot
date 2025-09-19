@@ -29,7 +29,7 @@ const TextArea = ({ label, value, onChange, rows = 4, placeholder }) => (
 );
 
 const ProfileEditor = ({ onClose }) => {
-  const { isAuthed, fetchDevToken } = useAuth();
+  const { isAuthed } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -41,7 +41,7 @@ const ProfileEditor = ({ onClose }) => {
       setError(''); setLoading(true);
       try {
         if (!isAuthed) {
-          setError('You are not authenticated. Click "Use Dev Token" (top-right) and try again.');
+          setError('You are not authenticated. Please sign up or log in to edit your profile.');
           setLoading(false);
           return;
         }
@@ -91,9 +91,16 @@ const ProfileEditor = ({ onClose }) => {
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl">
         <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-6 flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Edit Profile (Dev)</h2>
-            <p className="text-blue-100">Use the dev token to edit and save your profile.</p>
+          <div className="flex items-center gap-3">
+            <img 
+              src="/athena-logo.png" 
+              alt="Athena Logo" 
+              className="w-8 h-8 object-contain brightness-0 invert"
+            />
+            <div>
+              <h2 className="text-2xl font-bold">Edit Profile</h2>
+              <p className="text-blue-100">Update your profile information.</p>
+            </div>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +112,7 @@ const ProfileEditor = ({ onClose }) => {
         <div className="p-6">
           {!isAuthed && (
             <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-xl p-4 mb-4 text-sm">
-              You are not authenticated. Click "Use Dev Token" button in the header, then reopen this editor.
+              You are not authenticated. Please sign up or log in to edit your profile.
             </div>
           )}
           {error && (
@@ -113,7 +120,14 @@ const ProfileEditor = ({ onClose }) => {
           )}
 
           {loading ? (
-            <div className="text-gray-500">Loading profile…</div>
+            <div className="text-center py-8">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-12 h-12 mx-auto mb-4 object-contain animate-pulse opacity-50"
+              />
+              <div className="text-gray-500">Loading profile…</div>
+            </div>
           ) : (
             <div className="grid md:grid-cols-2 gap-4">
               <TextInput label="First name" value={profile.first_name} onChange={(v) => update('first_name', v)} />

@@ -212,9 +212,16 @@ const PricingSection = ({ onClose }) => {
         <div className="bg-gradient-to-r from-dark-blue to-navy text-white p-8 rounded-t-3xl">
           <div className="flex justify-between items-start">
             <div className="text-center flex-1">
-              <h2 className="text-4xl font-bold mb-4">
-                {isSpanish ? 'Explora el plan que encaja con tu camino' : 'Explore the plan that fits your journey'}
-              </h2>
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <img 
+                  src="/athena-logo.png" 
+                  alt="Athena Logo" 
+                  className="w-12 h-12 object-contain brightness-0 invert"
+                />
+                <h2 className="text-4xl font-bold">
+                  {isSpanish ? 'Explora el plan que encaja con tu camino' : 'Explore the plan that fits your journey'}
+                </h2>
+              </div>
               <p className="text-xl text-blue-200">
                 {isSpanish ? 'Potencia tu viaje con Athena' : 'Unlock more with Athena'}
               </p>
@@ -259,6 +266,15 @@ const PricingSection = ({ onClose }) => {
                     </span>
                   </div>
                 )}
+
+                {/* Logo for each plan */}
+                <div className="text-center mb-3">
+                  <img 
+                    src="/athena-logo.png" 
+                    alt="Athena Logo" 
+                    className="w-8 h-8 mx-auto object-contain opacity-70"
+                  />
+                </div>
 
                 {/* Plan Name */}
                 <h3 className="text-xl font-bold text-dark-blue mb-2 text-center">
@@ -312,12 +328,19 @@ const PricingSection = ({ onClose }) => {
 
           {/* Footer Info */}
           <div className="mt-12 text-center">
-            <p className="text-gray-600 mb-4">
-              {isSpanish 
-                ? '✨ Todos los planes incluyen acceso completo a Athena AI y soporte 24/7'
-                : '✨ All plans include full access to Athena AI and 24/7 support'
-              }
-            </p>
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <img 
+                src="/athena-logo.png" 
+                alt="Athena Logo" 
+                className="w-6 h-6 object-contain"
+              />
+              <p className="text-gray-600">
+                {isSpanish 
+                  ? '✨ Todos los planes incluyen acceso completo a Athena AI y soporte 24/7'
+                  : '✨ All plans include full access to Athena AI and 24/7 support'
+                }
+              </p>
+            </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
               <span>
                 {isSpanish ? '🔒 Pago seguro con Stripe' : '🔒 Secure payment with Stripe'}
