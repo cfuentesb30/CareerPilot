@@ -1902,7 +1902,7 @@ class BackendTester:
                 
                 print("✅ Google OAuth authorization URL generated successfully")
                 print(f"✅ Contains correct client_id: 1040524288328-0b86bje78ftvqo0a1iah6h321tavdhen.apps.googleusercontent.com")
-                print(f"✅ Contains correct redirect_uri: https://career-advisor-3.preview.emergentagent.com/auth/google/callback")
+                print(f"✅ Contains correct redirect_uri: https://pilot-advisor.preview.emergentagent.com/auth/google/callback")
                 print(f"✅ Contains required scopes: openid email profile")
                 
                 self.log_test("Google OAuth Login URL", True, 
