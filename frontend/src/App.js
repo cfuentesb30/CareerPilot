@@ -5,13 +5,10 @@ import InteractiveQuiz from './components/InteractiveQuiz';
 import ResultsDashboard from './components/ResultsDashboard';
 import NavigationBar from './components/NavigationBar';
 import PricingSection from './components/PricingSection';
-import DevTools from './components/DevTools';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
 import { AuthProvider } from './context/AuthContext';
-import { DevModeProvider, useDevMode } from './context/DevModeContext';
 import { ToastProvider } from './context/ToastContext';
-import DevToggle from './components/DevToggle';
 import AuthPlaceholder from './components/AuthPlaceholder';
 import ProfilePreview from './components/ProfilePreview';
 import ProfilePage from './components/ProfilePage';
@@ -213,10 +210,9 @@ const HowItWorksSection = () => {
 };
 
 //Benefits Section Component
-const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenUserProfile, onOpenProfileEditor, onOpenAuth, onOpenRoadmap, onOpenChat, onOpenSkills, onOpenCareers, onOpenCerts, onOpenRoadmapManager, onOpenDashboard, onOpenDashboardPreview }) => {
+const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenUserProfile, onOpenAuth, onOpenRoadmap, onOpenChat, onOpenDashboardPreview }) => {
   const { t } = useTranslation();
   const { isAuthed } = useAuth();
-  const { devMode } = useDevMode();
   
   const benefits = [
     t('benefits.benefit1'),
@@ -258,11 +254,7 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenUserProfile, onOpen
                 {t('benefits.startBtn')}
               </button>
               {isAuthed ? (
-                devMode ? (
-                  <button onClick={onOpenProfileEditor} className="btn-secondary">Edit Profile (Dev)</button>
-                ) : (
-                  <button onClick={onOpenUserProfile} className="btn-secondary">My Profile</button>
-                )
+                <button onClick={onOpenUserProfile} className="btn-secondary">My Profile</button>
               ) : (
                 <button onClick={onOpenProfile} className="btn-secondary">{t('profilePreview.title')}</button>
               )}
@@ -287,15 +279,6 @@ const BenefitsSection = ({ onStartQuiz, onOpenProfile, onOpenUserProfile, onOpen
                 <div className="flex gap-3 mt-4 flex-wrap">
                   <button onClick={onOpenAuth} className="btn-primary">{t('auth.signupCTA')}</button>
                   <button onClick={onOpenChat} className="btn-secondary">Chat with Athena</button>
-                  {isAuthed && devMode && (
-                    <>
-                      <button onClick={onOpenDashboard} className="btn-secondary">Dashboard (Dev)</button>
-                      <button onClick={onOpenSkills} className="btn-secondary">Skills (Dev)</button>
-                      <button onClick={onOpenCareers} className="btn-secondary">Careers (Dev)</button>
-                      <button onClick={onOpenCerts} className="btn-secondary">Certs (Dev)</button>
-                      <button onClick={onOpenRoadmapManager} className="btn-secondary">Roadmap (Dev)</button>
-                    </>
-                  )}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-6">
@@ -538,18 +521,12 @@ function App() {
               onStartQuiz={handleStartQuiz}
               onOpenProfile={() => setShowProfile(true)}
               onOpenUserProfile={() => setShowUserProfile(true)}
-              onOpenProfileEditor={() => setShowProfileEditor(true)}
               onOpenAuth={(mode) => setShowAuth(mode)}
               onOpenRoadmap={() => setShowRoadmap(true)}
               onOpenChat={() => setShowChat(true)}
-              onOpenSkills={() => setShowSkills(true)}
-              onOpenCareers={() => setShowCareers(true)}
-              onOpenCerts={() => setShowCerts(true)}
-              onOpenRoadmapManager={() => setShowRoadmapManager(true)}
-              onOpenDashboard={() => setShowDashboard(true)}
               onOpenDashboardPreview={() => setShowDashboardPreview(true)}
             />
-            <TechnologySection />
+            <TechnologySection onStartQuiz={handleStartQuiz} />
             <Footer />
           </>
         );
@@ -667,120 +644,115 @@ function App() {
   };
 
   return (
-    <DevModeProvider>
-      <ToastProvider>
-        <AuthProvider>
-          <div className="App">
-            {/* Google OAuth Callback Handler */}
-            <GoogleCallback />
-            
-            <NavigationBar 
-              onNavigate={handleNavigate} 
-              currentPage={currentPage}
-              onOpenProfile={() => setShowUserProfile(true)}
-              onOpenDashboard={() => setShowDashboard(true)}
-              onOpenEnterpriseAdmin={() => setShowEnterpriseAdmin(true)}
+    <ToastProvider>
+      <AuthProvider>
+        <div className="App">
+          {/* Google OAuth Callback Handler */}
+          <GoogleCallback />
+          
+          <NavigationBar 
+            onNavigate={handleNavigate} 
+            currentPage={currentPage}
+            onOpenProfile={() => setShowUserProfile(true)}
+            onOpenDashboard={() => setShowDashboard(true)}
+            onOpenEnterpriseAdmin={() => setShowEnterpriseAdmin(true)}
+          />
+          
+          {renderCurrentPage()}
+
+          {/* Modals and Overlays */}
+          {showQuiz && (
+            <InteractiveQuiz 
+              onComplete={handleQuizComplete}
+              onClose={handleCloseQuiz}
             />
-            
-            {/* Dev Tools - floating when dev mode is enabled */}
-            <DevTools />
-            
-            {renderCurrentPage()}
+          )}
+          
+          {showResults && assessmentId && (
+            <ResultsDashboard
+              assessmentId={assessmentId}
+              onClose={handleCloseResults}
+              onStartNew={handleStartNew}
+              onOpenRoadmap={handleOpenRoadmapFromResults}
+            />
+          )}
 
-            {/* Modals and Overlays */}
-            {showQuiz && (
-              <InteractiveQuiz 
-                onComplete={handleQuizComplete}
-                onClose={handleCloseQuiz}
-              />
-            )}
-            
-            {showResults && assessmentId && (
-              <ResultsDashboard
-                assessmentId={assessmentId}
-                onClose={handleCloseResults}
-                onStartNew={handleStartNew}
-                onOpenRoadmap={handleOpenRoadmapFromResults}
-              />
-            )}
+          {showPricing && (
+            <PricingSection onClose={() => setShowPricing(false)} />
+          )}
 
-            {showPricing && (
-              <PricingSection onClose={() => setShowPricing(false)} />
-            )}
+          {showAuth && (
+            <>
+              {showAuth === 'signup' ? (
+                <SignUpForm 
+                  onClose={() => setShowAuth(null)}
+                  onSwitchToLogin={() => setShowAuth('login')}
+                />
+              ) : (
+                <LoginForm 
+                  onClose={() => setShowAuth(null)}
+                  onSwitchToSignUp={() => setShowAuth('signup')}
+                />
+              )}
+            </>
+          )}
 
-            {showAuth && (
-              <>
-                {showAuth === 'signup' ? (
-                  <SignUpForm 
-                    onClose={() => setShowAuth(null)}
-                    onSwitchToLogin={() => setShowAuth('login')}
-                  />
-                ) : (
-                  <LoginForm 
-                    onClose={() => setShowAuth(null)}
-                    onSwitchToSignUp={() => setShowAuth('signup')}
-                  />
-                )}
-              </>
-            )}
+          {showProfile && (
+            <ProfilePreview onClose={() => setShowProfile(false)} onOpenSignUp={() => setShowAuth('signup')} />
+          )}
 
-            {showProfile && (
-              <ProfilePreview onClose={() => setShowProfile(false)} onOpenSignUp={() => setShowAuth('signup')} />
-            )}
+          {showUserProfile && (
+            <UserProfile 
+              onClose={() => setShowUserProfile(false)} 
+              onEdit={() => {
+                setShowUserProfile(false);
+                setShowProfileEditor(true);
+              }}
+            />
+          )}
 
-            {showUserProfile && (
-              <UserProfile 
-                onClose={() => setShowUserProfile(false)} 
-                onEdit={() => {
-                  setShowUserProfile(false);
-                  setShowProfileEditor(true);
-                }}
-              />
-            )}
+          {showProfileEditor && (
+            <ProfileEditor onClose={() => setShowProfileEditor(false)} />
+          )}
 
-            {showProfileEditor && (
-              <ProfileEditor onClose={() => setShowProfileEditor(false)} />
-            )}
+          {showEnterpriseAdmin && (
+            <EnterpriseAdmin onClose={() => setShowEnterpriseAdmin(false)} />
+          )}
 
-            {showEnterpriseAdmin && (
-              <EnterpriseAdmin onClose={() => setShowEnterpriseAdmin(false)} />
-            )}
+          {showRoadmap && (
+            <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
+          )}
 
-            {showRoadmap && (
-              <RoadmapPreview onClose={() => setShowRoadmap(false)} onOpenSignUp={() => setShowAuth('signup')} />
-            )}
+          {showRoadmapManager && (
+            <RoadmapManager onClose={() => setShowRoadmapManager(false)} />
+          )}
 
-            {showRoadmapManager && (
-              <RoadmapManager onClose={() => setShowRoadmapManager(false)} />
-            )}
+          {showChat && (
+            <ChatUI onClose={() => setShowChat(false)} />
+          )}
 
-            {showChat && (
-              <ChatUI onClose={() => setShowChat(false)} />
-            )}
+          {showSkills && (
+            <SkillsManager onClose={() => setShowSkills(false)} />
+          )}
 
-            {showSkills && (
-              <SkillsManager onClose={() => setShowSkills(false)} />
-            )}
+          {showCareers && (
+            <CareersManager onClose={() => setShowCareers(false)} />
+          )}
 
-            {showCareers && (
-              <CareersManager onClose={() => setShowCareers(false)} />
-            )}
+          {showCerts && (
+            <CertificationsManager onClose={() => setShowCerts(false)} />
+          )}
 
-            {showCerts && (
-              <CertificationsManager onClose={() => setShowCerts(false)} />
-            )}
+          {showDashboard && (
+            <DashboardModal onClose={() => setShowDashboard(false)} />
+          )}
 
-            {showDashboard && (
-              <DashboardModal onClose={() => setShowDashboard(false)} />
-            )}
-
-            {showDashboardPreview && (
-              <DashboardPreview onClose={() => setShowDashboardPreview(false)} />
-            )}
-          </div>
-        </AuthProvider>
-      </ToastProvider>
-    </DevModeProvider>
+          {showDashboardPreview && (
+            <DashboardPreview onClose={() => setShowDashboardPreview(false)} />
+          )}
+        </div>
+      </AuthProvider>
+    </ToastProvider>
   );
 }
 
