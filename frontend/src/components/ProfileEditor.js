@@ -41,7 +41,7 @@ const ProfileEditor = ({ onClose }) => {
       setError(''); setLoading(true);
       try {
         if (!isAuthed) {
-          setError('You are not authenticated. Click "Use Dev Token" (top-right) and try again.');
+          setError('You are not authenticated. Please sign up or log in to edit your profile.');
           setLoading(false);
           return;
         }
