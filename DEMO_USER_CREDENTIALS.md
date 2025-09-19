@@ -6,7 +6,7 @@ For demonstration purposes, a fully configured demo user account has been create
 
 ### 🔑 Login Credentials
 - **Email:** `demo@careerpilot.com`
-- **Password:** `DemoPass123!`
+- **Password:** `Demo123!`
 
 ## 🎨 Demo User Profile
 - **Name:** Demo User
