@@ -122,7 +122,7 @@ async def register_user(user_data: UserRegistration, background_tasks: Backgroun
             detail=f"Registration failed: {str(e)}"
         )
 
-@router.post("/login", response_model=TokenResponse)
+@router.post("/login")
 async def login_user(login_data: UserLogin):
     """Authenticate user and return JWT token."""
     try:
