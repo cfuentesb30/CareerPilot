@@ -55,8 +55,8 @@ const DashboardModal = ({ onClose }) => {
               className="w-8 h-8 object-contain brightness-0 invert"
             />
             <div>
-              <h2 className="text-2xl font-bold">Dashboard (Dev)</h2>
-              <p className="text-blue-100">Roadmap progress, profile completion, recent chats</p>
+              <h2 className="text-2xl font-bold">Dashboard</h2>
+              <p className="text-blue-100">Your profile, roadmap progress, and recent chats</p>
             </div>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white">
