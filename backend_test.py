@@ -3051,6 +3051,8 @@ class BackendTester:
             self.test_chat_router_endpoints,
             self.test_roadmap_router_endpoints,
             self.test_legacy_assessment_endpoints,
+            # NEW: Streaming Chat Functionality Test
+            self.test_streaming_chat_functionality,
             self.test_minimal_dashboard_milestone,
             self.test_roadmap_reordering_functionality,
             self.test_payment_pricing_plans_endpoint,
