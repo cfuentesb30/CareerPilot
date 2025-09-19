@@ -3,11 +3,21 @@ import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
-const Bubble = ({ sender = 'athena', children }) => (
+const Bubble = ({ sender = 'athena', children, streaming = false }) => (
   <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow ${
     sender === 'athena' ? 'bg-blue-50 text-blue-800' : 'bg-gray-100 text-gray-800 ml-auto'
   }`}>
     {children}
+    {streaming && (
+      <div className="flex items-center mt-2 text-xs text-blue-600">
+        <div className="flex space-x-1">
+          <div className="w-1 h-1 bg-blue-600 rounded-full animate-bounce"></div>
+          <div className="w-1 h-1 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+          <div className="w-1 h-1 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+        </div>
+        <span className="ml-2">Athena is typing...</span>
+      </div>
+    )}
   </div>
 );
 
