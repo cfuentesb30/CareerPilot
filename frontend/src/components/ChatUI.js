@@ -296,7 +296,12 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
             ) : (
               messages.map((m) => (
                 <div key={m.id} className="flex">
-                  <Bubble sender={m.message_type === 'athena' ? 'athena' : 'user'}>{m.content}</Bubble>
+                  <Bubble 
+                    sender={m.message_type === 'athena' ? 'athena' : 'user'}
+                    streaming={m.streaming || false}
+                  >
+                    {m.content || (m.streaming ? '' : '...')}
+                  </Bubble>
                 </div>
               ))
             )}
