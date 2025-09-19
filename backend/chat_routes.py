@@ -1,10 +1,13 @@
 from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi.responses import StreamingResponse
 from user_models import *
 from user_database import user_db
 from auth import get_current_user
 from ai_analyzer import ai_analyzer
-from typing import List
+from typing import List, AsyncGenerator
 import asyncio
+import json
+import uuid
 
 router = APIRouter(prefix="/api/chat", tags=["chat_with_athena"])
 
