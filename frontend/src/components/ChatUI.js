@@ -309,10 +309,16 @@ const ChatUI = ({ onClose, onOpenSignUp }) => {
           <div className="p-3 border-t border-gray-200 flex items-center gap-3">
             <input 
               className="flex-1 px-3 py-2 rounded-lg border border-gray-200 outline-none"
-              placeholder={isAuthed ? 'Type your message…' : 'Please sign up or log in to chat'}
+              placeholder={isAuthed ? (isStreaming ? 'Athena is responding...' : 'Type your message…') : 'Please sign up or log in to chat'}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              disabled={!isAuthed || !activeId}
+              disabled={!isAuthed || !activeId || isStreaming}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+              }}
             />
             <button 
               className={`px-4 py-2 rounded-lg text-white font-medium ${
