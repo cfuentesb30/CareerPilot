@@ -82,7 +82,7 @@ class AthenaChat:
     def __init__(self):
         self.ai_analyzer = ai_analyzer
     
-    async def create_athena_session(self, user_id: str, conversation_id: str):
+    async def create_athena_session(self, user_id: str, conversation_id: str, streaming: bool = False):
         """Create a chat session with user context for Athena."""
         user_context = await get_user_context(user_id)
         
@@ -121,6 +121,11 @@ Remember: You are Athena, their dedicated AI career advisor at CareerPilot. You 
 
         chat = self.ai_analyzer._create_chat_session(conversation_id)
         chat.system_message = system_message
+        
+        # Configure streaming if requested
+        if streaming:
+            chat = chat.with_params(stream=True)
+        
         return chat
 
 athena_chat = AthenaChat()
