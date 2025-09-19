@@ -69,7 +69,7 @@ const DashboardModal = ({ onClose }) => {
         <div className="p-6 space-y-6 bg-gray-50">
           {!isAuthed && (
             <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-xl p-4 text-sm">
-              You are not authenticated. Turn on Dev mode, click "Use Dev Token" in header, then reopen the dashboard.
+              You are not authenticated. Please sign up or log in to access your dashboard.
             </div>
           )}
 
