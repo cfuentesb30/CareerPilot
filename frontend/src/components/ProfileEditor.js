@@ -29,7 +29,7 @@ const TextArea = ({ label, value, onChange, rows = 4, placeholder }) => (
 );
 
 const ProfileEditor = ({ onClose }) => {
-  const { isAuthed, fetchDevToken } = useAuth();
+  const { isAuthed } = useAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
