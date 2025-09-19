@@ -5,7 +5,7 @@
 ### **Demo Credentials**
 ```
 Email: demo@careerpilot.com
-Password: DemoPass123!
+Password: Demo123!
 ```
 
 ## 📋 Demo Walkthrough Script
