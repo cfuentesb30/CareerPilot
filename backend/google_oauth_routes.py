@@ -9,21 +9,31 @@ import os
 from typing import Optional
 from urllib.parse import urlencode
 import jwt
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 router = APIRouter(prefix="/api/auth/google", tags=["google-oauth"])
 
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID = "1040524288328-0b86bje78ftvqo0a1iah6h321tavdhen.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "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"
-GOOGLE_REDIRECT_URI = "https://pilot-advisor.preview.emergentagent.com/auth/google/callback"
+# Google OAuth Configuration - Load from environment variables
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo"
 
-# JWT Configuration (reusing from existing auth)
-SECRET_KEY = "careerpilot-secret-key-change-in-production"
+# JWT Configuration - Load from environment
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "fallback-secret-key-for-development-only")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+def get_google_redirect_uri(request: Request) -> str:
+    """Dynamically generate Google OAuth redirect URI based on current domain."""
+    # Get the host from the request
+    host = request.headers.get("host", "localhost")
+    protocol = "https" if "emergent.host" in host or "localhost" not in host else "http"
+    return f"{protocol}://{host}/auth/google/callback"
 
 def create_access_token(data: dict):
     """Create JWT access token for Google OAuth users."""
