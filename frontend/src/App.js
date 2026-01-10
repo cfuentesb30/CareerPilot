@@ -460,6 +460,7 @@ function App() {
   const [showDashboard, setShowDashboard] = useState(false);
   const [showDashboardPreview, setShowDashboardPreview] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
+  const [showMyProfilePage, setShowMyProfilePage] = useState(false);
 
   const handleStartQuiz = () => {
     setShowQuiz(true);
