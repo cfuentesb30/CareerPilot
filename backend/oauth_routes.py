@@ -269,8 +269,20 @@ async def oauth_logout(request: Request, response: Response):
 async def get_google_login_url(request: Request):
     """Get Google OAuth login URL."""
     try:
-        # Get the current origin from request headers
-        origin = request.headers.get("origin", "")
+        # Get the current origin from request headers with robust fallback
+        origin = request.headers.get("origin")
+        if not origin:
+            # Try to construct from host header
+            host = request.headers.get("host")
+            if host:
+                protocol = "https" if "emergent.host" in host or request.headers.get("x-forwarded-proto") == "https" else "http"
+                origin = f"{protocol}://{host}"
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail="Unable to determine origin for OAuth redirect"
+                )
+        
         redirect_url = f"{origin}/profile"  # Redirect to profile page after auth
         
         # Construct Emergent auth URL with redirect parameter

@@ -12,7 +12,9 @@ load_dotenv()
 class DatabaseManager:
     def __init__(self):
         self.client = MongoClient(os.getenv("MONGO_URL"))
-        self.db = self.client.ai_career_advisor
+        # Use database name from environment variable, fallback to default
+        db_name = os.getenv("DATABASE_NAME", "careerpilot")
+        self.db = self.client[db_name]
         self.assessments = self.db.assessments
         self.results = self.db.results
         self.questions = self.db.questions
@@ -44,11 +46,17 @@ class DatabaseManager:
                     "question": "How many years of professional work experience do you have?",
                     "type": "multiple_choice",
                     "options": [
-                        "0-1 years (Entry level)",
-                        "2-5 years",
-                        "6-10 years",
-                        "11-15 years",
-                        "16+ years"
+                        "No experience (Student/Recent Graduate)",
+                        "0-6 months (Entry level)",
+                        "6 months - 1 year",
+                        "1-2 years",
+                        "2-3 years",
+                        "3-5 years",
+                        "5-7 years", 
+                        "7-10 years",
+                        "10-15 years",
+                        "15-20 years",
+                        "20+ years (Senior/Executive level)"
                     ],
                     "category": "experience"
                 },
@@ -68,9 +76,9 @@ class DatabaseManager:
                 },
                 {
                     "id": "soft_skills",
-                    "question": "Rate your soft skills on a scale of 1-5:",
-                    "type": "text",
-                    "options": None,
+                    "question": "Rate your overall soft skills (communication, teamwork, leadership, problem-solving):",
+                    "type": "rating_scale",
+                    "options": ["1 - Beginner", "2 - Basic", "3 - Intermediate", "4 - Advanced", "5 - Expert"],
                     "category": "skills"
                 },
                 {

@@ -11,7 +11,9 @@ load_dotenv()
 class UserDatabaseManager:
     def __init__(self):
         self.client = MongoClient(os.getenv("MONGO_URL"))
-        self.db = self.client.careerpilot_users
+        # Use database name from environment variable, fallback to default
+        db_name = os.getenv("DATABASE_NAME", "careerpilot")
+        self.db = self.client[db_name]
         
         # Collections
         self.users = self.db.users

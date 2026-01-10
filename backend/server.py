@@ -5,21 +5,11 @@ import os
 from datetime import datetime
 import asyncio
 from typing import List, Optional
+import logging
 
-# Import our modules
-from models import *
-from database import db_manager
-from ai_analyzer import ai_analyzer
-
-# Import new user management modules
-from auth_routes import router as auth_router
-from user_routes import router as user_router
-from chat_routes import router as chat_router
-from roadmap_routes import router as roadmap_router
-from payment_routes import router as payment_router
-from oauth_routes import router as oauth_router
-from google_oauth_routes import router as google_oauth_router
-from enterprise_routes import router as enterprise_router
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="CareerPilot API - Athena AI Career Advisor", version="2.0.0")
 
@@ -32,17 +22,89 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(auth_router)
-app.include_router(user_router)
-app.include_router(chat_router)
-app.include_router(roadmap_router)
-app.include_router(payment_router)
-app.include_router(oauth_router)
-app.include_router(google_oauth_router)
-app.include_router(enterprise_router)
+# Import our modules with error handling
+try:
+    from models import *
+    from database import db_manager
+    from ai_analyzer import ai_analyzer
+    logger.info("✅ Core modules imported successfully")
+except Exception as e:
+    logger.error(f"❌ Failed to import core modules: {str(e)}")
+    # Continue anyway - let health check work even if modules fail
 
-# Health check endpoint
+# Import route modules with error handling
+routers_to_include = []
+
+try:
+    from auth_routes import router as auth_router
+    routers_to_include.append(("auth", auth_router))
+    logger.info("✅ Auth routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import auth routes: {str(e)}")
+
+try:
+    from user_routes import router as user_router
+    routers_to_include.append(("user", user_router))
+    logger.info("✅ User routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import user routes: {str(e)}")
+
+try:
+    from chat_routes import router as chat_router
+    routers_to_include.append(("chat", chat_router))
+    logger.info("✅ Chat routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import chat routes: {str(e)}")
+
+try:
+    from roadmap_routes import router as roadmap_router
+    routers_to_include.append(("roadmap", roadmap_router))
+    logger.info("✅ Roadmap routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import roadmap routes: {str(e)}")
+
+try:
+    from payment_routes import router as payment_router
+    routers_to_include.append(("payment", payment_router))
+    logger.info("✅ Payment routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import payment routes: {str(e)}")
+
+try:
+    from oauth_routes import router as oauth_router
+    routers_to_include.append(("oauth", oauth_router))
+    logger.info("✅ OAuth routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import oauth routes: {str(e)}")
+
+try:
+    from google_oauth_routes import router as google_oauth_router
+    routers_to_include.append(("google_oauth", google_oauth_router))
+    logger.info("✅ Google OAuth routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import google oauth routes: {str(e)}")
+
+try:
+    from enterprise_routes import router as enterprise_router
+    routers_to_include.append(("enterprise", enterprise_router))
+    logger.info("✅ Enterprise routes imported")
+except Exception as e:
+    logger.error(f"❌ Failed to import enterprise routes: {str(e)}")
+
+# Include successfully imported routers
+for route_name, router in routers_to_include:
+    try:
+        app.include_router(router)
+        logger.info(f"✅ {route_name} router included")
+    except Exception as e:
+        logger.error(f"❌ Failed to include {route_name} router: {str(e)}")
+
+# Health check endpoints
+@app.get("/health")
+async def simple_health_check():
+    """Simple health check endpoint for load balancer."""
+    return {"status": "ok"}
+
 @app.get("/api/health")
 async def health_check():
     return {

@@ -1,92 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../context/AuthContext';
-import { useDevMode } from '../context/DevModeContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useAuth } from '../context/AuthContext';
 
 const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard, onOpenEnterpriseAdmin }) => {
   const { t } = useTranslation();
   const { isAuthed, user, logout } = useAuth();
-  const { devMode, toggleDevMode } = useDevMode();
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  
-  // Check if user is enterprise admin or dev mode for testing
-  const isEnterpriseAdmin = user?.role === 'enterprise_admin' || devMode;
 
-  const handleUserMenuClick = (action) => {
-    setShowUserMenu(false); // Close the menu
-    
-    switch(action) {
-      case 'profile':
-        if (onOpenProfile) onOpenProfile();
-        break;
-      case 'dashboard':
-        if (onOpenDashboard) onOpenDashboard();
-        break;
-      case 'enterprise':
-        // Handle enterprise admin directly here
-        if (onOpenEnterpriseAdmin) {
-          onOpenEnterpriseAdmin();
-        }
-        break;
-      case 'logout':
-        logout();
-        break;
-      default:
-        break;
-    }
-  };
-
-  const navigation = [
-    { name: t('nav.home'), key: 'home' },
-    { name: t('nav.pricing'), key: 'pricing' },
-    { name: t('nav.about'), key: 'about' },
-    { name: t('nav.contact'), key: 'contact' }
+  const menuItems = [
+    { key: 'home', label: t('nav.home') },
+    { key: 'about', label: t('nav.about') },
+    { key: 'pricing', label: t('nav.pricing') },
+    { key: 'contact', label: t('nav.contact') }
   ];
 
-  const handleNavClick = (page) => {
-    onNavigate(page);
-    setShowMobileMenu(false);
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showUserMenu && !event.target.closest('.user-menu-container')) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserMenu]);
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
   };
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-100 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-lg z-40 border-b border-gray-100">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
           {/* Logo and Brand */}
-          <div className="flex items-center">
-            <button 
-              onClick={() => handleNavClick('home')}
-              className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-            >
-              <div className="w-10 h-10 flex items-center justify-center">
-                <img 
-                  src="/athena-logo.png" 
-                  alt="CareerPilot - Athena AI Career Advisor" 
-                  className="w-10 h-10 object-contain"
-                />
-              </div>
-              <div className="text-dark-blue">
-                <div className="text-xl font-bold">CareerPilot</div>
-                <div className="text-sm text-blue-500">powered by Athena</div>
-              </div>
-            </button>
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('home')}>
+            <img 
+              src="/athena-logo.png" 
+              alt="CareerPilot Logo" 
+              className="w-8 h-8 object-contain"
+            />
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-dark-blue">CareerPilot</span>
+              <span className="text-sm text-gray-500 hidden sm:inline">powered by Athena</span>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
+          <div className="hidden md:flex items-center justify-center flex-1 max-w-md mx-8">
+            {menuItems.map((item) => (
               <button
                 key={item.key}
-                onClick={() => handleNavClick(item.key)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  currentPage === item.key
-                    ? 'text-soft-green bg-soft-green/10 border border-soft-green/20'
-                    : 'text-gray-700 hover:text-soft-green hover:bg-gray-50'
+                onClick={() => onNavigate(item.key)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100 ${
+                  currentPage === item.key 
+                    ? 'text-soft-green bg-soft-green/10' 
+                    : 'text-gray-700 hover:text-dark-blue'
                 }`}
               >
-                {item.name}
+                {item.label}
               </button>
             ))}
           </div>
@@ -96,21 +73,9 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
             {/* Language Switcher */}
             <LanguageSwitcher />
 
-            {/* Dev Mode Toggle */}
-            <button
-              onClick={toggleDevMode}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
-                devMode 
-                  ? 'bg-yellow-100 text-yellow-700 border border-yellow-300' 
-                  : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200'
-              }`}
-            >
-              Dev {devMode ? 'ON' : 'OFF'}
-            </button>
-
             {/* Auth Actions */}
             {isAuthed ? (
-              <div className="relative">
+              <div className="relative user-menu-container">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg bg-dark-blue text-white hover:bg-navy transition-all duration-200"
@@ -120,185 +85,106 @@ const NavigationBar = ({ onNavigate, currentPage, onOpenProfile, onOpenDashboard
                       {user?.first_name?.[0] || 'U'}
                     </span>
                   </div>
-                  <span className="text-sm">{user?.first_name || 'User'}</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="text-sm font-medium">User</span>
+                  <svg className={`w-4 h-4 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </button>
 
-                {/* User Dropdown */}
+                {/* User Dropdown Menu */}
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-                    <button 
-                      onClick={() => handleUserMenuClick('profile')}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="flex items-center gap-2">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {user?.first_name} {user?.last_name}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {user?.email}
+                      </p>
+                    </div>
+                    
+                    <div className="py-1">
+                      <button
+                        onClick={() => {
+                          onOpenProfile();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                      >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                         </svg>
-                        {t('nav.profile')}
-                      </div>
-                    </button>
-                    <button 
-                      onClick={() => handleUserMenuClick('dashboard')}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                        {t('nav.dashboard')}
-                      </div>
-                    </button>
-                    {/* Enterprise Admin Features - Always show for testing */}
-                    {true && (
-                      <button
-                        onClick={() => handleUserMenuClick('enterprise')}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex items-center gap-2">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                          </svg>
-                          Enterprise Admin (Test)
-                        </div>
+                        My Profile
                       </button>
-                    )}
-                    <hr className="my-2" />
-                    <button 
-                      onClick={() => handleUserMenuClick('logout')}
-                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors"
-                    >
-                      <div className="flex items-center gap-2">
+                      
+                      <button
+                        onClick={() => {
+                          onOpenDashboard();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        Dashboard
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          onOpenEnterpriseAdmin();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-6m-9 0H3m2 0h6M9 7h6m-6 4h6m-6 4h6"></path>
+                        </svg>
+                        Enterprise Admin
+                      </button>
+                    </div>
+
+                    <div className="border-t border-gray-100 py-1">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                      >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
-                        {t('nav.logout')}
-                      </div>
-                    </button>
+                        Sign Out
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => handleNavClick('login')}
-                  className="text-dark-blue hover:text-soft-green font-medium transition-colors"
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => onNavigate('login')}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-dark-blue transition-colors"
                 >
-                  {t('nav.login')}
+                  Log in
                 </button>
-                <button 
-                  onClick={() => handleNavClick('signup')}
-                  className="bg-gradient-to-r from-soft-green to-green-600 hover:from-green-600 hover:to-soft-green text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl"
+                <button
+                  onClick={() => onNavigate('signup')}
+                  className="px-4 py-2 bg-soft-green text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
                 >
-                  {t('nav.signup')}
+                  Sign up
                 </button>
               </div>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
-            <LanguageSwitcher />
-            <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-2 rounded-lg text-gray-600 hover:text-soft-green hover:bg-gray-50 transition-colors"
-            >
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button className="p-2 rounded-md text-gray-700 hover:text-dark-blue hover:bg-gray-100">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {showMobileMenu && (
-          <div className="md:hidden border-t border-gray-200 py-4 space-y-2">
-            {navigation.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => handleNavClick(item.key)}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  currentPage === item.key
-                    ? 'text-soft-green bg-soft-green/10 border border-soft-green/20'
-                    : 'text-gray-700 hover:text-soft-green hover:bg-gray-50'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
-            
-            <hr className="my-4" />
-            
-            {isAuthed ? (
-              <div className="space-y-2">
-                <button 
-                  onClick={() => handleUserMenuClick('profile')}
-                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    {t('nav.profile')}
-                  </div>
-                </button>
-                <button 
-                  onClick={() => handleUserMenuClick('dashboard')}
-                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                    </svg>
-                    {t('nav.dashboard')}
-                  </div>
-                </button>
-                {/* Enterprise Admin Features - Always show for testing */}
-                {true && (
-                  <button
-                    onClick={() => handleUserMenuClick('enterprise')}
-                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
-                  >
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                      </svg>
-                      Enterprise Admin (Test)
-                    </div>
-                  </button>
-                )}
-                <button 
-                  onClick={() => handleUserMenuClick('logout')}
-                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 rounded-lg transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                    </svg>
-                    {t('nav.logout')}
-                  </div>
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <button 
-                  onClick={() => handleNavClick('login')}
-                  className="w-full text-left px-3 py-2 text-dark-blue font-medium hover:bg-gray-50 rounded-lg"
-                >
-                  {t('nav.login')}
-                </button>
-                <button 
-                  onClick={() => handleNavClick('signup')}
-                  className="w-full bg-gradient-to-r from-soft-green to-green-600 text-white px-3 py-2 rounded-lg font-medium text-center"
-                >
-                  {t('nav.signup')}
-                </button>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </nav>
   );

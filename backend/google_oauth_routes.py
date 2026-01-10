@@ -9,21 +9,31 @@ import os
 from typing import Optional
 from urllib.parse import urlencode
 import jwt
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 router = APIRouter(prefix="/api/auth/google", tags=["google-oauth"])
 
-# Google OAuth Configuration
-GOOGLE_CLIENT_ID = "1040524288328-0b86bje78ftvqo0a1iah6h321tavdhen.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "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"
-GOOGLE_REDIRECT_URI = "https://career-advisor-3.preview.emergentagent.com/auth/google/callback"
+# Google OAuth Configuration - Load from environment variables
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
 GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
 GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo"
 
-# JWT Configuration (reusing from existing auth)
-SECRET_KEY = "careerpilot-secret-key-change-in-production"
+# JWT Configuration - Load from environment
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "fallback-secret-key-for-development-only")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+def get_google_redirect_uri(request: Request) -> str:
+    """Dynamically generate Google OAuth redirect URI based on current domain."""
+    # Get the host from the request
+    host = request.headers.get("host", "localhost")
+    protocol = "https" if "emergent.host" in host or "localhost" not in host else "http"
+    return f"{protocol}://{host}/auth/google/callback"
 
 def create_access_token(data: dict):
     """Create JWT access token for Google OAuth users."""
@@ -37,8 +47,18 @@ def create_access_token(data: dict):
 async def google_oauth_login(request: Request):
     """Initiate Google OAuth login flow."""
     try:
+        # Check if Google OAuth is properly configured
+        if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Google OAuth is not properly configured"
+            )
+        
         # Generate state parameter for security
         state = str(uuid.uuid4())
+        
+        # Get dynamic redirect URI
+        redirect_uri = get_google_redirect_uri(request)
         
         # Store state in session or cache (for production, use proper session management)
         # For now, we'll validate it in the callback
@@ -46,7 +66,7 @@ async def google_oauth_login(request: Request):
         # Build Google OAuth authorization URL
         params = {
             "client_id": GOOGLE_CLIENT_ID,
-            "redirect_uri": GOOGLE_REDIRECT_URI,
+            "redirect_uri": redirect_uri,
             "scope": "openid email profile",
             "response_type": "code",
             "access_type": "offline",
@@ -87,13 +107,16 @@ async def google_oauth_callback(
                 detail="Authorization code not provided"
             )
         
+        # Get dynamic redirect URI
+        redirect_uri = get_google_redirect_uri(request)
+        
         # Exchange authorization code for access token
         token_data = {
             "client_id": GOOGLE_CLIENT_ID,
             "client_secret": GOOGLE_CLIENT_SECRET,
             "code": code,
             "grant_type": "authorization_code",
-            "redirect_uri": GOOGLE_REDIRECT_URI
+            "redirect_uri": redirect_uri
         }
         
         token_response = requests.post(GOOGLE_TOKEN_URL, data=token_data, timeout=10)
@@ -204,8 +227,27 @@ async def google_oauth_callback(
         token_data = {"sub": user_id, "email": email}
         jwt_token = create_access_token(data=token_data)
         
+        # Get dynamic frontend URL using request origin (most reliable for deployment)
+        origin = request.headers.get("origin") or request.headers.get("referer", "").split("/")[0:3]
+        if isinstance(origin, list):
+            origin = "/".join(origin)
+        
+        # Use origin or construct from host header (no localhost fallback)
+        if not origin or origin == "null":
+            host = request.headers.get("host", "")
+            if host:
+                protocol = "https" if "emergent.host" in host or request.headers.get("x-forwarded-proto") == "https" else "http"
+                frontend_base_url = f"{protocol}://{host}"
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail="Unable to determine frontend URL for OAuth redirect"
+                )
+        else:
+            frontend_base_url = origin.rstrip("/")
+        
         # Redirect to frontend with token
-        frontend_url = f"https://career-advisor-3.preview.emergentagent.com/?token={jwt_token}&auth=google&name={name}"
+        frontend_url = f"{frontend_base_url}/?token={jwt_token}&auth=google&name={name}"
         
         return RedirectResponse(url=frontend_url)
         

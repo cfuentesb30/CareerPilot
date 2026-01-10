@@ -32,13 +32,23 @@ Your task is to analyze career assessment data and provide personalized, actiona
 Always respond in valid JSON format with detailed, practical insights based on the assessment data provided.
 Focus on being helpful, accurate, and providing specific next steps for career development."""
 
-        chat = LlmChat(
-            api_key=self.api_key,
-            session_id=session_id,
-            system_message=system_message
-        ).with_model("openai", "gpt-4o").with_max_tokens(4096)
-        
-        return chat
+        try:
+            # Try the current emergentintegrations API
+            chat = LlmChat(
+                api_key=self.api_key,
+                session_id=session_id,
+                system_message=system_message
+            ).with_model("openai", "gpt-4o")
+            
+            return chat
+        except Exception as e:
+            print(f"Error creating chat with emergentintegrations: {e}")
+            # Fallback to basic LlmChat
+            return LlmChat(
+                api_key=self.api_key,
+                session_id=session_id,
+                system_message=system_message
+            )
     
     def _build_assessment_prompt(self, assessment: UserAssessment) -> str:
         """Build a comprehensive prompt from assessment data"""

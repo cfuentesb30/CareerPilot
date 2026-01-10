@@ -1,14 +1,17 @@
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.env
+# NOTE: .env files are intentionally tracked for deployment
+# Emergent deployment system auto-updates these files during deployment
 
-# Environment files in subdirectories
-backend/.env*
-frontend/.env*
+# Environment files (commented out for deployment)
+# .env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# *.env
+
+# Environment files in subdirectories (commented out for deployment)
+# backend/.env*
+# frontend/.env*
 
 # Dependencies
 node_modules/
@@ -87,31 +90,4 @@ pids
 *.tgz
 
 # Yarn Integrity file
-.yarn-integrity-e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
--e 
-# Environment files
-*.env
-*.env.*
+.yarn-integrity

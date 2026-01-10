@@ -2,7 +2,11 @@
 
 const TOKEN_KEY = 'cp_token';
 
-const baseURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+// Get backend URL from environment variable (required for deployment)
+const baseURL = process.env.REACT_APP_BACKEND_URL;
+if (!baseURL) {
+  throw new Error('REACT_APP_BACKEND_URL environment variable is required but not set');
+}
 
 export const getBackendUrl = () => baseURL;
 
