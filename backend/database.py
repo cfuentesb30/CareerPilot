@@ -12,7 +12,9 @@ load_dotenv()
 class DatabaseManager:
     def __init__(self):
         self.client = MongoClient(os.getenv("MONGO_URL"))
-        self.db = self.client.ai_career_advisor
+        # Use database name from environment variable, fallback to default
+        db_name = os.getenv("DATABASE_NAME", "careerpilot")
+        self.db = self.client[db_name]
         self.assessments = self.db.assessments
         self.results = self.db.results
         self.questions = self.db.questions
