@@ -266,12 +266,14 @@ def get_welcome_email_html(user_name: str) -> str:
     </html>
     """
 
-async def send_verification_email(email: str, verification_token: str):
+async def send_verification_email(email: str, verification_token: str, base_url: Optional[str] = None):
     """Send verification email to user."""
     try:
-        # For now, using a placeholder verification link
-        # In production, this should be your actual domain
-        verification_link = f"https://pilot-advisor.preview.emergentagent.com/verify-email?token={verification_token}"
+        # Use provided base_url or get from environment
+        if base_url is None:
+            base_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+        
+        verification_link = f"{base_url}/verify-email?token={verification_token}"
         
         # Extract name from email (simple approach)
         user_name = email.split('@')[0].replace('.', ' ').replace('_', ' ').title()
