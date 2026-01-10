@@ -42,7 +42,12 @@ app.include_router(oauth_router)
 app.include_router(google_oauth_router)
 app.include_router(enterprise_router)
 
-# Health check endpoint
+# Health check endpoints
+@app.get("/health")
+async def simple_health_check():
+    """Simple health check endpoint for load balancer."""
+    return {"status": "ok"}
+
 @app.get("/api/health")
 async def health_check():
     return {
