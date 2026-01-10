@@ -227,8 +227,15 @@ async def google_oauth_callback(
         token_data = {"sub": user_id, "email": email}
         jwt_token = create_access_token(data=token_data)
         
+        # Get dynamic frontend URL
+        frontend_base_url = os.getenv("FRONTEND_URL")
+        if not frontend_base_url:
+            # Fallback to request origin or default
+            origin = request.headers.get("origin", "http://localhost:3000")
+            frontend_base_url = origin
+        
         # Redirect to frontend with token
-        frontend_url = f"https://pilot-advisor.preview.emergentagent.com/?token={jwt_token}&auth=google&name={name}"
+        frontend_url = f"{frontend_base_url}/?token={jwt_token}&auth=google&name={name}"
         
         return RedirectResponse(url=frontend_url)
         
