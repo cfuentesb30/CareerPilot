@@ -107,13 +107,16 @@ async def google_oauth_callback(
                 detail="Authorization code not provided"
             )
         
+        # Get dynamic redirect URI
+        redirect_uri = get_google_redirect_uri(request)
+        
         # Exchange authorization code for access token
         token_data = {
             "client_id": GOOGLE_CLIENT_ID,
             "client_secret": GOOGLE_CLIENT_SECRET,
             "code": code,
             "grant_type": "authorization_code",
-            "redirect_uri": GOOGLE_REDIRECT_URI
+            "redirect_uri": redirect_uri
         }
         
         token_response = requests.post(GOOGLE_TOKEN_URL, data=token_data, timeout=10)
