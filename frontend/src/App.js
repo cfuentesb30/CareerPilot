@@ -651,6 +651,20 @@ function App() {
             }}
           />
         );
+      case 'dashboard':
+        return (
+          <DashboardPage 
+            onBack={() => setCurrentPage('home')}
+            onOpenRoadmapManager={() => {
+              setCurrentPage('home');
+              setShowRoadmapManager(true);
+            }}
+            onOpenChat={() => {
+              setCurrentPage('home');
+              setShowChat(true);
+            }}
+          />
+        );
       default:
         return null;
     }
