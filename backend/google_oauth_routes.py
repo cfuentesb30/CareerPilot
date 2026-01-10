@@ -227,12 +227,16 @@ async def google_oauth_callback(
         token_data = {"sub": user_id, "email": email}
         jwt_token = create_access_token(data=token_data)
         
-        # Get dynamic frontend URL
-        frontend_base_url = os.getenv("FRONTEND_URL")
-        if not frontend_base_url:
-            # Fallback to request origin or default
-            origin = request.headers.get("origin", "http://localhost:3000")
-            frontend_base_url = origin
+        # Get dynamic frontend URL using request origin (most reliable for deployment)
+        origin = request.headers.get("origin") or request.headers.get("referer", "").split("/")[0:3]
+        if isinstance(origin, list):
+            origin = "/".join(origin)
+        
+        # Fallback to environment variable if origin not available
+        if not origin or origin == "null":
+            frontend_base_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+        else:
+            frontend_base_url = origin.rstrip("/")
         
         # Redirect to frontend with token
         frontend_url = f"{frontend_base_url}/?token={jwt_token}&auth=google&name={name}"
