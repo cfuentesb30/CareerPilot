@@ -24,6 +24,7 @@ import CertificationsManager from './components/CertificationsManager';
 import RoadmapManager from './components/RoadmapManager';
 import DashboardModal from './components/DashboardModal';
 import DashboardPreview from './components/DashboardPreview';
+import MyProfilePage from './components/MyProfilePage';
 import { useAuth } from './context/AuthContext';
 
 // Hero Section Component
