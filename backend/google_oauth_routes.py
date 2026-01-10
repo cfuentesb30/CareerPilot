@@ -232,9 +232,17 @@ async def google_oauth_callback(
         if isinstance(origin, list):
             origin = "/".join(origin)
         
-        # Fallback to environment variable if origin not available
+        # Use origin or construct from host header (no localhost fallback)
         if not origin or origin == "null":
-            frontend_base_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+            host = request.headers.get("host", "")
+            if host:
+                protocol = "https" if "emergent.host" in host or request.headers.get("x-forwarded-proto") == "https" else "http"
+                frontend_base_url = f"{protocol}://{host}"
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail="Unable to determine frontend URL for OAuth redirect"
+                )
         else:
             frontend_base_url = origin.rstrip("/")
         
