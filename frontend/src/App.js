@@ -640,6 +640,16 @@ function App() {
         );
       case 'profile':
         return <ProfilePage />;
+      case 'my-profile':
+        return (
+          <MyProfilePage 
+            onBack={() => setCurrentPage('home')}
+            onOpenProfileEditor={() => {
+              setCurrentPage('home');
+              setShowProfileEditor(true);
+            }}
+          />
+        );
       default:
         return null;
     }
