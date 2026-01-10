@@ -47,8 +47,18 @@ def create_access_token(data: dict):
 async def google_oauth_login(request: Request):
     """Initiate Google OAuth login flow."""
     try:
+        # Check if Google OAuth is properly configured
+        if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Google OAuth is not properly configured"
+            )
+        
         # Generate state parameter for security
         state = str(uuid.uuid4())
+        
+        # Get dynamic redirect URI
+        redirect_uri = get_google_redirect_uri(request)
         
         # Store state in session or cache (for production, use proper session management)
         # For now, we'll validate it in the callback
@@ -56,7 +66,7 @@ async def google_oauth_login(request: Request):
         # Build Google OAuth authorization URL
         params = {
             "client_id": GOOGLE_CLIENT_ID,
-            "redirect_uri": GOOGLE_REDIRECT_URI,
+            "redirect_uri": redirect_uri,
             "scope": "openid email profile",
             "response_type": "code",
             "access_type": "offline",
