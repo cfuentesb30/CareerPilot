@@ -665,7 +665,7 @@ function App() {
           <NavigationBar 
             onNavigate={handleNavigate} 
             currentPage={currentPage}
-            onOpenProfile={() => setShowUserProfile(true)}
+            onOpenProfile={() => setCurrentPage('my-profile')}
             onOpenDashboard={() => setShowDashboard(true)}
             onOpenEnterpriseAdmin={() => setShowEnterpriseAdmin(true)}
           />
