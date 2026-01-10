@@ -269,9 +269,11 @@ def get_welcome_email_html(user_name: str) -> str:
 async def send_verification_email(email: str, verification_token: str, base_url: Optional[str] = None):
     """Send verification email to user."""
     try:
-        # Use provided base_url or get from environment
+        # Use provided base_url or get from environment (required)
         if base_url is None:
-            base_url = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+            base_url = os.environ.get('FRONTEND_URL')
+            if not base_url:
+                raise ValueError("FRONTEND_URL environment variable is required for email verification links")
         
         verification_link = f"{base_url}/verify-email?token={verification_token}"
         
