@@ -681,7 +681,7 @@ function App() {
             onNavigate={handleNavigate} 
             currentPage={currentPage}
             onOpenProfile={() => setCurrentPage('my-profile')}
-            onOpenDashboard={() => setShowDashboard(true)}
+            onOpenDashboard={() => setCurrentPage('dashboard')}
             onOpenEnterpriseAdmin={() => setShowEnterpriseAdmin(true)}
           />
           
